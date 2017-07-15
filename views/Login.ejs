@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BreatheHero</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../public/css/bootstrap.min.css" rel="Stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../public/css/login.css" rel="Stylesheet" type="text/css" media="screen">
+
+    <!--- Header --->
+    <h1 class="main_header" >Welcome to BreatheHero</h1>
+
+
+</head>
+<body>
+
+
+
+<div class="container">
+    <div class="card"></div>
+    <div class="card">
+        <h1 class="title">Login</h1>
+        <form>
+            <div class="input-container">
+                <input type="text" id="loginusername" required="required"/>
+                <label for="loginusername">Username</label>
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                <input type="password" id="loginpassword" required="required"/>
+                <label for="loginpassword">Password</label>
+                <div class="bar"></div>
+            </div>
+            <div class="button-container">
+                <button><span>Go</span></button>
+            </div>
+            <div class="footer"><a href="#">Forgot your password?</a></div>
+            <div class="footer"><a href="#">Clinicians Register Here</a></div>
+
+        </form>
+    </div>
+    <div class="card alt">
+        <div class="toggle" title="Register"><i  id="pen" class = "material-icons" style="font-size:62px; padding-top:43px;">create</i></div>
+        <h1 class="title" >Register
+            <div class="close"></div>
+        </h1>
+        <form id="signupform">
+            <div class="input-container">
+                <input type="text" id="username" required="required"/>
+                <label for="username">Username</label>
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                <input type="text" id="email" required="required"/>
+                <label for="email">Email</label>
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                <input type="text" id="firstname" required="required"/>
+                <label for="firstname">First Name</label>
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                <input type="text" id="lastname" required="required"/>
+                <label for="lastname">Last Name</label>
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                <input type="password" id="password" required="required"/>
+                <label for="password">Password</label>
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                <input type="password" id="confirm_password" required="required"/>
+                <label for="confirm_password">Repeat Password</label>
+                <div class="bar"></div>
+            </div>
+
+            <div id="submitDetails" type="submit" class="button-container">
+                <button><span>Next</span></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" style="text-align: justify">Error</h5>
+            </div>
+
+            <div class="modal-body" style="text-align: center">
+                Passwords do not match
+                <div id="errors"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- jQuery -->
+<script src="../public/js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../public/js/bootstrap.min.js"></script>
+<!-- Common functions that will be reused for other pages -->
+<script src="../public/js/commonReuseFunctions.js"></script>
+
+
+<!-- Handles effects for front end data-->
+<script>
+    var pen = document.getElementById('pen');
+    var parent = pen.parentNode;
+    var password = document.getElementById('password');
+    var confirm_password = document.getElementById('confirm_password');
+
+    $('.toggle').on('click', function() {
+        deactivateClass('.container','active');
+        removeElement(parent,pen)
+    });
+
+    $('.close').on('click', function() {
+        activateClass('.container','active');
+        appendElement(parent,pen);
+        resetForm('signupform');
+    });
+
+
+    $('#signupform').submit(function(evt) {
+
+
+
+        if (! $('#signupform').valid ) {
+            evt.preventDefault();
+        }
+        if(password.value === confirm_password.value ) {
+            $('button[type=submit],input[type=submit]').prop('disabled',true);
+            activateClass('.container', 'active');
+            resetForm('signupform');
+            appendElement(parent, pen)
+        }else {
+            $('#messageModal').modal('show');
+        }
+    });
+
+</script>
+</body>
+</html>
+
+<!--
+Copyright (c) 2017 by Andy Tran (http://codepen.io/andytran/pen/RPBdgM)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
