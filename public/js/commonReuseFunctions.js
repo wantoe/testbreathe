@@ -14,6 +14,7 @@ function deactivateClass(element,classToAdd){
 }
 
 function appendElement(parent,child){
+    child.id= 'pen';
     parent.appendChild(child);
 }
 
@@ -25,12 +26,20 @@ function resetForm(formID){
     document.getElementById(formID).reset();
 }
 
-    function validatePassword(password,confirm_password){
-        if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
-        } else {
-            confirm_password.setCustomValidity('');
-        }
+function checkForm(){
 
+    password = document.getElementById('password');
+    confirm_password= document.getElementById('confirm_password');
+
+    if(password.value === confirm_password.value ) {
+        activateClass('.container', 'active');
+        appendElement(parent, pen)
+        return true;
+    }else {
+        $('#messageModal').modal('show');
+        return false;
+    }
 }
+
+
 

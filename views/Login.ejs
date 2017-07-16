@@ -21,14 +21,14 @@
     <div class="card"></div>
     <div class="card">
         <h1 class="title">Login</h1>
-        <form>
+        <form  enctype="application/x-www-form-urlencoded" id="loginform" method="post" role="form" action="/login">
             <div class="input-container">
-                <input type="text" id="loginusername" required="required"/>
+                <input type="text" name="username" id="loginusername" required="required"/>
                 <label for="loginusername">Username</label>
                 <div class="bar"></div>
             </div>
             <div class="input-container">
-                <input type="password" id="loginpassword" required="required"/>
+                <input type="password" name="password" id="loginpassword" required="required"/>
                 <label for="loginpassword">Password</label>
                 <div class="bar"></div>
             </div>
@@ -45,40 +45,40 @@
         <h1 class="title" >Register
             <div class="close"></div>
         </h1>
-        <form id="signupform">
+        <form id="signupform"   enctype="application/x-www-form-urlencoded"  name = "signupform" onsubmit="checkForm()" method="post" role="form" action="/signup">
             <div class="input-container">
-                <input type="text" id="username" required="required"/>
+                <input type="text" name="username" id="username" required="required"/>
                 <label for="username">Username</label>
                 <div class="bar"></div>
             </div>
             <div class="input-container">
-                <input type="text" id="email" required="required"/>
+                <input type="text" name="email" id="email" required="required"/>
                 <label for="email">Email</label>
                 <div class="bar"></div>
             </div>
             <div class="input-container">
-                <input type="text" id="firstname" required="required"/>
+                <input type="text" name="firstname" id="firstname" required="required"/>
                 <label for="firstname">First Name</label>
                 <div class="bar"></div>
             </div>
             <div class="input-container">
-                <input type="text" id="lastname" required="required"/>
+                <input type="text" name="lastname" id="lastname" required="required"/>
                 <label for="lastname">Last Name</label>
                 <div class="bar"></div>
             </div>
             <div class="input-container">
-                <input type="password" id="password" required="required"/>
+                <input type="password" name="password" id="password" required="required"/>
                 <label for="password">Password</label>
                 <div class="bar"></div>
             </div>
             <div class="input-container">
-                <input type="password" id="confirm_password" required="required"/>
+                <input type="password" name="confirm_password" id="confirm_password" required="required"/>
                 <label for="confirm_password">Repeat Password</label>
                 <div class="bar"></div>
             </div>
 
-            <div id="submitDetails" type="submit" class="button-container">
-                <button><span>Next</span></button>
+            <div id="submitDetails" class="button-container">
+                <button type="submit" ><span>Next</span></button>
             </div>
         </form>
     </div>
@@ -119,14 +119,16 @@
 
 <!-- Handles effects for front end data-->
 <script>
-    var pen = document.getElementById('pen');
-    var parent = pen.parentNode;
+
     var password = document.getElementById('password');
     var confirm_password = document.getElementById('confirm_password');
 
-    $('.toggle').on('click', function() {
+    var pen = document.getElementById('pen');
+    var parent = pen.parentNode;
+
+    $('#pen').on('click', function() {
         deactivateClass('.container','active');
-        removeElement(parent,pen)
+        removeElement(parent,pen);
     });
 
     $('.close').on('click', function() {
@@ -136,24 +138,16 @@
     });
 
 
-    $('#signupform').submit(function(evt) {
 
 
 
-        if (! $('#signupform').valid ) {
-            evt.preventDefault();
-        }
-        if(password.value === confirm_password.value ) {
-            $('button[type=submit],input[type=submit]').prop('disabled',true);
-            activateClass('.container', 'active');
-            resetForm('signupform');
-            appendElement(parent, pen)
-        }else {
-            $('#messageModal').modal('show');
-        }
-    });
+
 
 </script>
+
+<% if (message.length > 0) { %>
+<div style="text-align: center;"><%= message %></div>
+<% } %>
 </body>
 </html>
 

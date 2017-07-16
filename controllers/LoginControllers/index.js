@@ -3,7 +3,7 @@
      */
 
     exports.index = function(req, res){
-        var message = ' ';3
-        res.header('Login')
+        var message = ' ';
+        console.log('hi');
         res.render('Login.ejs',{message: message})
       };
