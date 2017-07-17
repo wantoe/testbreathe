@@ -24,6 +24,9 @@ connection.connect();
 
 global.db = connection;
 
+module.exports = connection;
+module.exports = app;
+
 // Sets up the file so that express JS can load it onto the server
 app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
@@ -94,13 +97,18 @@ app.post('/signup', function(req,res){
 
     bcrypt.genSalt(13, function (err,salt) {
         bcrypt.hash(password, salt, function (err, hash) {
-            try {
-                connection.query(SQL, [username, hash, email, firstname, lastname, 1]);
-                message = "Succesful! Your account has been created.";
-                res.render('Login.ejs', {message: message});
-            } catch (err) {
-                console.log(err.message);
-            }
+
+                connection.query(SQL, [username, hash, email, firstname, lastname, 1], function(err,results){
+                    if(err !== null){
+                        message = "Sorry, that username is taken please try another one."
+
+                        res.render('Login.ejs',{message: message});
+                    }else {
+                        message = "Succesful! Your account has been created.";
+                        res.render('Login.ejs', {message: message});
+
+                    }
+                });
 
         });
     });
