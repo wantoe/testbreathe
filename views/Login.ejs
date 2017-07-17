@@ -9,19 +9,18 @@
     <link href="../public/css/login.css" rel="Stylesheet" type="text/css" media="screen">
 
     <!--- Header --->
-    <h1 class="main_header" >Welcome to BreatheHero</h1>
+    <h1 class="main_header">Welcome to BreatheHero</h1>
 
 
 </head>
 <body>
 
 
-
 <div class="container">
     <div class="card"></div>
     <div class="card">
         <h1 class="title">Login</h1>
-        <form  enctype="application/x-www-form-urlencoded" id="loginform" method="post" role="form" action="/login">
+        <form enctype="application/x-www-form-urlencoded" id="loginform" method="post" role="form" action="/login">
             <div class="input-container">
                 <input type="text" name="username" id="loginusername" required="required"/>
                 <label for="loginusername">Username</label>
@@ -41,11 +40,13 @@
         </form>
     </div>
     <div class="card alt">
-        <div class="toggle" title="Register"><i  id="pen" class = "material-icons" style="font-size:62px; padding-top:43px;">create</i></div>
-        <h1 class="title" >Register
+        <div class="toggle" title="Register"><i id="pen" class="material-icons"
+                                                style="font-size:62px; padding-top:43px;">create</i></div>
+        <h1 class="title">Register
             <div class="close"></div>
         </h1>
-        <form id="signupform"   enctype="application/x-www-form-urlencoded"  name = "signupform" onsubmit="return checkForm()" method="post" role="form" action="/signup">
+        <form id="signupform" enctype="application/x-www-form-urlencoded" name="signupform" onsubmit="checkForm()"
+              method="post" role="form" action="/signup">
             <div class="input-container">
                 <input type="text" name="username" id="username" required="required"/>
                 <label for="username">Username</label>
@@ -78,7 +79,7 @@
             </div>
 
             <div id="submitDetails" class="button-container">
-                <button type="submit" ><span>Next</span></button>
+                <button type="submit"><span>Next</span></button>
             </div>
         </form>
     </div>
@@ -107,24 +108,23 @@
     </div>
 </div>
 
-
 <% if (message.length > 0) { %>
 <div style="text-align: center;"><h3 style="color:darkred"><%= message %></h3></div>
 <% } %>
 
-
-
-
-
 </body>
-<div  class="footerBottom"><h3 style="text-align: center"><strong> About Breathehero</strong></h3>
-    <p style="text-align: left">Developed by University of Auckland staff Robert Gallichan, Katherine Herbert and Dr Christof Lutteroth
-        BreatheHero is a device that is changing the way Children with chronic lung diseases complete Chest Physiotherapy(CPT).
-        BreatheHero brings together gaming and sensors to give children increased motivation and a more enjoyable experience
-        completing CPT exercises. Existing technology does not provide any feedback on completing CPT exercises, which can
-        result in patients (Especially children) not being motivated to do exercises, as they are unable to track their data.
+<div class="footerBottom"><h3 style="text-align: center"><strong> About Breathehero</strong></h3>
+    <p style="text-align: left">Developed by University of Auckland staff Robert Gallichan, Katherine Herbert and Dr
+        Christof Lutteroth
+        BreatheHero is a device that is changing the way Children with chronic lung diseases complete Chest
+        Physiotherapy(CPT).
+        BreatheHero brings together gaming and sensors to give children increased motivation and a more enjoyable
+        experience
+        completing CPT exercises. Existing technology does not provide any feedback on completing CPT exercises, which
+        can
+        result in patients (Especially children) not being motivated to do exercises, as they are unable to track their
+        data.
         BreatheHero is bringing together sensor technology and exergaming and it aims to change lives of millions.</p>
-
 
 
 </div>
@@ -147,23 +147,22 @@
     var pen = document.getElementById('pen');
     var parent = pen.parentNode;
 
-    $('#pen').on('click', function() {
-        deactivateClass('.container','active');
-        removeElement(parent,pen);
+    $('#pen').on('click', function () {
+        deactivateClass('.container', 'active');
+        removeElement(parent, pen);
     });
 
-    $('.close').on('click', function() {
-        activateClass('.container','active');
-        appendElement(parent,pen);
+    $('.close').on('click', function () {
+        activateClass('.container', 'active');
+        appendElement(parent, pen);
         resetForm('signupform');
     });
 
 </script>
 
 
-
 <script>
-    $('[data-toggle=offcanvas]').click(function() {
+    $('[data-toggle=offcanvas]').click(function () {
         $('.row-offcanvas').toggleClass('active');
         $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
     });
