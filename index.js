@@ -1,4 +1,4 @@
-33
+33;
 /**
  * Module dependencies.
  */
@@ -18,6 +18,7 @@ var connection = mysql.createConnection({
     password : 'Sidharth123',
     database : 'breathehero'
 });
+var bcrypt = require('bcrypt');
 
 connection.connect();
 
@@ -33,7 +34,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Middleware
-app.listen(8080)
+app.listen(8080);
 
 
 app.get('/', routes.index);//call for login page
@@ -45,12 +46,16 @@ app.post('/login', function(req,res){
     var username = post.username;
     var password = post.password;
 
-    var SQL = 'CALL CheckAccount(?,?)'
+    var SQL = 'CALL CheckAccount(?)';
 
-    db.query(SQL,[username,password],function(err,results){
-        if(results[0].length > 0){
-            console.log(results);
-        }else {
+    db.query(SQL,[username],function(err,results){
+        if(results[0].length > 0 && bcrypt.compare(password,results[0].password)){
+
+              console.log(results);
+
+              res.render('Dashboard.ejs');
+          }
+        else {
             message = 'Wrong Username or Password';
             res.render('Login.ejs',{message : message});
         }
@@ -74,19 +79,20 @@ app.post('/signup', function(req,res){
     console.log(password);
     console.log(rpassword);
 
+    bcrypt.genSalt(13, function (err,salt) {
+        bcrypt.hash(password, salt, function (err, hash) {
+            try {
+                connection.query(SQL, [username, hash, email, firstname, lastname, 1]);
+                message = "Succesful! Your account has been created.";
+                res.render('Login.ejs', {message: message});
+            } catch (err) {
+                console.log(err.message);
+            }
 
-    if(password === rpassword) {
-        try {
-            connection.query(SQL, [username, password, email, firstname, lastname, 1])
-        } catch (err){
-            console.log(err.message);
-        }
-        message = "Succesful! Your account has been created.";
-        res.render('Login.ejs', {message: message});
-    }else {
-        message = "Passwords do not match, Try Again"
+        });
+    });
 
-    }
+
 
 });//call for login post
 

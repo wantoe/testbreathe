@@ -15,6 +15,7 @@ body {
     font-size: 14px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100%;
 }
 
 
@@ -363,4 +364,12 @@ body {
         opacity: 0;
     }
 }
-
+.footerBottom {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1.8rem;
+    background-color: #d8d8d8;
+    text-align: center;
+}

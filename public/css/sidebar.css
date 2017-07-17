@@ -1,0 +1,52 @@
+html, body {
+    height: 100%;
+
+}
+a{
+    color: rgb(69, 140, 230);
+}
+.wrapper, .row {
+    height: 100%;
+    margin-left:0;
+    margin-right:0;
+}
+
+.wrapper:before, .wrapper:after,
+.column:before, .column:after {
+    content: "";
+    display: table;
+}
+
+.wrapper:after,
+.column:after {
+    clear: both;
+}
+
+#sidebar {
+
+    background-color: #e9e9e9;
+    padding-left: 0;
+    float: left;
+    min-height: 100%;
+}
+
+#sidebar .collapse.in {
+    display: inline;
+}
+
+#sidebar > .nav>li>a {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#main {
+    padding: 15px;
+    left: 0;
+}
+
+/*
+ * off canvas sidebar
+ * --------------------------------------------------
+ */
+
+
