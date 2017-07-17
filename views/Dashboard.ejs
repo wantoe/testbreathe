@@ -25,7 +25,8 @@
                 <li ><a  href="#"><span class="collapse in hidden-xs">Stories</span> <i style="float: right;" class="fa fa-list"></i> </a></li>
                 <li><a href="#"> <span class="collapse in hidden-xs">Saved</span> <i style="float: right;" class="fa fa-paperclip"></i></a></li>
                 <li><a href="#"> <span class="collapse in hidden-xs">Refresh</span> <i style="float: right;" class="fa fa-refresh"></i></a> </li>
-
+                <li > <a href="/logout"><span class="collapse in hidden-xs">Logout</span> <i style = "float:right;" class="fa fa-sign-out" aria-hidden="true"></i>
+                    </a></li>
             </ul>
         </div>
         <!-- /sidebar -->
@@ -33,7 +34,9 @@
         <!-- main right col -->
         <div class="column col-sm-9 col-xs-11" id="main">
             <p>
-                Main content...
+                <% if (message.length > 0) { %>
+            <div style="text-align: center;"><h3 style="color:darkred"><%= message %></h3></div>
+            <% } %>
             </p>
         </div>
         <!-- /main -->

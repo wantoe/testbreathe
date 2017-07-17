@@ -7,7 +7,7 @@ var express = require('express')
     , user = require('./controllers/LoginControllers/user') // Path to main login page file.
     , http = require('http')
     , path = require('path');
-//var methodOverride = require('method-override');
+
 var mysql      = require('mysql');
 var bodyParser=require('body-parser');
 var app = express();
@@ -19,7 +19,7 @@ var connection = mysql.createConnection({
     database : 'breathehero'
 });
 var bcrypt = require('bcrypt');
-
+var session = require('express-session');
 connection.connect();
 
 global.db = connection;
@@ -32,6 +32,12 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
+}));
 
 //Middleware
 app.listen(8080);
@@ -42,7 +48,7 @@ app.get('/', routes.index);//call for login page
 // REFACTOR THIS INTO LOGIN METHOD
 app.post('/login', function(req,res){
     var post = req.body;
-
+    var sess = req.session;
     var username = post.username;
     var password = post.password;
 
@@ -50,11 +56,18 @@ app.post('/login', function(req,res){
 
     db.query(SQL,[username],function(err,results){
         if(results[0].length > 0 && bcrypt.compare(password,results[0].password)){
+            var ress = results[0][0];
+               console.log(ress.username);
+              sess.userId = ress.user_id;
+              sess.userName = ress.username;
+              sess.email = results[0].email;
+              sess.firstName = ress.first_name;
+              sess.lastName = ress.last_name;
 
-              console.log(results);
+            message = 'Welcome ' + sess.firstName + ' To the BreatheHero Portal';
+            res.render('Dashboard.ejs' ,{message:message});
 
-              res.render('Dashboard.ejs');
-          }
+        }
         else {
             message = 'Wrong Username or Password';
             res.render('Login.ejs',{message : message});
@@ -95,4 +108,12 @@ app.post('/signup', function(req,res){
 
 
 });//call for login post
+
+
+//Logout message
+app.get('/logout',function(req,res){
+    req.session.destroy(function(err) {
+        res.redirect("/");
+    })
+});
 
