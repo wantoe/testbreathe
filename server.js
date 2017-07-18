@@ -25,7 +25,6 @@ global.db = connection;
 
 
 // Sets up the file so that express JS can load it onto the server
-app.set('port', process.env.PORT || 80);
 app.set('views', __dirname + '/views');
 app.use("/public", express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
@@ -39,8 +38,11 @@ app.use(session({
     cookie: {maxAge: 60000}
 }));
 
-//Middleware
-app.listen(80);
+var port = process.env.port || 1337;
+http.createServer(function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.render('Login.ejs');
+}).listen(port);
 
 
 app.get('/', routes.index);//call for main page
