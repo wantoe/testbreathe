@@ -18,6 +18,8 @@ exports.login = function (req, res) {
 
     // Calls the query, and handles the result in a callback function
     db.query(SQL, [username], function (err, results) {
+
+        console.log(results);
         // If the passwords match, start a session and send user to dashboard.
         if (results[0].length > 0 && bcrypt.compare(password, results[0].password)) {
             var ress = results[0][0];

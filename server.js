@@ -7,16 +7,23 @@ var express = require('express')
     , http = require('http')
     , path = require('path')
     , apiRoutes = require('./controllers/APIControllers/apiController');
-var mysql = require('mysql');
+    var fs = require('fs');
+
+var mysql = require('mysql2');
 var bodyParser = require('body-parser');
 var app = express();
+
+
+
 var connection = mysql.createConnection({
     host: 'breathehero.mysql.database.azure.com',
-    port: 'NULL',
     user: 'BreatheHeroAdmin@breathehero',
     password: 'BreatheHero2017',
-    database: 'breathehero'
+    database: 'breathehero',
+    ssl: true
 });
+
+
 var bcrypt = require('bcrypt');
 var session = require('express-session');
 connection.connect();
