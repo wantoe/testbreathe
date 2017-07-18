@@ -1,13 +1,12 @@
-33;
 /**
  * Module dependencies.
  */
 var express = require('express')
-    , routes = require('./controllers/LoginControllers') // Path to the login Controllers
+    , routes = require('./controllers/LoginControllers/mainpage') // Path to the login Controllers
     , user = require('./controllers/LoginControllers/user.js') // Path to main login page file.
     , http = require('http')
-    , path = require('path');
-
+    , path = require('path')
+    , apiRoutes = require('./controllers/APIControllers/apiController');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var app = express();
@@ -50,7 +49,10 @@ app.post('/login', user.login);//call for login post
 
 app.post('/signup', user.signup);//call for signup post
 
-
 //Logout message
 app.get('/logout', user.logout);
+
+app.post('/api', apiRoutes.sentData );
+
+app.get('/api',apiRoutes.getData);
 

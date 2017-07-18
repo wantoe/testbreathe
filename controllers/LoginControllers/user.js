@@ -42,9 +42,9 @@ exports.login = function (req, res) {
 }
 
 /*
-Exports the method that handles the signup form
-
-Calls the CreatePatient stored procedure in the MySQL database, and then checks the forms against 
+Exports the method that handles the signup form.
+Calls the CreatePatient stored procedure in the MySQL database, if there's an error, it's a duplicate account error and so it is redirected (should really check error message)
+If the stored procedure returns no errors, then the account is created.
  */
 exports.signup = function (req, res) {
     var post = req.body;
@@ -79,6 +79,9 @@ exports.signup = function (req, res) {
 
 }
 
+/*
+Destroys session on logout and redirects to login page.
+ */
 exports.logout = function (req, res) {
     req.session.destroy(function (err) {
         res.redirect("/");
