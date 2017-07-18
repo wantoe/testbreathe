@@ -25,7 +25,7 @@ global.db = connection;
 
 
 // Sets up the file so that express JS can load it onto the server
-app.set('port', process.env.PORT || 8080);
+app.set('port', process.env.PORT || 80);
 app.set('views', __dirname + '/views');
 app.use("/public", express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
@@ -40,7 +40,7 @@ app.use(session({
 }));
 
 //Middleware
-app.listen(8080);
+app.listen(port);
 
 
 app.get('/', routes.index);//call for main page
