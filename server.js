@@ -40,7 +40,7 @@ app.use(session({
 }));
 
 //Middleware
-app.listen(port);
+app.listen(80);
 
 
 app.get('/', routes.index);//call for main page
