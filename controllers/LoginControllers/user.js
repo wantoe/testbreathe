@@ -2,7 +2,7 @@
  * Created by Sid on 16/07/2017.
  */
 
-var bcrypt = require('bcrypt'); // encryption library
+var bcrypt = require('bcrypt-nodejs'); // encryption library
 
 
 // Exports the method use to handle login form
