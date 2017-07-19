@@ -19,7 +19,7 @@
 <div class="wrapper">
     <div class="row row-offcanvas row-offcanvas-left">
         <!-- sidebar -->
-        <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
+        <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar" >
             <ul class="nav" id="menu">
                 <li style="text-align: center"><a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i>
                     <span class="collapse in hidden-xs">Breathe Hero</span></a></li>
@@ -41,7 +41,7 @@
 
 
 
-        <form class="cf" action="/api" method="post">
+        <form class="cf" action="/api" method="post" onsubmit="sent">
             <h2> Submit Data </h2>
             <div >
                 <input name = 'time' type="datetime-local" id="input-name" placeholder="Session Start" required="required">
@@ -53,6 +53,7 @@
             <input type="submit" value="Submit" id="input-submit">
         </form>
 
+        <div id = "submitted"></div>
 
     </div>
 </div>
@@ -61,6 +62,11 @@
 
 <!-- /main -->
 </body>
+<script>
+    function  sent() {
+        document.getElementById('submitted').innerHTML = '<p> Submitted! <p>';
+    }
 
+</script>
 
 </html>
