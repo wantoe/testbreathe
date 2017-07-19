@@ -11,9 +11,7 @@ exports.sentData = function (req,res) {
     var duration = post.duration;
     var cycles = post.cycles;
     var SQL = 'Call InsertPatientData(?,?,?,?)';
-    console.log(post);
-
-    if(userID !== null){
+    if(req.session.userId !== undefined){
      db.query(SQL,[userID,time,duration,cycles], function (err,results) {
          message='Success!';
          res.render('datapage.ejs',{message:message});
@@ -29,7 +27,7 @@ exports.sentData = function (req,res) {
 
 exports.getData = function (req,res) {
 
-    if (req.session.userId !== null){
+    if (req.session.userId !== undefined){
 
         var SQL = 'Call RetrievePatientData(?)';
 

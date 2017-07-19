@@ -3,7 +3,7 @@
  */
 exports.senddata = function (req,res){
     var message = '';
-    if(req.session.userId !== null) {
+    if(req.session.userId !== undefined) {
         message = 'Submit cycle data';
         res.render('datapage.ejs', {message: message});
     }else {
@@ -14,7 +14,7 @@ exports.senddata = function (req,res){
 
 exports.dashboard = function (req,res) {
     var message = '';
-    if(req.session.userId !== null) {
+    if(req.session.userId !== undefined) {
         message = 'View your data';
         res.render('Dashboard.ejs', {message: message});
     }else {
