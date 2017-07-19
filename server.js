@@ -62,3 +62,7 @@ app.get('/logout', user.logout);
 app.post('/api', apiRoutes.sentData );
 
 app.get('/api',apiRoutes.getData);
+
+app.get('/datasubmit',user.senddata);
+
+app.get('/dashboard',user.dashboard);
