@@ -59,34 +59,36 @@ exports.signup = function (req, res) {
 
     var SQL = 'CALL CreatePatient(?,?,?,?,?,?)';
 
+    message = 'Sorry, your passwords do not match';
+    if(password !== rpassword){
+        res.render('Login.ejs',{message:message});
+    }else {
 
-    bcrypt.genSalt(13, function (err, salt) {
-        bcrypt.hash(password, salt, function (err, hash) {
 
-            db.query(SQL, [username, hash, email, firstname, lastname, 1], function (err, results) {
-                if (err !== null) {
-                    message = "Sorry, that username is taken please try another one."
+        bcrypt.genSalt(13, function (err, salt) {
+            bcrypt.hash(password, salt, function (err, hash) {
 
-                    res.render('Login.ejs', {message: message});
-                } else {
-                    message = "Succesful! Your account has been created.";
-                    res.render('Login.ejs', {message: message});
+                db.query(SQL, [username, hash, email, firstname, lastname, 1], function (err, results) {
+                    if (err !== null) {
+                        message = "Sorry, that username is taken please try another one."
+                        console.log(err);
+                        res.render('Login.ejs', {message: message});
+                    } else {
+                        message = "Succesful! Your account has been created.";
+                        res.render('Login.ejs', {message: message});
 
-                }
+                    }
+                });
+
             });
-
         });
-    });
 
-
+    }
 }
 
 /*
 Destroys session on logout and redirects to login page.
  */
-
-
-
 
 
 exports.logout = function (req, res) {
