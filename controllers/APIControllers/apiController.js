@@ -4,7 +4,7 @@
 
 exports.sentData = function (req,res) {
     var post = req.body;
-    var userID = req.userid;
+    var userID = req.session.userId;
     var time = req.time;
     var duration = req.duration;
     var cycles = req.cycles;

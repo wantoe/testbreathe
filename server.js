@@ -1,9 +1,10 @@
 var express = require('express')
     , routes = require('./controllers/LoginControllers/mainpage') // Path to the login Controllers
-    , user = require('./controllers/LoginControllers/user.js') // Path to main login page file.
+    , user = require('./controllers/LoginControllers/SessionController.js') // Path to main login page file.
     , http = require('http')
     , path = require('path')
-    , apiRoutes = require('./controllers/APIControllers/apiController');
+    , apiRoutes = require('./controllers/APIControllers/apiController')
+    , navigation = require('./controllers/LoginControllers/NavigationController');
 var fs = require('fs');
 var mysql = require('mysql2');
 var bodyParser = require('body-parser');
@@ -63,6 +64,6 @@ app.post('/api', apiRoutes.sentData );
 
 app.get('/api',apiRoutes.getData);
 
-app.get('/datasubmit',user.senddata);
+app.get('/datasubmit',navigation.senddata);
 
-app.get('/dashboard',user.dashboard);
+app.get('/dashboard',navigation.dashboard);

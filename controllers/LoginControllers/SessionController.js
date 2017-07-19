@@ -86,26 +86,7 @@ Destroys session on logout and redirects to login page.
  */
 
 
-exports.senddata = function (req,res){
-    var message = ''
-    if(req.session.userId !== null) {
-         message = 'Submit cycle data';
-        res.render('datapage.ejs', {message: message});
-    }
-    message = 'Please login to continue';
-    res.render('Login.ejs',{message:message});
-};
 
-exports.dashboard = function (req,res) {
-    var message = ''
-    if(req.session.userId !== null) {
-        message = 'Submit cycle data';
-        res.render('Dashboard.ejs', {message: message});
-    }
-    message = 'Please login to continue';
-    res.render('Login.ejs',{message:message});
-
-}
 
 
 exports.logout = function (req, res) {

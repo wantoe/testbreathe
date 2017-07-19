@@ -49,11 +49,12 @@
         </div>
         <!-- /main -->
 
-        <form class="cf">
+        <form class="cf" action="/datasubmit" method="post">
+            <h2> Submit Data </h2>
             <div >
-                <input type="datetime-local" id="input-name" placeholder="Session Start" required="required">
-                <input type="number" id="input-email" placeholder="Duration" required="required">
-                <input type="number" id="input-subject" placeholder="Cycles" required="required">
+                <input name = 'time' type="datetime-local" id="input-name" placeholder="Session Start" required="required">
+                <input name='duration' type="number" id="input-email" placeholder="Duration" min ="1" required="required">
+                <input name='cycles' type="number" id="input-subject" placeholder="Cycles" min ="1" required="required">
 
             </div>
 
