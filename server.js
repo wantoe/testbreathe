@@ -66,4 +66,6 @@ app.get('/api',apiRoutes.getData);
 
 app.get('/datasubmit',navigation.senddata);
 
+
+
 app.get('/dashboard',navigation.dashboard);

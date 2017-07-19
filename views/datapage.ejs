@@ -39,17 +39,9 @@
         </div>
         <!-- /sidebar -->
 
-        <!-- main right col -->
-        <div class="column col-sm-9 col-xs-11" id="main">
-            <p>
-                <% if (message.length > 0) { %>
-            <div style="text-align: center;"><h3 style="color:darkred"><%= message %></h3></div>
-            <% } %>
-            </p>
-        </div>
-        <!-- /main -->
 
-        <form class="cf" action="/datasubmit" method="post">
+
+        <form class="cf" action="/api" method="post">
             <h2> Submit Data </h2>
             <div >
                 <input name = 'time' type="datetime-local" id="input-name" placeholder="Session Start" required="required">
@@ -64,7 +56,15 @@
     </div>
 </div>
 
-
+<!-- main right col -->
+<div class="column col-sm-9 col-xs-11" id="main">
+    <p>
+        <% if (message.length > 0) { %>
+    <div style="text-align: center;"><h3 style="color:darkred"><%= message %></h3></div>
+    <% } %>
+    </p>
+</div>
+<!-- /main -->
 </body>
 
 

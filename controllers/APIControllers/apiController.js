@@ -11,9 +11,11 @@ exports.sentData = function (req,res) {
 
     if(req.session.userId !== null){
         var SQL = 'Call InsertPatientData(?,?,?,?)'
+        var message = '';
 
         db.connection.query(SQL,[userID,time,duration,cycles], function (err,result) {
-
+            message = 'You have successfully submitted';
+        res.render('datapage.ejs' ,{message:message});
 
 
         });
