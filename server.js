@@ -1,14 +1,10 @@
-/**
- * Module dependencies.
- */
 var express = require('express')
     , routes = require('./controllers/LoginControllers/mainpage') // Path to the login Controllers
     , user = require('./controllers/LoginControllers/user.js') // Path to main login page file.
     , http = require('http')
     , path = require('path')
     , apiRoutes = require('./controllers/APIControllers/apiController');
-    var fs = require('fs');
-
+var fs = require('fs');
 var mysql = require('mysql2');
 var bodyParser = require('body-parser');
 var app = express();
@@ -30,9 +26,12 @@ connection.connect();
 
 global.db = connection;
 
+//Specify a port
+var port = process.env.port || 8080;
 
-// Sets up the file so that express JS can load it onto the server
-app.set('port', process.env.PORT || 8080);
+//Serve up files in public folder
+app.use('/', express.static(__dirname + '/public'));
+
 app.set('views', __dirname + '/views');
 app.use("/public", express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
@@ -46,8 +45,9 @@ app.use(session({
     cookie: {maxAge: 60000}
 }));
 
-//Middleware
-app.listen(8080);
+//Start up the website
+app.listen(port);
+
 
 
 app.get('/', routes.index);//call for main page
@@ -62,4 +62,3 @@ app.get('/logout', user.logout);
 app.post('/api', apiRoutes.sentData );
 
 app.get('/api',apiRoutes.getData);
-
