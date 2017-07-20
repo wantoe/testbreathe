@@ -30,8 +30,15 @@ exports.getData = function (req,res) {
     if (req.session.userId !== undefined){
 
         var SQL = 'Call RetrievePatientData(?)';
-
-        db.connection.query(SQL,[req.session.userId],function(err,result){
+        console.log(req.session.userId);
+        db.query(SQL,[req.session.userId],function(err,result){
+            if (err){
+                console.log(err);
+                res.send(err);
+            }else {
+                console.log(result[0]);
+                res.send(result[0]);
+            }
 
         });
 

@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../public/css/sidebar.css" rel="stylesheet">
     <link rel="stylesheet" href="../public/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+    <script src = "../public/js/jquery.js"></script>
     <!--- Header --->
 
 
@@ -43,7 +43,12 @@
         <!-- /sidebar -->
 
         <!-- main right col -->
-        <div class="column col-sm-9 col-xs-11" id="main">
+        <div class="column col-sm-9 col-xs-11"  style="    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;" id="main">
             <p>
                 <% if (message.length > 0) { %>
             <div style="text-align: center;"><h3 style="color:darkred"><%= message %></h3></div>
@@ -51,7 +56,54 @@
             </p>
         </div>
         <!-- /main -->
+
+        <canvas style="    position: absolute;
+    top:0;
+    bottom: 30%;
+    left: 0;
+    right: 0;
+    margin:auto;" id="myChart"></canvas>
     </div>
 </div>
 </body>
+
+
+<script>
+    var time = [];
+    var dur = [];
+
+    var x = $.get('http://localhost:8080/api', function (data, status){
+        console.log(data);
+
+        for (var i = 0; i < data.length; i++){
+           dur =  dur.concat(data[i].duration);
+           if(data[i].session_start !== null) {
+               var t = data[i].session_start.split(/[- :]/);
+               var d = new Date(Date.UTC(t[0], t[1] - 1));
+               time = time.concat(d.getDay() + '/' + d.getMonth() + '/' + d.getUTCFullYear());
+           }else {time = time.concat('Date_Lost')};
+
+        }
+        var ctx = document.getElementById('myChart').getContext('2d');
+        ctx.canvas.height = 500;
+        ctx.canvas.width =500;
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            options: {responsive: false,                 title: { text: 'Duration vs Date', display: true},},
+
+            data: {
+                labels: time,
+                datasets: [{
+                    label: 'Duration',
+                    data: dur,
+                    backgroundColor: "rgba(153,255,51,0.4)"
+                }]
+            }
+        });
+    });
+
+
+
+
+</script>
 </html>
