@@ -4,7 +4,10 @@ var express = require('express')
     , http = require('http')
     , path = require('path')
     , apiRoutes = require('./controllers/APIControllers/apiController')
-    , navigation = require('./controllers/LoginControllers/NavigationController');
+    , navigation = require('./controllers/LoginControllers/NavigationController')
+    , ClinicianPortal = require('./controllers/APIControllers/ClinicianDataController');
+
+
 var fs = require('fs');
 var mysql = require('mysql2');
 var bodyParser = require('body-parser');
@@ -60,10 +63,14 @@ app.get('/logout', user.logout);
 
 app.post('/api', apiRoutes.sentData );
 
-app.get('/api',apiRoutes.getData);
+app.get('/api/userdata',apiRoutes.getData);
 
 app.get('/datasubmit',navigation.senddata);
 
+app.get('/api/ClinicalData', ClinicianPortal.getUserInfo);
 
+app.get('/ClinicianDashboard',function (req,res){
+   res.render('ClinicianDash.ejs');
+});
 
 app.get('/dashboard',navigation.dashboard);

@@ -27,9 +27,17 @@ exports.login = function (req, res) {
             sess.email = results[0].email;
             sess.firstName = ress.first_name;
             sess.lastName = ress.last_name;
+            sess.roleId =  ress.role_id;
 
-            message = 'Welcome ' + sess.firstName + ' To the BreatheHero Portal';
-            res.render('Dashboard.ejs', {message: message});
+            var role_id = sess.roleId;
+            if(role_id === 1 || role_id === 2) {
+                message = 'Welcome ' + sess.firstName + ' To the BreatheHero Portal';
+                res.render('Dashboard.ejs', {message: message});
+            }else if (role_id === 3){
+                // Clinician portal
+            }else if (role_id === 4){
+                //admin portal
+            }
 
         }
         //If passwords don't match send error message and redirect to login page.

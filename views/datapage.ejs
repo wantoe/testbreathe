@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <!-- Bootstrap Core CSS -->
+    <script src = "../public/js/jquery.js"></script>
     <link href="../public/css/bootstrap.min.css" rel="Stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../public/css/sidebar.css" rel="stylesheet">
@@ -41,7 +42,7 @@
 
 
 
-        <form class="cf" action="/api" method="post" onsubmit="sent">
+        <form class="cf" action="/api/userdata" method="post" onsubmit="sent">
             <h2> Submit Data </h2>
             <div >
                 <input name = 'time' type="datetime-local" id="input-name" placeholder="Session Start" required="required">

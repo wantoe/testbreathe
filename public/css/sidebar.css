@@ -38,14 +38,23 @@ a {
 
 #sidebar > .nav > li > a {
     white-space: nowrap;
-    overflow: hidden;
 }
 
 #main {
     padding: 15px;
     left: 0;
+    overflow: hidden;
 }
 
+.fixed-table-container{
+    margin:auto;
+    position: absolute;
+}
+
+.bootstrap-table{
+    position: absolute;
+
+}
 /*
  * off canvas sidebar
  * --------------------------------------------------

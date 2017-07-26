@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <!-- Bootstrap Core CSS -->
+    <script src = "../public/js/jquery.js"></script>
     <link href="../public/css/bootstrap.min.css" rel="Stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../public/css/sidebar.css" rel="stylesheet">
@@ -74,15 +75,23 @@
 
     var x = $.get('http://breathehero.azurewebsites.net/api', function (data, status){
         console.log(data);
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
 
-        for (var i = 0; i < data.length; i++){
-           dur =  dur.concat(data[i].duration);
-           if(data[i].session_start !== null) {
-               var t = data[i].session_start.split(/[- :]/);
-               var d = new Date(Date.UTC(t[0], t[1] - 1));
-               time = time.concat(d.getDay() + '/' + d.getMonth() + '/' + d.getUTCFullYear());
-           }else {time = time.concat('Date_Lost')};
+                dur = dur.concat(data[i].duration);
 
+                if (data[i].session_start !== null) {
+
+                    var t = data[i].session_start.split(/[- :]/);
+                    var d = new Date(Date.UTC(t[0], t[1] - 1));
+                    time = time.concat(d.getDay() + '/' + d.getMonth() + '/' + d.getUTCFullYear());
+
+                } else {
+                    time = time.concat('Date_Lost')
+                }
+                ;
+
+            }
         }
         var ctx = document.getElementById('myChart').getContext('2d');
         ctx.canvas.height = 500;
