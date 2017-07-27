@@ -46,15 +46,8 @@ a {
     overflow: hidden;
 }
 
-.fixed-table-container{
-    margin:auto;
-    position: absolute;
-}
 
-.bootstrap-table{
-    position: absolute;
 
-}
 /*
  * off canvas sidebar
  * --------------------------------------------------

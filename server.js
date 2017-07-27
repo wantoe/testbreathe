@@ -69,8 +69,7 @@ app.get('/datasubmit',navigation.senddata);
 
 app.get('/api/ClinicalData', ClinicianPortal.getUserInfo);
 
-app.get('/ClinicianDashboard',function (req,res){
-   res.render('ClinicianDash.ejs');
-});
+//refactor later
+
 
 app.get('/dashboard',navigation.dashboard);

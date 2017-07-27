@@ -35,6 +35,7 @@ exports.login = function (req, res) {
                 res.render('Dashboard.ejs', {message: message});
             }else if (role_id === 3){
                 // Clinician portal
+                res.render('ClinicianDash.ejs');
             }else if (role_id === 4){
                 //admin portal
             }
