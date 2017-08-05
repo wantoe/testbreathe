@@ -1,14 +1,11 @@
 var express = require('express')
     , routes = require('./controllers/LoginControllers/mainpage') // Path to the login Controllers
     , user = require('./controllers/LoginControllers/SessionController.js') // Path to main login page file.
-    , http = require('http')
-    , path = require('path')
     , apiRoutes = require('./controllers/APIControllers/apiController')
     , navigation = require('./controllers/LoginControllers/NavigationController')
     , ClinicianPortal = require('./controllers/APIControllers/ClinicianDataController');
 
 
-var fs = require('fs');
 var mysql = require('mysql2');
 var bodyParser = require('body-parser');
 var app = express();

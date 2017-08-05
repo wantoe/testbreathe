@@ -26,25 +26,41 @@ exports.sentData = function (req,res) {
 };
 
 exports.getData = function (req,res) {
+    var userID = req.query.userId;
+    var SQL = 'Call RetrievePatientData(?)';
+    console.log(userID);
+  if (req.session.userId !== undefined && userID === undefined && req.session.roleId < 3){
+        if(req.session.roleId === 1) {
+            userID = req.session.userId;
+        }else if (req.session.roleId === 2){
+            //Enter parent details here.
+        }
+      db.query(SQL,[userID],function(err,result){
+          if (!err) {
+              res.send(result[0]);
+          } else {
+              console.log(err);
+              res.send( err);
+          }
 
-    if (req.session.userId !== undefined){
+          });
+    }else if(userID !== undefined && req.session.roleId > 2 && req.session.userId !== undefined) {
 
-        var SQL = 'Call RetrievePatientData(?)';
-        console.log(req.session.userId);
-        db.query(SQL,[req.session.userId],function(err,result){
-            if (err){
-                console.log(err);
-                res.send(err);
-            }else {
-                console.log(result[0]);
-                res.send(result[0]);
-            }
-
-        });
-
-    }else {
-        message = 'Login to retrieve data'
+          db.query(SQL,[userID],function(err,result){
+              if (!err) {
+                  res.send(result[0]);
+              } else {
+                  console.log(err);
+                 res.send(err);
+              }
+  });
+  } else {
+        message = 'Login to retrieve data';
         res.render('Login.ejs',{message:message});
     }
+  };
 
-};
+
+
+
+
