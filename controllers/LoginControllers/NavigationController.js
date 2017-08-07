@@ -22,3 +22,8 @@ exports.dashboard = function (req,res) {
         res.render('Login.ejs', {message: message});
     }
 };
+
+exports.clinicianSignup = function(req,res){
+    var message = '';
+  res.render('SignUpPhysician.ejs',{message:message});
+};

@@ -12,55 +12,60 @@
     <h1 class="well">Registration Form for Clinicians</h1>
     <div class="col-lg-12 well">
         <div class="row">
-            <form>
+            <form method="post"  enctype="application/x-www-form-urlencoded" name="SignupClinician" action="/ClinicianSignup">
                 <div class="col-sm-12">
                     <div class="row">
                         <div class="col-sm-6 form-group">
                             <label>First Name</label>
-                            <input name = "first_name" type="text" placeholder="Enter First Name Here.." class="form-control">
+                            <input name = "first_name" type="text" required placeholder="Enter First Name Here.." class="form-control">
                         </div>
                         <div class="col-sm-6 form-group">
                             <label>Last Name</label>
-                            <input name = "last_name" type="text" placeholder="Enter Last Name Here.." class="form-control">
+                            <input name = "last_name" type="text" required placeholder="Enter Last Name Here.." class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6 form-group">
                             <label>Title</label>
-                            <input type="text" placeholder="Enter Title  " class="form-control">
+                            <input  name = "title" type="text" required placeholder="Enter Title  " class="form-control">
                         </div>
                         <div class="col-sm-6 form-group">
                             <label>Clinic</label>
-                            <input type="text" placeholder="Enter Clinic Name " class="form-control">
+                            <input  name = "clinic" type="text" required placeholder="Enter Clinic Name " class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="text" placeholder="Enter Email Address " class="form-control">
+                        <input name = "email" type="text" required placeholder="Enter Email Address " class="form-control">
                     </div>
 
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" placeholder="Enter User Name " class="form-control">
+                            <input name = "username" type="text" required placeholder="Enter User Name " class="form-control">
                         </div>
                     <div class="row">
                         <div class="col-sm-6 form-group">
                             <label>Password</label>
 
-                            <input type="password" placeholder="Enter Password " class="form-control">
+                            <input name="password" type="password" required placeholder="Enter Password " class="form-control">
                         </div>
                         <div class="col-sm-6 form-group">
                             <label>Repeat Password</label>
 
-                            <input type="password" placeholder="Repeat Password " class="form-control">
+                            <input name = "confirm_password" required type="password" placeholder="Repeat Password " class="form-control">
                         </div>
 
                     </div>
-                    <button type="button" class="btn btn-lg btn-info">Submit</button>
+                    <button  class="btn btn-lg btn-info">Submit</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+<% if (message.length > 0) { %>
+<div style="text-align: center;"><h3 style="color:whitesmoke"><%= message %></h3></div>
+<% } %>
 </body>
 </html>

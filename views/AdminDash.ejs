@@ -40,12 +40,12 @@
         <div class="container" style="width: 500px; height: 500px; margin: auto">
             <table id="table"
                    data-toggle="table"
-                   data-url="http://localhost:8080/api/ClinicalData/"
+                   data-url="api/PendingClinicians"
                    data-height="400"
                    data-width="200px"
                    data-side-pagination="server"
                    data-pagination="true"
-                   data-page-list="[5, 10, 20, 50, 100, 200]"
+                   data-page-list="[5, 10, 20]"
                    data-search="true">
                 <thead>
                 <tr>
@@ -54,7 +54,8 @@
                     <th data-field="email">Email</th>
                     <th data-field="first_name">First Name</th>
                     <th data-field="last_name">Last Name</th>
-
+                    <th data-field="title">Title</th>
+                    <th data-field="clinic">Clinic</th>
                 </tr>
                 </thead>
             </table>

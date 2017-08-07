@@ -3,8 +3,9 @@ var express = require('express')
     , user = require('./controllers/LoginControllers/SessionController.js') // Path to main login page file.
     , apiRoutes = require('./controllers/APIControllers/apiController')
     , navigation = require('./controllers/LoginControllers/NavigationController')
-    , ClinicianPortal = require('./controllers/APIControllers/ClinicianDataController');
-
+    , ClinicianPortal = require('./controllers/APIControllers/ClinicianDataController')
+    , http = require('http')
+    , path = require('path');
 
 var mysql = require('mysql2');
 var bodyParser = require('body-parser');
@@ -68,5 +69,14 @@ app.get('/api/ClinicalData', ClinicianPortal.getUserInfo);
 
 //refactor later
 
+app.get('/api/PendingClinicians', ClinicianPortal.getPendingClincians);
+
+app.post('/ClinicianSignup', user.signupClinicians);
+
+app.post('/AdminSignup');
 
 app.get('/dashboard',navigation.dashboard);
+
+app.get('/ClinicianData');
+
+app.get('/SignUpPhysician',  navigation.clinicianSignup);

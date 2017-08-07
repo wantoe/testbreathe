@@ -12,6 +12,7 @@ exports.login = function (req, res) {
     var username = post.username;
     var password = post.password;
     var message = '';
+    var fs = require('fs');
 
     //Initialize stored procedure to call
     var SQL = 'CALL CheckAccount(?)';
@@ -27,17 +28,18 @@ exports.login = function (req, res) {
             sess.email = results[0].email;
             sess.firstName = ress.first_name;
             sess.lastName = ress.last_name;
-            sess.roleId =  ress.role_id;
+            sess.roleId = ress.role_id;
 
             var role_id = sess.roleId;
-            if(role_id === 1 || role_id === 2) {
+            if (role_id === 1 || role_id === 2) {
                 message = 'Welcome ' + sess.firstName + ' To the BreatheHero Portal';
                 res.render('Dashboard.ejs', {message: message});
-            }else if (role_id === 3){
+            } else if (role_id === 3) {
                 // Clinician portal
                 res.render('ClinicianDash.ejs');
-            }else if (role_id === 4){
+            } else if (role_id === 4) {
                 //admin portal
+                res.render('AdminDash.ejs');
             }
 
         }
@@ -48,7 +50,7 @@ exports.login = function (req, res) {
         }
     });
 
-}
+};
 
 /*
 Exports the method that handles the signup form.
@@ -63,21 +65,21 @@ exports.signup = function (req, res) {
     var firstname = post.firstname;
     var lastname = post.lastname;
     var rpassword = post.confirm_password;
-
     var SQL = 'CALL CreatePatient(?,?,?,?,?,?)';
 
     message = 'Sorry, your passwords do not match';
-    if(password !== rpassword){
-        res.render('Login.ejs',{message:message});
-    }else {
+    if (password !== rpassword) {
+        res.render('Login.ejs', {message: message});
+    } else {
 
 
         bcrypt.genSalt(13, function (err, salt) {
             bcrypt.hash(password, salt, function (err, hash) {
 
+
                 db.query(SQL, [username, hash, email, firstname, lastname, 1], function (err, results) {
                     if (err !== null) {
-                        message = "Sorry, that username is taken please try another one."
+                        message = "Sorry, that username is taken please try another one.";
                         console.log(err);
                         res.render('Login.ejs', {message: message});
                     } else {
@@ -91,7 +93,95 @@ exports.signup = function (req, res) {
         });
 
     }
-}
+};
+
+
+exports.signupClinicians = function (req, res) {
+    var post = req.body;
+    var username = post.username;
+    var password = post.password;
+    var email = post.email;
+    var firstname = post.first_name;
+    var lastname = post.last_name;
+    var rpassword = post.confirm_password;
+    var title = post.title;
+    var clinic = post.clinic;
+    var message = '';
+    var SQL = 'Call StorePendingClinician(?,?,?,?,?,?,?)';
+    var SQL2 = 'Call AccountExists(?)';
+
+    if (password !== rpassword) {
+        message = 'Sorry passwords do not match.';
+        res.render('Login.ejs', {message: message})
+    } else {
+
+        bcrypt.genSalt(13, function (err, salt) {
+            bcrypt.hash(password, salt, function (err, hash) {
+                db.query(SQL2, [username], function (error, ress) {
+                    console.log(ress);
+                    if (ress[0][0] === undefined) {
+
+                        db.query(SQL, [username, hash, email, firstname, lastname, title, clinic], function (err, results) {
+                            if (err) {
+                                console.log(err);
+                                message = 'Sorry, that username is taken';
+                                res.render('Login.ejs', {message: message});
+                            } else {
+                                message = "Succesful! Your account is pending, it will be activated in 24 hours.";
+                                res.render('Login.ejs', {message: message});
+
+                            }
+                        });
+                    } else {
+                        message = 'Sorry that username is taken';
+                        res.render('Login.ejs', {message: message});
+                    }
+
+                });
+
+
+            });
+        });
+    }
+};
+exports.signupAdmin = function (req, res) {
+    var post = req.body;
+    var username = post.username;
+    var password = post.password;
+    var email = post.email;
+    var firstname = post.firstname;
+    var lastname = post.lastname;
+    var rpassword = post.confirm_password;
+    var message = "";
+    var SQL = "Call CreateAdmin(?,?,?,?,?,?";
+
+    if (password !== rpassword) {
+        message = "Sorry Incorrect password";
+        res.render('AdminSignUp.ejs', {message: message})
+    }
+
+    bcrypt.genSalt(13, function (err, salt) {
+        bcrypt.hash(password, salt, function (err, hash) {
+
+            if (req.userId !== undefined) {
+                db.query(SQL, [username, hash, email, firstname, lastname, 4], function (err, results) {
+                    if (err !== null) {
+                        message = "Sorry, that username is taken please try another one.";
+                        console.log(err);
+                        res.render('AdminDash.ejs', {message: message});
+                    } else {
+                        message = "Succesful! Your account has been created.";
+                        res.render('AdminDash.ejs', {message: message});
+
+                    }
+                });
+            } else {
+                message = 'Please login to continue';
+                res.render('Login.ejs', {message: message})
+            }
+        });
+    });
+};
 
 /*
 Destroys session on logout and redirects to login page.

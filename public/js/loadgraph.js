@@ -1,7 +1,7 @@
 var time = [];
 var dur = [];
 
-var x = $.get('http://localhost:8080/api/userdata?userId=' , function (data, status){
+var x = $.get('api/userdata' , function (data, status){
     console.log(data);
     if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
