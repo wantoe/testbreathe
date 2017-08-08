@@ -6,7 +6,10 @@ exports.getUserInfo = function (req,res){
     var count = '';
     var total = '';
     // Enter security here
-    if(search !== undefined){
+    if(search === undefined)
+        search = "";
+
+
         SQL = 'CALL SearchUser(?,?,?)';
         SQLCount= 'CALL GetUserCount(?)';
         db.query(SQL,[search,limit,offset], function (err,result) {
@@ -19,9 +22,6 @@ exports.getUserInfo = function (req,res){
 
            });
         });
-    }else {
-
-    }
 
 
 

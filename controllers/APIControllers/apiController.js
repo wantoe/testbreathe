@@ -9,10 +9,21 @@ exports.sentData = function (req,res) {
     var userID = req.session.userId;
     var time = post.time;
     var duration = post.duration;
-    var cycles = post.cycles;
-    var SQL = 'Call InsertPatientData(?,?,?,?)';
+    var successful_breaths = post.successful_breaths;
+    var unsuccessful_time = post.unsuccessful_time;
+    var unsuccessful_pressure = post.unsuccessful_pressure;
+    var average_exhl_pressure = post.average_exhl_pressure;
+    var average_exhl_time = post.average_exhl_time;
+    var huff_coughs = post.successful_huff_coughs;
+
+
+    console.log(userID);
+
+    var SQL = 'Call InsertPatientData(?,?,?,?,?,?,?,?,?)';
     if(req.session.userId !== undefined){
-     db.query(SQL,[userID,time,duration,cycles], function (err,results) {
+     db.query(SQL,[userID,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs], function (err,results) {
+         console.log(err);
+         console.log(results);
          message='Success!';
          res.render('datapage.ejs',{message:message});
      });

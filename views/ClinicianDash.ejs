@@ -14,9 +14,8 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
-     <script src="../public/js/loadgraph.js "></script>
-
-</head>
+    <script src="../public/js/loadgraph.js "></script>
+            </head>
 <body>
 <div class="wrapper">
     <div class="row row-offcanvas row-offcanvas-left">
@@ -65,13 +64,14 @@
             <div class="modal-content"  >
                 <span class="close">&times;</span>
             <!-- /main -->
-
+            <div style=" text-align: center" id ="graph-container">
             <canvas style="    position: absolute;
     top:0;
     bottom: 30%;
     left: 0;
     right: 0;
     margin:auto;" id="myChart"></canvas>
+            </div>
             </div>
 
         </div>
@@ -90,8 +90,10 @@
 <script>
     $('.container').on("click", "#table tr", function(){
         $(this).addClass('selected').siblings().removeClass('selected');
-        var value=$(this).find('td:first').html();
+        var value= $(this).find('td:first').html();
+        var id = '?userId='
         console.log(value);
+        getData(id.concat(value));
 
         // Get the modal
         var modal = document.getElementById('myModal');
@@ -109,6 +111,8 @@
         span.onclick = function() {
             modal.style.display = "none";
             $(".bootstrap-table").toggle();
+            resetCanvas();
+
         }
 
         // When the user clicks anywhere outside of the modal, close it
@@ -116,6 +120,8 @@
             if (event.target == modal) {
                 modal.style.display = "none";
                 $(".bootstrap-table").toggle();
+                resetCanvas();
+
             }
         }
     });

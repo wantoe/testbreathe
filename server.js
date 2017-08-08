@@ -59,7 +59,7 @@ app.post('/signup', user.signup);//call for signup post
 //Logout message
 app.get('/logout', user.logout);
 
-app.post('/api', apiRoutes.sentData );
+app.post('/api/userdata', apiRoutes.sentData );
 
 app.get('/api/userdata',apiRoutes.getData);
 
