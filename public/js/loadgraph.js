@@ -1,6 +1,6 @@
 
 function getData(value) {
-    var x = $.get('api/userdata' + value, function (data, status) {
+     $.get('api/userdata' + value, function (data, status) {
         var time = [];
         var dur = [];
 
@@ -14,7 +14,8 @@ function getData(value) {
 
                     var t = data[i].session_start.split(/[- :]/);
                     var d = new Date(Date.UTC(t[0], t[1] - 1));
-                    time = time.concat(d.getDay() + '/' + d.getMonth() + '/' + d.getUTCFullYear());
+                    data[i].session_start = (d.getDay() + '/' + d.getMonth() + '/' + d.getUTCFullYear());
+                    time =  time.concat(data[i].session_start);
 
                 } else {
                     time = time.concat('Date_Lost')
@@ -26,6 +27,7 @@ function getData(value) {
         var ctx = document.getElementById('myChart').getContext('2d');
         ctx.canvas.height = 500;
         ctx.canvas.width = 500;
+        ctx.canvas.addEventListener('click',handleClick,false);
         var myChart = new Chart(ctx, {
             type: 'bar',
             options: {responsive: false, title: {text: 'Duration of Cycles vs Date For user: ' + data[0].user_id, display: true}},
@@ -39,7 +41,56 @@ function getData(value) {
                 }]
             }
         });
+
+        function handleClick(evt){
+            var elementToDisplay;
+            var activeElement = myChart.getElementAtEvent(evt);
+            var averageExhlPressure = '';
+            var averageExhlTime = '';
+            var successful_breaths = '';
+            var succesful_huff_coughs = '';
+            var unsuccessful_breaths_pressure = '';
+            var unsucessful_breaths_time = '';
+            var sessionStart = '';
+
+
+
+
+            if( activeElement[0] !== undefined) {
+                var x = myChart.data.datasets[activeElement[0]._datasetIndex].data[activeElement[0]._index];
+
+
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].duration === x) {
+                        elementToDisplay = data[i];
+                    }
+                }
+                console.log(elementToDisplay);
+
+                 averageExhlPressure = 'Average Exhalation Pressure: ' + elementToDisplay.average_exhl_pressure ;
+                 averageExhlTime =  'Average Exhalation Time: ' + elementToDisplay.average_exhl_time ;
+                 successful_breaths =  'Successful Breaths : ' + elementToDisplay.successful_breaths ;
+                 succesful_huff_coughs = 'Successful Huff Coughs : ' + elementToDisplay.successful_huff_coughs ;
+                 unsuccessful_breaths_pressure = 'Unsuccessful Breaths due to Pressure : '    + elementToDisplay.unsuccessful_breaths_pressure;
+                 unsucessful_breaths_time = 'Unsucessful Breaths due to time : ' + elementToDisplay.unsuccessful_breaths_time ;
+                 sessionStart = 'Session Start: ' + elementToDisplay.session_start;
+
+                $('#average_exhl_pressure').text(averageExhlPressure);
+                $('#average_exhl_time').text(averageExhlTime);
+                $('#session_start').text(sessionStart);
+                $('#successful_breaths').text(successful_breaths);
+                $('#successful_huff_coughs').text(succesful_huff_coughs);
+                $('#unsuccessful_breaths_pressure').text(unsuccessful_breaths_pressure);
+                $('#unsuccessful_breaths_time').text(unsucessful_breaths_time);
+                if(value === ' ') {
+
+                    $('#myModal').toggle();
+                }
+            }
+        }
     });
+
+
 }
 
  function resetCanvas(){
@@ -52,8 +103,17 @@ function getData(value) {
          'right': '0 ' ,
          'margin':'auto '
      });
+
+     $('#average_exhl_pressure').text(' ');
+     $('#average_exhl_time').text(' ');
+     $('#session_start').text(' ');
+     $('#successful_breaths').text(' ');
+     $('#successful_huff_coughs').text(' ');
+     $('#unsuccessful_breaths_pressure').text(' ');
+     $('#unsuccessful_breaths_time').text(' ');
     canvas = document.querySelector('#myChart');
     ctx.canvas.width =500 ; // resize to parent width
     ctx.canvas.height =500 ; // resize to parent height
 
 }
+

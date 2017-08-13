@@ -56,7 +56,6 @@ app.post('/login', user.login);//call for login post
 
 app.post('/signup', user.signup);//call for signup post
 
-//Logout message
 app.get('/logout', user.logout);
 
 app.post('/api/userdata', apiRoutes.sentData );
@@ -67,16 +66,17 @@ app.get('/datasubmit',navigation.senddata);
 
 app.get('/api/ClinicalData', ClinicianPortal.getUserInfo);
 
-//refactor later
 
 app.get('/api/PendingClinicians', ClinicianPortal.getPendingClincians);
 
 app.post('/ClinicianSignup', user.signupClinicians);
 
-app.post('/AdminSignup');
+app.post('/AdminSignup', user.signupAdmin);
+
+app.get('/AdminSignup',navigation.signUpAdmin);
 
 app.get('/dashboard',navigation.dashboard);
 
-app.get('/ClinicianData');
+app.get('/AdminDash', navigation.adminDash);
 
 app.get('/SignUpPhysician',  navigation.clinicianSignup);

@@ -9,6 +9,8 @@
     <link href="../public/css/bootstrap.min.css" rel="Stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../public/css/sidebar.css" rel="stylesheet">
+    <link href="../public/css/patientdashboard.css" rel="stylesheet">
+
     <link rel="stylesheet" href="../public/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
     <script src = "../public/js/jquery.js"></script>
@@ -52,27 +54,71 @@
     left: 0;
     right: 0;
     margin:auto;" id="main">
-            <p>
-                <% if (message.length > 0) { %>
-            <div style="text-align: center;"><h3 style="color:darkred"><%= message %></h3></div>
-            <% } %>
-            </p>
+            <h2 style="text-align: center">  View your data! </h2>
         </div>
         <!-- /main -->
 
+
+
+
+    </div>
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id = "session_start"></p>
+            <p id = "average_exhl_pressure"></p>
+            <p id = "average_exhl_time"> </p>
+            <p id = "successful_breaths"></p>
+            <p id = "successful_huff_coughs"></p>
+            <p id="unsuccessful_breaths_pressure"></p>
+            <p id="unsuccessful_breaths_time"></p>
+        </div>
+
+    </div>
+
         <canvas style="    position: absolute;
     top:0;
-    bottom: 30%;
+    bottom: 0;
     left: 0;
     right: 0;
     margin:auto;" id="myChart"></canvas>
+
+
+
     </div>
-</div>
+
 </body>
 
 
 <script>
 value = ' ';
 getData(value);
+
+
+</script>
+
+<script>
+    var modal = document.getElementById('myModal');
+
+
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 </script>
 </html>

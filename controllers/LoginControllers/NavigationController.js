@@ -27,3 +27,22 @@ exports.clinicianSignup = function(req,res){
     var message = '';
   res.render('SignUpPhysician.ejs',{message:message});
 };
+
+exports.signUpAdmin = function(req,res){
+
+    if(req.session.roleId === 4){
+        res.render('AdminSignup.ejs', {message: ''});
+    }else {
+        res.render('Login.ejs',{message:'Sorry admin privileges only.'});
+    }
+};
+
+exports.adminDash = function (req,res) {
+    if(req.session.roleId === 4){
+        res.render('AdminDash.ejs', {message:''});
+    }else {
+        var message ='Sorry, log in and try again';
+        res.render('Login.ejs', {message:message});
+    }
+
+};
