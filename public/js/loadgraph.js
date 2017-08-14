@@ -5,6 +5,9 @@ function getData(value) {
         var dur = [];
 
         console.log(data);
+
+
+
         if (data.length > 0) {
             for (var i = 0; i < data.length; i++) {
 
@@ -12,10 +15,7 @@ function getData(value) {
 
                 if (data[i].session_start !== null) {
 
-                    var t = data[i].session_start.split(/[- :]/);
-                    var d = new Date(Date.UTC(t[0], t[1] - 1));
-                    data[i].session_start = (d.getDay() + '/' + d.getMonth() + '/' + d.getUTCFullYear());
-                    time =  time.concat(data[i].session_start);
+                    time =  time.concat(data[i].session_start.substring(0,10));
 
                 } else {
                     time = time.concat('Date_Lost')
@@ -30,7 +30,7 @@ function getData(value) {
         ctx.canvas.addEventListener('click',handleClick,false);
         var myChart = new Chart(ctx, {
             type: 'bar',
-            options: {responsive: false, title: {text: 'Duration of Cycles vs Date For user: ' + data[0].user_id, display: true}},
+            options: {responsive: false,  title: {text: 'Duration of Cycles vs Date For user: ' + data[0].user_id, display: true}},
 
             data: {
                 labels: time,
@@ -53,27 +53,32 @@ function getData(value) {
             var unsucessful_breaths_time = '';
             var sessionStart = '';
 
-
+                console.log(activeElement[0]);
 
 
             if( activeElement[0] !== undefined) {
-                var x = myChart.data.datasets[activeElement[0]._datasetIndex].data[activeElement[0]._index];
+               var x = myChart.data.datasets[activeElement[0]._datasetIndex].data[activeElement[0]._index];
 
 
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].duration === x) {
-                        elementToDisplay = data[i];
+
+                    if(data[i].session_start !== null) {
+                        if ((data[i].session_start === 'Date_Lost' || data[i].session_start.substring(0, 10) === activeElement[0]._model.label) && data[i].duration === x) {
+                            elementToDisplay = data[i];
+                        }
+                    } else {
+                        if(data[i].duration === x)
+                            elementToDisplay = data[i];
                     }
                 }
                 console.log(elementToDisplay);
-
                  averageExhlPressure = 'Average Exhalation Pressure: ' + elementToDisplay.average_exhl_pressure ;
                  averageExhlTime =  'Average Exhalation Time: ' + elementToDisplay.average_exhl_time ;
                  successful_breaths =  'Successful Breaths : ' + elementToDisplay.successful_breaths ;
                  succesful_huff_coughs = 'Successful Huff Coughs : ' + elementToDisplay.successful_huff_coughs ;
                  unsuccessful_breaths_pressure = 'Unsuccessful Breaths due to Pressure : '    + elementToDisplay.unsuccessful_breaths_pressure;
                  unsucessful_breaths_time = 'Unsucessful Breaths due to time : ' + elementToDisplay.unsuccessful_breaths_time ;
-                 sessionStart = 'Session Start: ' + elementToDisplay.session_start;
+                 sessionStart = 'Session Start: ' + elementToDisplay.session_start.substring(0,10);
 
                 $('#average_exhl_pressure').text(averageExhlPressure);
                 $('#average_exhl_time').text(averageExhlTime);
@@ -85,6 +90,8 @@ function getData(value) {
                 if(value === ' ') {
 
                     $('#myModal').toggle();
+                }else {
+                    jQuery('#myModal2').modal({show:true});
                 }
             }
         }

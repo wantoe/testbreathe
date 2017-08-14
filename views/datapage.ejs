@@ -29,7 +29,7 @@
                 <li><a href="#"> <span class="collapse in hidden-xs">Submit Data</span> <i style="float: right;"
                                                                                      class="fa fa-paperclip"></i></a>
                 </li>
-                <li><a href="#"> <span class="collapse in hidden-xs">Refresh</span> <i style="float: right;"
+                <li><a href="/ParentSignUp"> <span class="collapse in hidden-xs">Parent Signup</span> <i style="float: right;"
                                                                                        class="fa fa-refresh"></i></a>
                 </li>
                 <li><a href="/logout"><span class="collapse in hidden-xs">Logout</span> <i style="float:right;"
@@ -44,15 +44,16 @@
 
         <form class="cf" action="/api/userdata" method="post" onsubmit="sent">
             <h2> Submit Data </h2>
+            <h3>Seperate multiple inputs using commas</h3>
             <div >
-                <input name = 'time' type="datetime-local" id="input-name" placeholder="Session Start" required="required">
+                <input name = 'time' type="datetime-local" id="input-name" placeholder="Session Start" min="2015-01-01T00:00:00" required="required">
                 <input name='duration' type="number" id="input-email" placeholder="Duration" min ="1" required="required">
-                <input name='successful_breaths' type="number" id="input-subject" placeholder="Successful Breaths" min ="0" max="10" required="required">
-                <input name='unsuccessful_time' type="number" id="input-subject" placeholder="Unsuccessful Breaths (Time)" min ="1"  max="10" required="required">
-                <input name='unsuccessful_pressure' type="number" id="input-subject" placeholder="Unsuccessful Breaths (Pressure)" max="10" min ="1" required="required">
-                <input name='average_exhl_pressure' type="number" id="input-subject" placeholder="Average Exhalation Pressure" min ="1" required="required">
-                <input name='average_exhl_time' type="number" id="input-subject" placeholder="Average Exhalation time" min ="1" required="required">
-                <input name='successful_huff_coughs' type="number" id="input-subject" placeholder="Successful Huff Coughs" min ="1" required="required">
+                <input name='successful_breaths'  id="input-subject" placeholder="Successful Breaths" required="required">
+                <input name='unsuccessful_time'  id="input-subject" placeholder="Unsuccessful Breaths (Time)"  required="required">
+                <input name='unsuccessful_pressure'  id="input-subject" placeholder="Unsuccessful Breaths (Pressure)" required="required">
+                <input name='average_exhl_pressure' step="any" type="number" id="input-subject" placeholder="Average Exhalation Pressure" min ="1" required="required">
+                <input name='average_exhl_time' step="any" type="number" id="input-subject" placeholder="Average Exhalation time" min ="1" required="required">
+                <input name='successful_huff_coughs'   id="input-subject" placeholder="Successful Huff Coughs" required="required">
 
 
             </div>

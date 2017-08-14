@@ -46,3 +46,12 @@ exports.adminDash = function (req,res) {
     }
 
 };
+
+exports.parentSignUp = function(req,res){
+    var message = '';
+    if(req.session.roleId === 1) {
+
+        res.render('ParentSignUp.ejs',{message:message});
+    }
+
+};

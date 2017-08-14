@@ -48,6 +48,7 @@ exports.getData = function (req,res) {
         }
       db.query(SQL,[userID],function(err,result){
           if (!err) {
+              console.log(result[0]);
               res.send(result[0]);
           } else {
               console.log(err);

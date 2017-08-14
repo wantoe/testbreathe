@@ -5,6 +5,7 @@
     <title>Dashboard</title>
     <!-- Bootstrap Core CSS -->
     <script src = "../public/js/jquery.js"></script>
+    <script src="../public/js/bootstrap.js" ></script>
     <link href="../public/css/bootstrap.min.css" rel="Stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../public/css/sidebar.css" rel="stylesheet">
@@ -63,7 +64,7 @@
 
 
         <!-- The Modal -->
-        <div id="graphModal" style="text-align: center" class="modal">
+        <div id="graphModal" style="width: 100% ;height: 100%;text-align: center" class="modal">
 
             <!-- Modal content -->
             <div class="modal-content"  >
@@ -76,24 +77,18 @@
     left: 0;
     right: 0;
     margin:auto;" id="myChart"></canvas>
-                <div data-dismiss="modal"  data-toggle="modal" style=" left: 250px; bottom: 0;  text-align: left; position: absolute;" id="patientInfo">
-                    <h4>Click on the graph elements for more information.</h4>
-
-                    <p id = "session_start"></p>
-                    <p id = "average_exhl_pressure"></p>
-                    <p id = "average_exhl_time"> </p>
-                    <p id = "successful_breaths"></p>
-                    <p id = "successful_huff_coughs"></p>
-                    <p id="unsuccessful_breaths_pressure"></p>
-                    <p id="unsuccessful_breaths_time"></p>
-
-
-                </div>
 
             </div>
             </div>
 
         </div>
+        <div data-dismiss="modal" style="display: none"  data-toggle="modal"  id="patientInfo">
+            <h4>Click on the graph elements for more information.</h4>
+
+
+
+        </div>
+
 
     </div>
 
@@ -102,6 +97,31 @@
 
 
 <!-- /main -->
+
+<div class="modal" id="myModal2" data-backdrop="" style="opacity: 100;  padding-top:8%;   font-weight:bold;
+">
+    <div class="modal-dialog" >
+        <div class="modal-content" style="background: peachpuff">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"  aria-hidden="true">×</button>
+                <h4 class="modal-title">Advanced Data</h4>
+            </div><div class="container"></div>
+            <div class="modal-body" style="opacity: 1">
+
+                <p id = "session_start"></p>
+                <p id = "average_exhl_pressure"></p>
+                <p id = "average_exhl_time"> </p>
+                <p id = "successful_breaths"></p>
+                <p id = "successful_huff_coughs"></p>
+                <p id="unsuccessful_breaths_pressure"></p>
+                <p id="unsuccessful_breaths_time"></p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" data-dismiss="modal" class="btn">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>
@@ -113,7 +133,6 @@
         var id = '?userId=';
         console.log(value);
         getData(id.concat(value));
-
         // Get the modal
         var modal = document.getElementById('graphModal');
 

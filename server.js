@@ -80,3 +80,5 @@ app.get('/dashboard',navigation.dashboard);
 app.get('/AdminDash', navigation.adminDash);
 
 app.get('/SignUpPhysician',  navigation.clinicianSignup);
+
+app.get('/ParentSignUp',navigation.parentSignUp);
