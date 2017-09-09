@@ -5,7 +5,10 @@ var express = require('express')
     , navigation = require('./controllers/LoginControllers/NavigationController')
     , ClinicianPortal = require('./controllers/APIControllers/ClinicianDataController')
     , http = require('http')
-    , path = require('path');
+    , path = require('path')
+    ;
+
+const passport = require('passport');
 
 var mysql = require('mysql2');
 var bodyParser = require('body-parser');
@@ -45,6 +48,9 @@ app.use(session({
     saveUninitialized: true
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+require('./Services/AuthenticationService') (passport);
 //Start up the website
 app.listen(port);
 
@@ -52,7 +58,7 @@ app.listen(port);
 
 app.get('/', routes.index);//call for main page
 
-app.post('/login', user.login);//call for login post
+app.post('/login', passport.authenticate('local-login', { failureRedirect: '/',failureFlash: true }), user.login);//call for login post
 
 app.post('/signup', user.signup);//call for signup post
 

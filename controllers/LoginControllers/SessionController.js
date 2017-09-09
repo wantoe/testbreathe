@@ -3,57 +3,30 @@
  */
 
 var bcrypt = require('bcrypt'); // encryption library
-
 /***
  * Handles all of the login/logout data for all users, checks the role of the user and redirects them to the appropriate
  * page.
  * */
 // Exports the method use to handle login form
-exports.login = function (req, res) {
-    var post = req.body;
-    var sess = req.session;
-    var username = post.username;
-    var password = post.password;
-    var message = '';
-    var fs = require('fs');
+exports.login = function loginUser(req, res) {
+    var userId = req.session.passport.user.id;
+    var roleId = req.session.passport.user.roleId;
 
-    //Initialize stored procedure to call
-    var SQL = 'CALL CheckAccount(?)';
+    console.log('HEY');
+    switch (roleId){
+        case 1:
+        case 2:
+            message = 'Welcome ' + ' To the BreatheHero Portal';
+            res.render('Dashboard.ejs', {message: message});
+            break;
+        case 3:
+            res.render('ClinicianDash.ejs');
+            break;
+        case 4:
+            res.render('AdminDash.ejs');
+            break;
 
-    // Calls the query, and handles the result in a callback function
-    db.query(SQL, [username], function (err, results) {
-
-        // If the passwords match, start a session and send user to dashboard.
-        if (results[0].length > 0 && bcrypt.compare(password, results[0].password)) {
-            var ress = results[0][0];
-            sess.userId = ress.user_id;
-            sess.userName = ress.username;
-            sess.email = results[0].email;
-            sess.firstName = ress.first_name;
-            sess.lastName = ress.last_name;
-            sess.roleId = ress.role_id;
-
-            console.log(sess.roleId);
-            var role_id = sess.roleId;
-            if (role_id === 1 || role_id === 2) {
-                message = 'Welcome ' + sess.firstName + ' To the BreatheHero Portal';
-                res.render('Dashboard.ejs', {message: message});
-            } else if (role_id === 3) {
-                // Clinician portal
-                res.render('ClinicianDash.ejs');
-            } else if (role_id === 4) {
-                //admin portal
-                res.render('AdminDash.ejs');
-            }
-
-        }
-        //If passwords don't match send error message and redirect to login page.
-        else {
-            message = 'Wrong Username or Password';
-            res.render('Login.ejs', {message: message});
-        }
-    });
-
+    }
 };
 
 /**
@@ -104,20 +77,20 @@ exports.signup = function (req, res) {
  * The signup is then sent to the pending databse in the back-end.
  * **/
 exports.signupClinicians = function (req, res) {
-    var post = req.body;
-    var username = post.username;
-    var password = post.password;
-    var email = post.email;
-    var firstname = post.first_name;
-    var lastname = post.last_name;
-    var rpassword = post.confirm_password;
-    var title = post.title;
-    var clinic = post.clinic;
-    var message = '';
-    var SQL = 'Call StorePendingClinician(?,?,?,?,?,?,?)';
-    var SQL2 = 'Call AccountExists(?)';
+    this.post = req.body;
+    this.username = post.username;
+    this.password = post.password;
+    this.email = post.email;
+    this.firstName = post.first_name;
+    this.lastName = post.last_name;
+    this.repeatPassword = post.confirm_password;
+    this.title = post.title;
+    this.clinic = post.clinic;
+    this.message = '';
+    this.SQL = 'Call StorePendingClinician(?,?,?,?,?,?,?)';
+    this.SQL2 = 'Call AccountExists(?)';
 
-    if (password !== rpassword) {
+    if (password !== repeatPassword) {
         message = 'Sorry passwords do not match.';
         res.render('Login.ejs', {message: message})
     } else {
@@ -128,7 +101,7 @@ exports.signupClinicians = function (req, res) {
                     console.log(ress);
                     if (ress[0][0] === undefined) {
 
-                        db.query(SQL, [username, hash, email, firstname, lastname, title, clinic], function (err, results) {
+                        db.query(SQL, [username, hash, email, firstName, lastName, title, clinic], function (err, results) {
                             if (err) {
                                 console.log(err);
                                 message = 'Sorry, that username is taken';
@@ -158,15 +131,15 @@ exports.signupClinicians = function (req, res) {
  * **/
 
 exports.signupAdmin = function (req, res) {
-    var post = req.body;
-    var username = post.username;
-    var password = post.password;
-    var email = post.email;
-    var firstname = post.first_name;
-    var lastname = post.last_name;
-    var rpassword = post.confirm_password;
-    var message = "";
-    var SQL = "Call CreateAdmin(?,?,?,?,?,?)";
+    this.post = req.body;
+    this.username = post.username;
+    this.password = post.password;
+    this.email = post.email;
+    this.firstname = post.first_name;
+    this.lastname = post.last_name;
+    this.rpassword = post.confirm_password;
+    this.message = "";
+    this.SQL = "Call CreateAdmin(?,?,?,?,?,?)";
 
     if (password !== rpassword) {
         message = "Sorry Passwords do not match";
@@ -206,8 +179,9 @@ Destroys session on logout and redirects to login page.
  * @param res
  */
 exports.logout = function (req, res) {
-    req.session.destroy(function (err) {
-        res.redirect("/");
-    })
+    req.logout();
+    res.redirect('/');
+
+
 };
 

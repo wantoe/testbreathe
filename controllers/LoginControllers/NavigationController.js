@@ -3,7 +3,7 @@
  */
 exports.senddata = function (req,res){
     var message = '';
-    if(req.session.userId !== undefined) {
+    if(req.session.passport.user.id !== undefined) {
         message = 'Submit cycle data';
         res.render('datapage.ejs', {message: message});
     }else {
@@ -14,7 +14,8 @@ exports.senddata = function (req,res){
 
 exports.dashboard = function (req,res) {
     var message = '';
-    if(req.session.userId !== undefined) {
+    console.log(req.session);
+    if(req.session.passport.user.id !== undefined) {
         message = 'View your data';
         res.render('Dashboard.ejs', {message: message});
     }else {
@@ -30,7 +31,7 @@ exports.clinicianSignup = function(req,res){
 
 exports.signUpAdmin = function(req,res){
 
-    if(req.session.roleId === 4){
+    if(req.session.passport.user.roleId === 4){
         res.render('AdminSignup.ejs', {message: ''});
     }else {
         res.render('Login.ejs',{message:'Sorry admin privileges only.'});
@@ -38,7 +39,7 @@ exports.signUpAdmin = function(req,res){
 };
 
 exports.adminDash = function (req,res) {
-    if(req.session.roleId === 4){
+    if(req.session.passport.user.roleId === 4){
         res.render('AdminDash.ejs', {message:''});
     }else {
         var message ='Sorry, log in and try again';
@@ -49,7 +50,7 @@ exports.adminDash = function (req,res) {
 
 exports.parentSignUp = function(req,res){
     var message = '';
-    if(req.session.roleId === 1) {
+    if(req.session.passport.user.roleId === 1) {
 
         res.render('ParentSignUp.ejs',{message:message});
     }
