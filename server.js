@@ -6,7 +6,7 @@ var express = require('express')
     , ClinicianPortal = require('./controllers/APIControllers/ClinicianDataController')
     , http = require('http')
     , path = require('path')
-    ;
+;
 
 const passport = require('passport');
 
@@ -64,27 +64,40 @@ app.post('/signup', user.signup);//call for signup post
 
 app.get('/logout', user.logout);
 
-app.post('/api/userdata', apiRoutes.sentData );
+app.post('/api/userdata',ensureAuthenticated, apiRoutes.sentData );
 
-app.get('/api/userdata',apiRoutes.getData);
+app.get('/api/userdata', ensureAuthenticated,apiRoutes.getData);
 
-app.get('/datasubmit',navigation.senddata);
+app.get('/datasubmit', ensureAuthenticated, navigation.senddata);
 
-app.get('/api/ClinicalData', ClinicianPortal.getUserInfo);
+app.get('/api/ClinicalData', ensureAuthenticated, ClinicianPortal.getUserInfo);
 
 
-app.get('/api/PendingClinicians', ClinicianPortal.getPendingClincians);
+app.get('/api/PendingClinicians', ensureAuthenticated,  ClinicianPortal.getPendingClincians);
 
 app.post('/ClinicianSignup', user.signupClinicians);
 
-app.post('/AdminSignup', user.signupAdmin);
+app.post('/AdminSignup', ensureAuthenticated,  user.signupAdmin);
 
-app.get('/AdminSignup',navigation.signUpAdmin);
+app.get('/AdminSignup', ensureAuthenticated, navigation.signUpAdmin);
 
-app.get('/dashboard',navigation.dashboard);
+app.get('/dashboard', ensureAuthenticated, navigation.dashboard);
 
-app.get('/AdminDash', navigation.adminDash);
+app.get('/AdminDash', ensureAuthenticated,  navigation.adminDash);
 
-app.get('/SignUpPhysician',  navigation.clinicianSignup);
+app.get('/SignUpPhysician',   navigation.clinicianSignup);
 
-app.get('/ParentSignUp',navigation.parentSignUp);
+app.get('/ParentSignUp', ensureAuthenticated, navigation.parentSignUp);
+
+app.get('/api/me',
+    passport.authenticate('basic', { session: false }),
+    function(req, res) {
+        res.json(req.user);
+    });
+
+function ensureAuthenticated(req, res, next) {
+    console.log('ensureAuthenticated');
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    passport.authenticate('basic',{session: false} )(req,res,next);}

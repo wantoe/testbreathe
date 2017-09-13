@@ -43,9 +43,15 @@ exports.signup = function (req, res) {
     var lastname = post.lastname;
     var rpassword = post.confirm_password;
     var SQL = 'CALL CreatePatient(?,?,?,?,?,?)';
+    var message = 'Sorry, your passwords do not match';
 
-    message = 'Sorry, your passwords do not match';
-    if (password !== rpassword) {
+
+    var isSanitized = sanitizeSignup(username,password);
+
+    console.log(isSanitized);
+    if(isSanitized !== 'Success!'){
+        res.render('Login.ejs', {message: isSanitized});
+    }else if (password !== rpassword) {
         res.render('Login.ejs', {message: message});
     } else {
 
@@ -90,7 +96,12 @@ exports.signupClinicians = function (req, res) {
     this.SQL = 'Call StorePendingClinician(?,?,?,?,?,?,?)';
     this.SQL2 = 'Call AccountExists(?)';
 
-    if (password !== repeatPassword) {
+    var isSanitized = sanitizeSignup(username,password);
+
+    console.log(isSanitized);
+    if(isSanitized !== 'Success!'){
+        res.render('Login.ejs', {message: isSanitized});
+    }else  if (password !== repeatPassword) {
         message = 'Sorry passwords do not match.';
         res.render('Login.ejs', {message: message})
     } else {
@@ -141,7 +152,13 @@ exports.signupAdmin = function (req, res) {
     this.message = "";
     this.SQL = "Call CreateAdmin(?,?,?,?,?,?)";
 
-    if (password !== rpassword) {
+    var isSanitized = sanitizeSignup(username,password);
+
+    console.log(isSanitized);
+    if(isSanitized !== 'Success!'){
+        res.render('Login.ejs', {message: isSanitized})}
+        else if (password !== rpassword) {
+
         message = "Sorry Passwords do not match";
         res.render('AdminSignUp.ejs', {message: message})
     }
@@ -185,3 +202,25 @@ exports.logout = function (req, res) {
 
 };
 
+function sanitizeSignup(username,password){
+
+    var nameRegex = /^[a-zA-Z0-9]{3,12}$/;
+    var passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+
+    var validUsername = username.match(nameRegex);
+    var validPassword = password.match(passwordRegex);
+    console.log(validUsername);
+
+    var message= '';
+    if ( validUsername === null){
+        return  message = 'Your Username must not have any special characters that are not \"-\" ';
+    }else if(validPassword === null){
+        return  message = 'Your password must be at least 6 letters long, contain at least one number and a special character';
+    }else {
+
+        return message = 'Success!';
+    }
+
+
+
+}

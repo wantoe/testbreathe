@@ -6,7 +6,7 @@ exports.getUserInfo = function (req,res){
     var count = '';
     var total = '';
     // Enter security here
-    if(req.session.roleId >2) {
+    if(req.session.passport.user.roleId >2) {
         if (search === undefined)
             search = "";
 
@@ -41,7 +41,7 @@ exports.getPendingClincians = function (req,res){
 
     //Security needed
 
-    if(req.session.roleId === 4) {
+    if(req.session.passport.user.roleId === 4) {
         SQL = 'CALL GetPendingClinicians(?,?)';
         SQLCount = 'CALL CountTemporaryClinicians()';
         db.query(SQL, [limit, offset], function (err, result2) {

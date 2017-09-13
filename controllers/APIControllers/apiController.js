@@ -6,7 +6,6 @@
 
 exports.sentData = function (req,res) {
     this. post = req.body;
-    this. idToQuery = req.session.userId;
     this. time = post.time;
     this. duration = post.duration;
     this. successful_breaths = post.successful_breaths;
@@ -17,26 +16,33 @@ exports.sentData = function (req,res) {
     this. huff_coughs = post.successful_huff_coughs;
 
 
-    console.log(idToQuery);
 
-    this. SQL = 'Call InsertPatientData(?,?,?,?,?,?,?,?,?)';
-    if(req.session.userId !== undefined){
-
-
-
-    } else {
+    if(req.session === undefined){
+        this.idToPost = req.user.userId;
+    }else {
+        this. idToPost = req.session.userId;
 
     }
 
-    switch (req.session.userId){
+    console.log(req.user.userId);
+
+    this. SQL = 'Call InsertPatientData(?,?,?,?,?,?,?,?,?)';
+
+    switch (idToPost){
         case undefined:
-            message = 'Login to send data';
-            res.render('Login.ejs',{message:message});
+            if(req.session !== undefined ) {
+                res.status(403);
+                message = 'Login to send data';
+                res.render('Login.ejs', {message: message});
+            } else {
+                res.sendStatus(401);
+            }
             break;
          default :
-             db.query(SQL,[idToQuery,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs], function insertData(err, results) {
+             db.query(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs], function insertData(err, results) {
                  console.log(err);
                  console.log(results);
+                 res.status(200);
                  message='Success!';
                  res.render('datapage.ejs',{message:message});
              });
@@ -46,48 +52,53 @@ exports.sentData = function (req,res) {
 };
 
 exports.getData = function (req,res) {
-    this. idToQuery = req.query.userId;
     this. SQL = 'Call RetrievePatientData(?)';
-    console.log(idToQuery);
 
+    var userId;
+    var roleId;
 
-   if(req.session.userId !== undefined) {
-       switch (req.session.roleId) {
+    if(req.session === undefined){
+        userId = req.user.userId;
+        roleId = req.user.roleId;
+    }else {
+        userId = req.session.passport.user.id;
+        roleId = req.session.passport.user.roleId;
+    }
+    this. idToPost = req.query.userId;
+
+    console.log(idToPost);
+
+    if(userId !== undefined) {
+       switch (roleId) {
            case 1:
-               idToQuery = req.session.userId;
-               db.query(SQL, [idToQuery], function (err, result) {
-                   if (!err) {
-                       console.log(result[0]);
-                       res.send(result[0]);
-                   } else {
-                       console.log(err);
-                       res.send(err);
-                   }
+               idToPost = userId;
 
-               });
                break;
            case 2:
                // implement later
                break;
            case 3:
            case 4:
-               if (idtoQuery !== undefined) {
-                   db.query(SQL, [idToQuery], function (err, result) {
-                       if (!err) {
-                           res.send(result[0]);
-                       } else {
-                           console.log(err);
-                           res.send(err);
-                       }
-                   });
-               }else {
-                   res.send(404);
+               if (idToPost === undefined){
+                   res.sendStatus(404);
                }
                break;
 
 
        }
+
+        db.query(SQL, [idToPost], function (err, result) {
+            if (!err) {
+                console.log(result[0]);
+                res.send(result[0]);
+            } else {
+                console.log(err);
+                res.send(err);
+            }
+
+        });
    }else {
+        res.status(401);
        message = 'Login to retrieve data';
        res.render('Login.ejs',{message:message});
    }
