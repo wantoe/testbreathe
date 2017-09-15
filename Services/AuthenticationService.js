@@ -35,7 +35,9 @@ module.exports = function (passport) {
 
                     }else {
 
-                    return done(null,false, {message: 'Invalid Credentials'});}
+                    return done(null,false, {message: 'Invalid Credentials'});
+
+                    }
                     }
 
                 );
@@ -43,9 +45,10 @@ module.exports = function (passport) {
             }
             //If passwords don't match send error message and redirect to login page.
             else {
-                message = 'Wrong Username or Password';
-                this.res.render('Login.ejs', {message: message});
+                return done(null,false, {message: 'Invalid Credentials'});
             }
+
+
 
 
     });

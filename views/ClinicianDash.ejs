@@ -27,6 +27,8 @@
                     <span class="collapse in hidden-xs">Breathe Hero</span></a></li>
                 <li><a href="#"><span class="collapse in hidden-xs">Dashboard</span> <i style="float: right;"
                                                                                                  class="fa fa-list"></i> </a></li>
+                <li><a href="/UserSettingsDashboard"><span class="collapse in hidden-xs">User Requirements</span> <i style="float: right;"
+                                                                                        class="fa fa-list"></i> </a></li>
                 <li><a href="/logout"><span class="collapse in hidden-xs">Logout</span> <i style="float:right;"
                                                                                            class="fa fa-sign-out"
                                                                                            aria-hidden="true"></i>
@@ -44,7 +46,8 @@
                    data-side-pagination="server"
                    data-pagination="true"
                    data-page-list="[5, 10, 20]"
-                   data-search="true">
+                   data-search="true"
+                   data-row-style="getUserStats">
                 <thead>
                 <tr>
                     <th data-field="user_id">ID</th>
@@ -128,6 +131,7 @@
 
 <script>
     $('.container').on("click", "#table tr", function(){
+        getUserStats();
         $(this).addClass('selected').siblings().removeClass('selected');
         var value= $(this).find('td:first').html();
         var id = '?userId=';
@@ -136,7 +140,7 @@
         // Get the modal
         var modal = document.getElementById('graphModal');
 
-        // Get the button that opens the modal
+        jQuery('#graphModal').show()
 
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("closeGraphModal")[0];
@@ -164,6 +168,69 @@
     });
 
 
+    var tableEvent = $('#table');
+
+    tableEvent.on('page-change.bs.table', function (e, name, args){
+
+    })
+
+    tableEvent.on('search.bs.table', function (e, name, args){
+
+    })
+
+    function getUserStats(value,row,index){
+        var classes = ['active', 'success', 'info', 'warning', 'danger'];
+
+
+
+
+
+
+
+                var id = value.user_id;
+
+                $.get('/api/UserRequirements' + '?userId=' + id, function results(data,status) {
+                    $('#TimeInfo').text('Daily CPT Time : ' + data[0].weekly_time );
+                    $('#PressureInfo').text('CPT Pressure : ' + data[0].max_pressure);
+
+                    $.get('/api/WeeklyQuota'+ '?userId=' + id, function results(data,status){
+                        console.log(weeklyTime);
+
+                        var duration = (data[0]['SUM(duration)']);
+                        var weeklyTime = data[0].weekly_time;
+                        var index;
+                        console.log(weeklyTime);
+
+                        switch(data[0]['SUM(duration)']){
+                            case null:
+
+                                index = 4;
+                                break;
+                            case duration < ((weeklyTime * 7)/2):
+
+                                index = 4;
+                                break;
+                            case duration > ((weeklyTime * 7) /2):
+                                index = 1;
+                                break;
+
+                        }
+
+
+                        return {
+                            classes: classes[index];
+                        };
+                    })
+
+
+                });
+
+
+
+
+
+
+    }
 
 </script>
 

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <!-- Bootstrap Core CSS -->
+    <script src = "../public/js/jquery.js"></script>
+    <script src="../public/js/bootstrap.js" ></script>
+    <link href="../public/css/bootstrap.min.css" rel="Stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../public/css/sidebar.css" rel="stylesheet">
+    <link href="../public/css/ClinicianDash.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../public/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="row row-offcanvas row-offcanvas-left">
+        <!-- sidebar -->
+        <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar" >
+            <ul class="nav" id="menu">
+                <li style="text-align: center"><a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i>
+                        <span class="collapse in hidden-xs">Breathe Hero</span></a></li>
+                <li><a href="/ClinicianDash"><span class="collapse in hidden-xs">Dashboard</span> <i style="float: right;"
+                                                                                        class="fa fa-list"></i> </a></li>
+                <li><a href="/UserSettingsDashboard"><span class="collapse in hidden-xs">User Requirements</span> <i style="float: right;"
+                                                                                                                     class="fa fa-list"></i> </a></li>
+                <li><a href="/logout"><span class="collapse in hidden-xs">Logout</span> <i style="float:right;"
+                                                                                           class="fa fa-sign-out"
+                                                                                           aria-hidden="true"></i>
+                    </a></li>
+            </ul>
+        </div>
+        <!-- /sidebar -->
+
+        <div class="container" style="width: 500px; height: 500px; margin: auto">
+            <table id="table"
+                   data-toggle="table"
+                   data-url="/api/ClinicalData/"
+                   data-height="400"
+                   data-width = "200px"
+                   data-side-pagination="server"
+                   data-pagination="true"
+                   data-page-list="[5, 10, 20]"
+                   data-search="true">
+                <thead>
+                <tr>
+                    <th data-field="user_id">ID</th>
+                    <th data-field="username">Username</th>
+                    <th data-field="email">Email</th>
+                    <th data-field="first_name">First Name</th>
+                    <th data-field="last_name">Last Name</th>
+
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+
+
+
+
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal" >
+
+            <!-- Modal content -->
+            <div class="modal-content" style="padding: 10px">
+                <span class="close">&times;</span>
+
+                <h3 style="text-align: center">Current Daily User Requirements</h3>
+                <label for="stime">Current Daily CPT Time</label>
+                <p id = "stime"></p>
+                <label for="spressure">Current CPT Pressure</label>
+                <p id = "spressure"></p>
+                <br>
+                <br>
+                <h3> Set new user Values</h3>
+                <form method="post" onsubmit="sent" action="/api/UserRequirements">
+
+
+                <label for="userId"> User </label>
+                <input type="number" id ="userId"   name="userId" value="">
+                <label for="NewTime">New Time</label>
+                <input type="number" id="NewTime" name="new_time" placeholder="New Time">
+
+                <label for="NewPressure">New Pressure</label>
+                <input type="number" id="NewPressure" name="new_pressure" placeholder="New Pressure">
+
+
+
+                <input type="submit" value="Submit">
+
+                </form>
+            </div>
+
+        </div>
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- /main -->
+
+</body>
+
+</html>
+
+<script>
+    $('.container').on("click", "#table tr", function(){
+        $(this).addClass('selected').siblings().removeClass('selected');
+        var value= $(this).find('td:first').html();
+        var id = '?userId=';
+        console.log(value);
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        $.get('/api/UserRequirements' + id + value, function(data,status){
+
+            console.log(data[0]);
+            $('#stime').text(data[0].weekly_time);
+            $('#spressure').text(data[0].max_pressure);
+            $('#userId').value(value);
+        });
+
+        $('#myModal').toggle();
+
+        // Get the button that opens the modal
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        modal.style.display = "block";
+        $(".bootstrap-table").hide();
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+            $(".bootstrap-table").toggle();
+            resetCanvas();
+
+        };
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                $(".bootstrap-table").toggle();
+                resetCanvas();
+
+            }
+        }
+    });
+
+
+
+</script>
+
+<script>
+
+</script>
+
+<style>
+    input[type=number], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+
+</style>

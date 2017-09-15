@@ -56,6 +56,10 @@
     margin:auto;" id="main">
             <h2 style="text-align: center">  View your data!  </h2>
             <h3 style="text-align: center">  Click the columns for more information.  </h3>
+            <div class="alert alert-info" id = "TimeInfo"> </div>
+            <div class="alert alert-info" id = "PressureInfo"> </div>
+            <div style="display: none" class="alert alert-danger" id ="belowThresh"></div>
+            <div style="display: none" class="alert alert-success" id="aboveThresh"></div>
         </div>
         <!-- /main -->
 
@@ -63,6 +67,8 @@
 
 
     </div>
+
+
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
@@ -101,6 +107,35 @@ getData(value);
 </script>
 
 <script>
+
+    $.get('api/UserRequirements', function results(data,status) {
+        $('#TimeInfo').text('Daily CPT Time : ' + data[0].weekly_time );
+        $('#PressureInfo').text('CPT Pressure : ' + data[0].max_pressure);
+
+        $.get('api/WeeklyQuota', function results(data2,status) {
+
+
+            var duration = (data2[0]['SUM(duration)']);
+            var weeklyTime = data[0].weekly_time;
+            var danger = $('#belowThresh');
+            var success = $('#aboveThresh');
+
+
+
+            if (duration === null) {
+                danger.css('display', "block");
+                danger.text('You have completed No CPT sessions this week.');
+            } else if (duration < ((weeklyTime * 7) / 2)) {
+                danger.css('display', 'block');
+                danger.text('You are below 50% for CPT this week ');
+            } else if (duration > ((weeklyTime * 7) / 2)) {
+                console.log('hey');
+                success.css('display', 'block');
+                success.text('Over 50% of weekly sessions done.');
+            }
+
+        });
+    });
     var modal = document.getElementById('myModal');
 
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <!-- Bootstrap Core CSS -->
-    <script src="../public/js/jquery.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
     <link href="../public/css/bootstrap.min.css" rel="Stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../public/css/sidebar.css" rel="stylesheet">
@@ -35,7 +35,7 @@
         </div>
         <!-- /sidebar -->
 
-        <div class="container" style="width: 500px; height: 500px; margin: auto">
+        <div class="container" style="width: 500px; height: 350px; margin: auto">
             <table id="table"
                    data-toggle="table"
                    data-url="api/PendingClinicians"
@@ -56,11 +56,15 @@
                     <th data-field="clinic">Clinic</th>
                 </tr>
                 </thead>
+
             </table>
-            <button id="createAccounts"  style=" display: none; position: absolute; bottom: 60.60%" class="btn btn-primary">Create Accounts </button>
+
+
         </div>
-
-
+        <div style="margin:auto; text-align: center">
+            <a class="btn btn-success" href="googl">Create Accounts </a>
+            <a class="btn btn-danger" >Delete Accounts </a>
+        </div>
     </div>
 
 
@@ -77,7 +81,6 @@
 
     $('#table').on('uncheck.bs.table', function (e, row) {
         $.each(checkedRows, function(index, value) {
-            console.log(checkedRows);
             if (value.id === row.username) {
                 checkedRows.splice(index,1);
             }

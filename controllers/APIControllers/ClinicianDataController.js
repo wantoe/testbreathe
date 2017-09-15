@@ -59,3 +59,38 @@ exports.getPendingClincians = function (req,res){
         res.send(401);
     }
 };
+
+
+exports.UpdateUserData = function(req,res){
+    var post = req.body;
+    var pressure = post.new_pressure;
+    var time = post.new_time;
+    var userId = post.userId;
+    var SQL;
+
+    console.log(post.new_pressure);
+    console.log('reaching');
+
+
+    SQL = 'Call UpdatePatientLimits(?,?,?)';
+
+    if(req.session.passport.user.roleId === 3){
+
+        db.query(SQL,[userId,time,pressure], function updateUser(err,results){
+
+           if(err){
+               console.log(err);
+               res.send(500);
+           } else {
+               console.log('done');
+               //RENDER PAGE TO SHOW SUCCESS
+               res.status(200)
+               res.render();
+           }
+
+        });
+
+    }else {
+        res.sendStatus(403);
+    }
+};

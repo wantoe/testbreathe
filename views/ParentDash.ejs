@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <!-- Bootstrap Core CSS -->
+    <script src = "../public/js/jquery.js"></script>
+    <link href="../public/css/bootstrap.min.css" rel="Stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../public/css/sidebar.css" rel="stylesheet">
+    <link href="../public/css/patientdashboard.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../public/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+    <script src = "../public/js/jquery.js"></script>
+    <script src=  "../public/js/loadgraph.js"></script>
+    <!--- Header --->
+
+
+</head>
+<body>
+
+
+
+<div class="wrapper">
+    <div class="row row-offcanvas row-offcanvas-left">
+        <!-- sidebar -->
+        <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
+            <ul class="nav" id="menu">
+
+                <li style="text-align: center"><a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i>
+                        <span class="collapse in hidden-xs">Breathe Hero</span></a></li>
+                <li><a href="/dashboard"><span class="collapse in hidden-xs">Dashboard</span> <i style="float: right;"
+                                                                                                 class="fa fa-list"></i> </a></li>
+                <li><a href="/datasubmit"> <span class="collapse in hidden-xs">Submit Data</span> <i style="float: right;"
+                                                                                                     class="fa fa-paperclip"></i></a>
+                </li>
+                <li><a href="/ParentSignUp"> <span class="collapse in hidden-xs">Parent Signup</span> <i style="float: right;"
+                                                                                                         class="fa fa-user"></i></a>
+                </li>
+                <li><a href="/logout"><span class="collapse in hidden-xs">Logout</span> <i style="float:right;"
+                                                                                           class="fa fa-sign-out"
+                                                                                           aria-hidden="true"></i>
+                    </a></li>
+            </ul>
+        </div>
+        <!-- /sidebar -->
+
+        <!-- main right col -->
+        <div class="column col-sm-9 col-xs-11"  style="    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;" id="main">
+            <h2 style="text-align: center">  View your data!  </h2>
+            <h3 style="text-align: center">  Click the columns for more information.  </h3>
+            <div class="alert alert-info" id = "TimeInfo"> </div>
+            <div class="alert alert-info" id = "PressureInfo"> </div>
+            <div style="display: none" class="alert alert-danger" id ="belowThresh"></div>
+            <div style="display: none" class="alert alert-success" id="aboveThresh"></div>
+        </div>
+        <!-- /main -->
+
+
+
+
+    </div>
+
+
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id = "session_start"></p>
+            <p id = "average_exhl_pressure"></p>
+            <p id = "average_exhl_time"> </p>
+            <p id = "successful_breaths"></p>
+            <p id = "successful_huff_coughs"></p>
+            <p id="unsuccessful_breaths_pressure"></p>
+            <p id="unsuccessful_breaths_time"></p>
+        </div>
+
+    </div>
+
+    <canvas style="
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto; position: absolute" id="myChart"></canvas>
+
+
+
+</div>
+
+</body>
+
+
+<script>
+    value = ' ';
+    getData(value);
+
+
+</script>
+
+<script>
+
+    $.get('api/UserRequirements', function results(data,status) {
+        $('#TimeInfo').text('Daily CPT Time : ' + data[0].weekly_time );
+        $('#PressureInfo').text('CPT Pressure : ' + data[0].max_pressure);
+
+        $.get('api/WeeklyQuota', function results(data2,status) {
+
+
+            var duration = (data2[0]['SUM(duration)']);
+            var weeklyTime = data[0].weekly_time;
+            var danger = $('#belowThresh');
+            var success = $('#aboveThresh');
+
+
+
+            if (duration === null) {
+                danger.css('display', "block");
+                danger.text('You have completed No CPT sessions this week.');
+            } else if (duration < ((weeklyTime * 7) / 2)) {
+                danger.css('display', 'block');
+                danger.text('You are below 50% for CPT this week ');
+            } else if (duration > ((weeklyTime * 7) / 2)) {
+                console.log('hey');
+                success.css('display', 'block');
+                success.text('Over 50% of weekly sessions done.');
+            }
+
+        });
+    });
+    var modal = document.getElementById('myModal');
+
+
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+</html>

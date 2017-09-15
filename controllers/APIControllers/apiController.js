@@ -14,23 +14,25 @@ exports.sentData = function (req,res) {
     this. average_exhl_pressure = post.average_exhl_pressure;
     this. average_exhl_time = post.average_exhl_time;
     this. huff_coughs = post.successful_huff_coughs;
+    var source;
 
 
-
-    if(req.session === undefined){
+    if(req.session.passport.user.id === undefined){
         this.idToPost = req.user.userId;
+        source = 'GAME';
     }else {
-        this. idToPost = req.session.userId;
+        this. idToPost = req.session.passport.user.id;
+        source = 'MANUAL'
 
     }
 
     console.log(req.user.userId);
 
-    this. SQL = 'Call InsertPatientData(?,?,?,?,?,?,?,?,?)';
+    this. SQL = 'Call InsertPatientData(?,?,?,?,?,?,?,?,?,?)';
 
     switch (idToPost){
         case undefined:
-            if(req.session !== undefined ) {
+            if(req.session.passport.user.id  !== undefined ) {
                 res.status(403);
                 message = 'Login to send data';
                 res.render('Login.ejs', {message: message});
@@ -39,7 +41,7 @@ exports.sentData = function (req,res) {
             }
             break;
          default :
-             db.query(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs], function insertData(err, results) {
+             db.query(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs,source], function insertData(err, results) {
                  console.log(err);
                  console.log(results);
                  res.status(200);
@@ -75,7 +77,7 @@ exports.getData = function (req,res) {
 
                break;
            case 2:
-               // implement later
+               //implement later
                break;
            case 3:
            case 4:
@@ -105,6 +107,64 @@ exports.getData = function (req,res) {
 };
 
 
+exports.satisfiedHours = function (req,res){
+    var userId;
+    var SQL;
+    console.log('hello');
+    if(req.session.passport.user.roleId ===  1) {
+         userId = req.session.passport.user.id;
+    }else {
+         userId = req.query.userId;
+
+    }
+
+   if (req.session.passport.user.roleId !== undefined){
+        SQL = 'CALL GetWeeklyPatientData(?)';
+
+       db.query(SQL,[userId], function checkReqs(err,results){
+
+            if(err){
+                console.log(err);
+                res.sendStatus(500);
+            }else {
+                res.send(results[0]);
+            }
+
+       });
+
+
+   }else {
+       res.sendStatus(403);
+   }
 
 
 
+};
+
+
+exports.getUserRequirements = function findUserHours(req,res){
+    var userId;
+    var SQL;
+
+    console.log('hi');
+
+    if(req.session.passport.user.roleId ===  1) {
+        userId = req.session.passport.user.id;
+    }else {
+        userId = req.query.userId;
+
+    }
+
+    SQL = 'CALL GetUserRequirements(?)';
+
+
+    db.query(SQL,[userId], function checkReqs(err,results){
+
+        if(err){
+            res.sendstatus(500);
+        }else {
+            res.send(results[0]);
+        }
+    });
+
+};

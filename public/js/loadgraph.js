@@ -119,8 +119,8 @@ function getData(value) {
      $('#unsuccessful_breaths_pressure').text(' ');
      $('#unsuccessful_breaths_time').text(' ');
     canvas = document.querySelector('#myChart');
-    ctx.canvas.width =500 ; // resize to parent width
-    ctx.canvas.height =500 ; // resize to parent height
+    canvas.width =500 ; // resize to parent width
+    canvas.height =500 ; // resize to parent height
 
 }
 

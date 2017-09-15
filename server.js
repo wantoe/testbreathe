@@ -4,6 +4,7 @@ var express = require('express')
     , apiRoutes = require('./controllers/APIControllers/apiController')
     , navigation = require('./controllers/LoginControllers/NavigationController')
     , ClinicianPortal = require('./controllers/APIControllers/ClinicianDataController')
+    ,flash = require('req-flash')
     , http = require('http')
     , path = require('path')
 ;
@@ -47,14 +48,17 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
 require('./Services/AuthenticationService') (passport);
 //Start up the website
 app.listen(port);
 
 
+
+app.post('/api/ValidateClinicians');
 
 app.get('/', routes.index);//call for main page
 
@@ -72,6 +76,11 @@ app.get('/datasubmit', ensureAuthenticated, navigation.senddata);
 
 app.get('/api/ClinicalData', ensureAuthenticated, ClinicianPortal.getUserInfo);
 
+app.get('/api/UserRequirements', ensureAuthenticated, apiRoutes.getUserRequirements);
+
+app.post('/api/UserRequirements',ensureAuthenticated, ClinicianPortal.UpdateUserData);
+
+app.get('/api/WeeklyQuota',ensureAuthenticated, apiRoutes.satisfiedHours);
 
 app.get('/api/PendingClinicians', ensureAuthenticated,  ClinicianPortal.getPendingClincians);
 
@@ -89,11 +98,11 @@ app.get('/SignUpPhysician',   navigation.clinicianSignup);
 
 app.get('/ParentSignUp', ensureAuthenticated, navigation.parentSignUp);
 
-app.get('/api/me',
-    passport.authenticate('basic', { session: false }),
-    function(req, res) {
-        res.json(req.user);
-    });
+app.get('/UserSettingsDashboard',ensureAuthenticated, navigation.userSettingsDashboard);
+
+app.get('/ClinicianDash',ensureAuthenticated, navigation.clinicianDash);
+
+
 
 function ensureAuthenticated(req, res, next) {
     console.log('ensureAuthenticated');

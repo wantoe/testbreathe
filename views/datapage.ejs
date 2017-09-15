@@ -45,6 +45,9 @@
         <form class="cf" action="/api/userdata" method="post" onsubmit="sent">
             <h2> Submit Data </h2>
             <h3>Seperate multiple inputs using commas</h3>
+            <% if (message.length > 0) { %>
+            <div style="text-align: center;"><h3 style="color:whitesmoke"><%= message %></h3></div>
+            <% } %>
             <div >
                 <input name = 'time' type="datetime-local" id="input-name" placeholder="Session Start" min="2015-01-01T00:00:00" required="required">
                 <input name='duration' type="number" id="input-email" placeholder="Duration" min ="1" required="required">

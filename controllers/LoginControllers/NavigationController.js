@@ -29,6 +29,16 @@ exports.clinicianSignup = function(req,res){
   res.render('SignUpPhysician.ejs',{message:message});
 };
 
+
+exports.clinicianDash = function(req,res){
+    var message = '';
+    if (req.session.passport.user.roleId === 3){
+        res.render('ClinicianDash.ejs', {message:message});
+    }else {
+        res.sendStatus(403);
+    }
+};
+
 exports.signUpAdmin = function(req,res){
 
     if(req.session.passport.user.roleId === 4){
@@ -55,4 +65,13 @@ exports.parentSignUp = function(req,res){
         res.render('ParentSignUp.ejs',{message:message});
     }
 
+};
+
+exports.userSettingsDashboard = function (req,res){
+    var message = '';
+    if (req.session.passport.user.roleId === 3){
+        res.render('userSettingsDashboard.ejs', {message:message});
+    }else {
+        res.sendStatus(403);
+    }
 };
