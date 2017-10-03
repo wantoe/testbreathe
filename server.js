@@ -4,9 +4,11 @@ var express = require('express')
     , apiRoutes = require('./controllers/APIControllers/apiController')
     , navigation = require('./controllers/LoginControllers/NavigationController')
     , ClinicianPortal = require('./controllers/APIControllers/ClinicianDataController')
-    ,flash = require('req-flash')
+    ,flash = require('connect-flash')
     , http = require('http')
     , path = require('path')
+    ,parent = require('./controllers/APIControllers/ParentController')
+    ,validateClinicians = require('./controllers/APIControllers/ClinicianValidationController')
 ;
 
 const passport = require('passport');
@@ -48,9 +50,9 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 require('./Services/AuthenticationService') (passport);
 //Start up the website
@@ -58,11 +60,13 @@ app.listen(port);
 
 
 
-app.post('/api/ValidateClinicians');
+app.post('/api/ValidateClinicians', validateClinicians.ValidateClinicians);
 
 app.get('/', routes.index);//call for main page
 
-app.post('/login', passport.authenticate('local-login', { failureRedirect: '/',failureFlash: true }), user.login);//call for login post
+app.get('/api/child', parent.GetChildData);
+
+app.post('/login', user.login);//call for login post
 
 app.post('/signup', user.signup);//call for signup post
 
@@ -98,7 +102,11 @@ app.get('/SignUpPhysician',   navigation.clinicianSignup);
 
 app.get('/ParentSignUp', ensureAuthenticated, navigation.parentSignUp);
 
+app.post('/ParentSignUp',ensureAuthenticated,user.signUpParent);
+
 app.get('/UserSettingsDashboard',ensureAuthenticated, navigation.userSettingsDashboard);
+
+app.get('/ParentDash', ensureAuthenticated, navigation.parentdashboard);
 
 app.get('/ClinicianDash',ensureAuthenticated, navigation.clinicianDash);
 
@@ -106,7 +114,7 @@ app.get('/ClinicianDash',ensureAuthenticated, navigation.clinicianDash);
 
 function ensureAuthenticated(req, res, next) {
     console.log('ensureAuthenticated');
-    if (req.isAuthenticated()) {
+    if (req.session.userId !== undefined) {
         return next();
     }
     passport.authenticate('basic',{session: false} )(req,res,next);}

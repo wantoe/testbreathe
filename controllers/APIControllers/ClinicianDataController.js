@@ -6,7 +6,7 @@ exports.getUserInfo = function (req,res){
     var count = '';
     var total = '';
     // Enter security here
-    if(req.session.passport.user.roleId >2) {
+    if(req.session.roleId >2) {
         if (search === undefined)
             search = "";
 
@@ -41,7 +41,7 @@ exports.getPendingClincians = function (req,res){
 
     //Security needed
 
-    if(req.session.passport.user.roleId === 4) {
+    if(req.session.roleId === 4) {
         SQL = 'CALL GetPendingClinicians(?,?)';
         SQLCount = 'CALL CountTemporaryClinicians()';
         db.query(SQL, [limit, offset], function (err, result2) {
@@ -74,7 +74,7 @@ exports.UpdateUserData = function(req,res){
 
     SQL = 'Call UpdatePatientLimits(?,?,?)';
 
-    if(req.session.passport.user.roleId === 3){
+    if(req.session.roleId === 3){
 
         db.query(SQL,[userId,time,pressure], function updateUser(err,results){
 
@@ -85,7 +85,7 @@ exports.UpdateUserData = function(req,res){
                console.log('done');
                //RENDER PAGE TO SHOW SUCCESS
                res.status(200)
-               res.render();
+               res.render('UserSettingsDashboard.ejs',{message:'Success!'});
            }
 
         });

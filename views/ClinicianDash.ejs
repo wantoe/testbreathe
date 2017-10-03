@@ -16,6 +16,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
     <script src="../public/js/loadgraph.js "></script>
+
             </head>
 <body>
 <div class="wrapper">
@@ -128,10 +129,8 @@
 </body>
 
 </html>
-
 <script>
     $('.container').on("click", "#table tr", function(){
-        getUserStats();
         $(this).addClass('selected').siblings().removeClass('selected');
         var value= $(this).find('td:first').html();
         var id = '?userId=';
@@ -168,65 +167,54 @@
     });
 
 
-    var tableEvent = $('#table');
 
-    tableEvent.on('page-change.bs.table', function (e, name, args){
-
-    })
-
-    tableEvent.on('search.bs.table', function (e, name, args){
-
-    })
 
     function getUserStats(value,row,index){
         var classes = ['active', 'success', 'info', 'warning', 'danger'];
-
-
-
+            var ind;
 
 
 
 
                 var id = value.user_id;
+                var rows = $('tbody', '#table');
+                var children = rows["0"].children
 
                 $.get('/api/UserRequirements' + '?userId=' + id, function results(data,status) {
                     $('#TimeInfo').text('Daily CPT Time : ' + data[0].weekly_time );
                     $('#PressureInfo').text('CPT Pressure : ' + data[0].max_pressure);
 
-                    $.get('/api/WeeklyQuota'+ '?userId=' + id, function results(data,status){
-                        console.log(weeklyTime);
+                    $.get('/api/WeeklyQuota'+ '?userId=' + id, function results(data2,status){
 
-                        var duration = (data[0]['SUM(duration)']);
+                        var duration = (data2[0]['SUM(duration)']);
                         var weeklyTime = data[0].weekly_time;
-                        var index;
-                        console.log(weeklyTime);
-
-                        switch(data[0]['SUM(duration)']){
-                            case null:
-
-                                index = 4;
+                        switch(true){
+                            case (duration === null):
+                                children[row].classList.value = 'danger';
                                 break;
-                            case duration < ((weeklyTime * 7)/2):
+                            case (duration < ((weeklyTime * 7)/2)):
 
-                                index = 4;
+                                children[row].classList.value = 'danger';
+
                                 break;
-                            case duration > ((weeklyTime * 7) /2):
-                                index = 1;
+                            case (duration > (weeklyTime* 7)/2):
+                                children[row].classList.value = 'success';
+
                                 break;
 
                         }
 
 
-                        return {
-                            classes: classes[index];
-                        };
+
                     })
 
 
                 });
 
 
-
+        return {
+            classes: classes[0]
+        };
 
 
 
@@ -237,3 +225,4 @@
 <script>
 
 </script>
+

@@ -8,25 +8,66 @@ var bcrypt = require('bcrypt'); // encryption library
  * page.
  * */
 // Exports the method use to handle login form
-exports.login = function loginUser(req, res) {
-    var userId = req.session.passport.user.id;
-    var roleId = req.session.passport.user.roleId;
+exports.login = function (req, res) {
+    var post = req.body;
+    var sess = req.session;
+    var username = post.username;
+    var password = post.password;
+    var message = '';
+    var fs = require('fs');
 
-    console.log('HEY');
-    switch (roleId){
-        case 1:
-        case 2:
-            message = 'Welcome ' + ' To the BreatheHero Portal';
-            res.render('Dashboard.ejs', {message: message});
-            break;
-        case 3:
-            res.render('ClinicianDash.ejs');
-            break;
-        case 4:
-            res.render('AdminDash.ejs');
-            break;
+    //Initialize stored procedure to call
+    var SQL = 'CALL CheckAccount(?)';
 
-    }
+    // Calls the query, and handles the result in a callback function
+    db.query(SQL, [username], function (err, results) {
+
+        // If the passwords match, start a session and send user to dashboard.
+        if (results[0].length > 0 ) {
+            //CHANGE SO THAT IT USES SELECT DISTINCT
+
+            bcrypt.compare(password, results[0][0].password, function(req,isValid) {
+
+
+                if (isValid || results[0][0].password === password) {
+                    var ress = results[0][0];
+                    sess.userId = ress.user_id;
+                    sess.userName = ress.username;
+                    sess.email = results[0].email;
+                    sess.firstName = ress.first_name;
+                    sess.lastName = ress.last_name;
+                    sess.roleId = ress.role_id;
+
+                    console.log(sess.id);
+                    var role_id = sess.roleId;
+                    if (role_id === 1) {
+                        message = 'Welcome ' + ' To the BreatheHero Portal';
+                        res.render('Dashboard.ejs', {message: message});
+                    } else if (role_id === 2) {
+                        message = 'Welcome ' + ' To the BreatheHero Portal';
+                        res.render('ParentDash.ejs', {message: message});
+
+                    } else if (role_id === 3) {
+                        // Clinician portal
+                        res.render('ClinicianDash.ejs');
+                    } else if (role_id === 4) {
+                        //admin portal
+                        res.render('AdminDash.ejs');
+                    }
+
+                }else {
+                    message ='Invalid Credentials';
+                    res.render('Login.ejs', {message: message});
+                }
+            });
+        }
+        //If passwords don't match send error message and redirect to login page.
+        else {
+            message = 'Wrong Username or Password';
+            res.render('Login.ejs', {message: message});
+        }
+    });
+
 };
 
 /**
@@ -186,7 +227,7 @@ exports.signupAdmin = function (req, res) {
 
                 db.query(SQL, [username, hash, email, firstname, lastname, 4], function (err, results) {
 
-                    if (err !== null) {
+                    if (err) {
 
                         message = "Sorry, that username is taken please try another one.";
                         console.log(err);
@@ -220,18 +261,23 @@ exports.signUpParent = function signUpParent(req,res){
     this.firstname = post.first_name;
     this.lastname = post.last_name;
     this.rpassword = post.confirm_password;
-    this.child = req.session.passport.user.id;
+    this.child = req.session.userId;
 
-    var SQL = 'CALL CreateParent(?,?,?,?,?,?,?)';
+    var SQL = 'CALL CreateParent(?,?,?,?,?,?)';
 
-    db.query(SQL, [username,password,email,firstname,lastname,child], function (err,res){
+    bcrypt.genSalt(13, function (err, salt) {
+        bcrypt.hash(password, salt, function (err, hash) {
+            db.query(SQL, [username, password, email, firstname, lastname, child], function (err, results) {
 
-        if(err){
-            res.sendStatus(500);
-        }else {
-            res.render('ParentSignUp.ejs',{message:'Success!'});
-        }
+                if (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                } else {
+                    res.render('ParentSignUp.ejs', {message: 'Success!'});
+                }
 
+            });
+        });
     });
 
 };
@@ -249,8 +295,8 @@ Destroys session on logout and redirects to login page.
  */
 exports.logout = function (req, res) {
     req.logout();
+    req.session.destroy();
     res.redirect('/');
-
 
 };
 

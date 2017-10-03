@@ -1,32 +1,49 @@
 
 exports.ValidateClinicians = function validateClinicians(req,res){
   post = req.body;
-  cliniciansToValidate = req.body.acceptedClinicians;
-  cliniciansToDecline = req.body.deniedClinicians;
 
+cliniciansToValidate = post.users;
 
-  SQLVerify = 'CALL ValidateClinicians(?)';
-  SQLDecline = 'CALL DeletePendingClinicians(?)';
+ var SQLVerify = 'CALL ValidateClinicians(?)';
 
+ var usernameString = '';
+ var len = cliniciansToValidate.length;
+console.log(post.users);
 
 if (cliniciansToValidate !== undefined)
-db.query(SQLVerify,[cliniciansToDecline]);
+db.query(SQLVerify,[cliniciansToValidate], function (err, results){
+    var   message ='Success!';
 
+    if(err){
+        console.log(err);
+        message = 'Error try again';
+    }
 
-if (cliniciansToDecline !== undefined)
-db.query(SQLDecline, [cliniciansToDecline]);
+    res.render('AdminDash.ejs', {message:message});
 
-
-    res.status(200);
-    res.render('AdminDash', {message: 'Success'});
-
-
-
-
-
+});
 
 
 
+};
 
 
+exports.DeclineClinicians = function DeclineClinicians(req,res){
+   var SQLDecline = 'CALL DeletePendingClinicians(?)';
+
+   post = req.body;
+   clinicians = post.users;
+
+   db.query(SQLDecline, [clinicians], function(err,results){
+
+      var  message ='Success!';
+
+        if(err){
+            console.log(err);
+             message = 'Error try again';
+        }
+
+        res.render('AdminDash.ejs', {message:message});
+
+    });
 };

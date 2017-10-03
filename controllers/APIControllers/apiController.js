@@ -17,11 +17,11 @@ exports.sentData = function (req,res) {
     var source;
 
 
-    if(req.session.passport.user.id === undefined){
+    if(req.session.userId === undefined){
         this.idToPost = req.user.userId;
         source = 'GAME';
     }else {
-        this. idToPost = req.session.passport.user.id;
+        this. idToPost = req.session.userId;
         source = 'MANUAL'
 
     }
@@ -32,7 +32,7 @@ exports.sentData = function (req,res) {
 
     switch (idToPost){
         case undefined:
-            if(req.session.passport.user.id  !== undefined ) {
+            if(req.session.userId  !== undefined ) {
                 res.status(403);
                 message = 'Login to send data';
                 res.render('Login.ejs', {message: message});
@@ -58,17 +58,18 @@ exports.getData = function (req,res) {
 
     var userId;
     var roleId;
+    console.log(req);
 
-    if(req.session === undefined){
+    if(req.session.userId === undefined){
         userId = req.user.userId;
         roleId = req.user.roleId;
     }else {
-        userId = req.session.passport.user.id;
-        roleId = req.session.passport.user.roleId;
+        userId = req.session.userId;
+        roleId = req.session.roleId;
     }
     this. idToPost = req.query.userId;
 
-    console.log(idToPost);
+    console.log(req.session);
 
     if(userId !== undefined) {
        switch (roleId) {
@@ -77,7 +78,7 @@ exports.getData = function (req,res) {
 
                break;
            case 2:
-               //implement later
+               idToPost = req.session.childId;
                break;
            case 3:
            case 4:
@@ -110,15 +111,19 @@ exports.getData = function (req,res) {
 exports.satisfiedHours = function (req,res){
     var userId;
     var SQL;
+    var roleId = req.session.roleId;
     console.log('hello');
-    if(req.session.passport.user.roleId ===  1) {
-         userId = req.session.passport.user.id;
+    if(roleId ===  1) {
+         userId = req.session.userId;
+    }else if (roleId === 2){
+
+        userId = req.session.childId;
     }else {
          userId = req.query.userId;
 
     }
 
-   if (req.session.passport.user.roleId !== undefined){
+   if (req.session.roleId !== undefined){
         SQL = 'CALL GetWeeklyPatientData(?)';
 
        db.query(SQL,[userId], function checkReqs(err,results){
@@ -145,11 +150,14 @@ exports.satisfiedHours = function (req,res){
 exports.getUserRequirements = function findUserHours(req,res){
     var userId;
     var SQL;
-
+    var roleId = req.session.roleId;
     console.log('hi');
 
-    if(req.session.passport.user.roleId ===  1) {
-        userId = req.session.passport.user.id;
+    if( roleId ===  1) {
+        userId = req.session.userId;
+    }else if (roleId === 2){
+        userId = req.session.childId;
+
     }else {
         userId = req.query.userId;
 
