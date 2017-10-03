@@ -44,7 +44,20 @@
                    data-side-pagination="server"
                    data-pagination="true"
                    data-page-list="[5, 10, 20]"
-                   data-search="true">
+                   data-search="true"
+                   data-toolbar="#toolbar"
+                   data-show-refresh="true"
+                   data-show-toggle="true"
+                   data-show-columns="true"
+                   data-show-export="true"
+                   data-detail-view="true"
+                   data-detail-formatter="detailFormatter"
+                   data-minimum-count-columns="2"
+                   data-show-pagination-switch="true"
+            >
+
+
+
                 <thead>
                 <tr>
                     <th data-field="state" data-checkbox="true"></th>
@@ -75,11 +88,7 @@
 <script>
     var checkedRows = [];
     var table = $('#table');
-    $('#createAccounts').on('click',function(e,row) {
 
-
-
-    });
 
     table.on('uncheck.bs.table', function (e, row) {
         $.each(checkedRows, function(index, value) {
@@ -91,12 +100,15 @@
     });
 
     table.on('check.bs.table', function (e, row) {
-        checkedRows.push({id: row.username});
+        var r = row
+        checkedRows.push({username: r.username});
         console.log(checkedRows);
     });
 
     table.on('check-all.bs.table', function (e,rows){
-        checkedRows = rows;
+        for(var v in rows) {
+            checkedRows.push({username: v.username})
+        }
         console.log(checkedRows);
     });
 
@@ -118,6 +130,10 @@
                 }
                 }
 
+            for(var username in checkedRows){
+                console.log(username);
+            }
+
             $.post('/api/ValidateClinicians', {users: usernames});
         }
 
@@ -127,17 +143,18 @@
     function decline(){
         var usernames = '';
         var len = checkedRows.length;
+
         if(len > 0) {
 
             for( i = 0; i < len; i++){
+                console.log(i);
                 if( i !== len -1 ) {
                     usernames = usernames + (checkedRows[i].username + ',');
                 }else {
                     usernames = usernames + (checkedRows[i].username);
                 }
             }
-
-            $.post('/api/DeclineClinicians',usernames);
+            $.post('/api/DeclineClinicians',{users: usernames});
         }
     }
 

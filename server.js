@@ -110,7 +110,7 @@ app.get('/ParentDash', ensureAuthenticated, navigation.parentdashboard);
 
 app.get('/ClinicianDash',ensureAuthenticated, navigation.clinicianDash);
 
-
+app.post('/api/DeclineClinicians', validateClinicians.DeclineClinicians);
 
 function ensureAuthenticated(req, res, next) {
     console.log('ensureAuthenticated');

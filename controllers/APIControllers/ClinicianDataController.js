@@ -47,7 +47,7 @@ exports.getPendingClincians = function (req,res){
         db.query(SQL, [limit, offset], function (err, result2) {
             db.query(SQLCount, function (error, result) {
 
-                total = result[0][0]['count(user_id)'];
+                total = result[0][0]['count(username)'];
                 total = JSON.stringify({total: total, rows: result2[0]}, null, 4);
                 console.log(total);
                 res.send(total);
@@ -84,7 +84,7 @@ exports.UpdateUserData = function(req,res){
            } else {
                console.log('done');
                //RENDER PAGE TO SHOW SUCCESS
-               res.status(200)
+               res.status(200);
                res.render('UserSettingsDashboard.ejs',{message:'Success!'});
            }
 

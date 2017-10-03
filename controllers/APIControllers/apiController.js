@@ -16,6 +16,7 @@ exports.sentData = function (req,res) {
     this. huff_coughs = post.successful_huff_coughs;
     var source;
 
+    console.log(req.body);
 
     if(req.session.userId === undefined){
         this.idToPost = req.user.userId;
@@ -26,7 +27,7 @@ exports.sentData = function (req,res) {
 
     }
 
-    console.log(req.user.userId);
+
 
     this. SQL = 'Call InsertPatientData(?,?,?,?,?,?,?,?,?,?)';
 
@@ -42,11 +43,14 @@ exports.sentData = function (req,res) {
             break;
          default :
              db.query(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs,source], function insertData(err, results) {
-                 console.log(err);
+                 if(err){
+                     res.send(err,400);
+                 }else {
                  console.log(results);
                  res.status(200);
                  message='Success!';
                  res.render('datapage.ejs',{message:message});
+                     }
              });
 
     }
