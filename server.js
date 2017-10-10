@@ -9,6 +9,7 @@ var express = require('express')
     , path = require('path')
     ,parent = require('./controllers/APIControllers/ParentController')
     ,validateClinicians = require('./controllers/APIControllers/ClinicianValidationController')
+    , captcha = require('./Services/CaptchaService')
 ;
 
 const passport = require('passport');
@@ -68,7 +69,7 @@ app.get('/api/child', parent.GetChildData);
 
 app.post('/login', user.login);//call for login post
 
-app.post('/signup', user.signup);//call for signup post
+app.post('/signup',captcha.checkCaptcha, user.signup);//call for signup post
 
 app.get('/logout', user.logout);
 
@@ -88,7 +89,7 @@ app.get('/api/WeeklyQuota',ensureAuthenticated, apiRoutes.satisfiedHours);
 
 app.get('/api/PendingClinicians', ensureAuthenticated,  ClinicianPortal.getPendingClincians);
 
-app.post('/ClinicianSignup', user.signupClinicians);
+app.post('/ClinicianSignup',captcha.checkCaptcha, user.signupClinicians);
 
 app.post('/AdminSignup', ensureAuthenticated,  user.signupAdmin);
 

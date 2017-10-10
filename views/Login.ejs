@@ -7,6 +7,8 @@
     <link href="../public/css/bootstrap.min.css" rel="Stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../public/css/login.css" rel="Stylesheet" type="text/css" media="screen">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
     <h1 style="text-align: center; font-size: 48px; color: whitesmoke;"> Welcome to BreatheHero</h1>
 
 </head>
@@ -23,6 +25,7 @@
             <input type="email" name="email" id="email" required="required" placeholder="Email"/>
             <button>create</button>
             <p class="message" onclick="signin()">Already registered?  <a href="#">Sign In</a></p>
+            <div class="g-recaptcha" data-sitekey="6Lff4DMUAAAAAF0xUkKDZkzT3gJAaizzuiHQbr8-"></div>
         </form>
         <form class="login-form" enctype="application/x-www-form-urlencoded" id="loginform" method="post" role="form" action="/login">
             <input type="text" placeholder="Username" name="username" id="loginusername" required="required"/>

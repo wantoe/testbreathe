@@ -37,7 +37,7 @@ function getData(value) {
                 datasets: [{
                     label: 'Duration',
                     data: dur,
-                    backgroundColor: "rgba(153,255,51,0.4)"
+                    backgroundColor: "rgba(0,0,255,4)"
                 }]
             }
         });
