@@ -1,21 +1,27 @@
 var request = require('request');
 
-exports.checkCaptcha = function checkCaptcha (req,res) {
+exports.checkCaptcha = function checkCaptcha (req,res,next) {
     var secret = '6Lff4DMUAAAAAEURnXObqKGHysA-51VAUDRRHDz5';
-        if(req.body['g-captcha-response'] === undefined){
+    console.log(req.body['g-recaptcha-response']);
+        if(req.body['g-recaptcha-response'] === undefined){
             res.render('Login.ejs', {message:'Please enter the captcha'});
         }else {
+            var formdata ={
+                secret: secret,
+                response :  req.body['g-recaptcha-response']
+            };
             var options = {
-                headers: {'content-type': 'application/x-www-form-urlencoded'},
                 url: 'https://www.google.com/recaptcha/api/siteverify',
-                body: {
-                    secret: secret,
-                    response: body['g-captcha-response']
-                }
+                body: formdata,
+                headers: {
+                    'Content-Type': 'Application/json'
+                },
+                json:true
             };
 
-                request.post(options, function response(err,res){
+                request.post(options, function response(err,resp,body){
                  if(err){
+                     console.log(body);
                      res.render('Login.ejs',{message:'Please enter the captcha'});
                  }else {
                      next();
