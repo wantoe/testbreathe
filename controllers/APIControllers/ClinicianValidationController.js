@@ -6,23 +6,24 @@ cliniciansToValidate = post.users;
 
  var SQLVerify = 'CALL ValidateClinicians(?,?)';
 
- var usernameString = '';
  var len = cliniciansToValidate.length;
-console.log(post.users);
 
-if (cliniciansToValidate !== undefined)
-db.query(SQLVerify,[cliniciansToValidate, len], function (err, results){
-    var   message ='Success!';
+if (cliniciansToValidate !== undefined) {
+    var usernames = cliniciansToValidate.split(',');
+    for(var i in usernames) {
+        console.log(usernames[i]);
+        db.query(SQLVerify, [usernames[i], 1], function (err, results) {
+            var message = 'Success!';
 
-    if(err){
-        console.log(err);
-        message = 'Error try again';
+            if (err) {
+                console.log(err);
+                message = 'Error try again';
+            }
+            console.log(results);
+        });
     }
-    console.log(results);
-    res.render('AdminDash.ejs', {message:message});
-});
-
-
+    res.sendStatus(200);
+}
 
 };
 

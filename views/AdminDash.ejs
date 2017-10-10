@@ -51,7 +51,6 @@
                    data-show-columns="true"
                    data-show-export="true"
                    data-detail-view="true"
-                   data-detail-formatter="detailFormatter"
                    data-minimum-count-columns="2"
                    data-show-pagination-switch="true"
             >
@@ -107,7 +106,8 @@
 
     table.on('check-all.bs.table', function (e,rows){
         for(var v in rows) {
-            checkedRows.push({username: v.username})
+            console.log(rows[v]);
+            checkedRows.push({username: rows[v].username})
         }
         console.log(checkedRows);
     });
@@ -134,7 +134,9 @@
                 console.log(username);
             }
 
-            $.post('/api/ValidateClinicians', {users: usernames});
+            $.post('/api/ValidateClinicians', {users: usernames}, function(err,res){
+                    location.reload();
+            });
         }
 
 
