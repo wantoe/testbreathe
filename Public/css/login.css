@@ -1,10 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
+.wrapper{
+    flex: 1 0 auto;
+}
 .login-page {
     width: 360px;
     padding: 1% 0 0;
     margin: auto;
-    overflow: hidden;
+    position: relative;
 }
 .form {
     position: relative;
@@ -89,7 +91,9 @@
 .container .info span .fa {
     color: #EF3B3A;
 }
-body {
+html,body {
+    display: flex;
+    flex-direction: column;
     background: #76b852; /* fallback for old browsers */
     background: -webkit-linear-gradient(right, #76b852, #8DC26F);
     background: -moz-linear-gradient(right, #76b852, #8DC26F);
@@ -98,16 +102,15 @@ body {
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow: hidden;
-
-}
+    margin:0;
+    min-height: 100vh;
+    }
 
 .footer {
-    position: absolute;
-    right: 0;
+    width: 100%;
     bottom: 0;
-    left: 0;
     padding: 0.2rem;
     background-color: #efefef;
     text-align: center;
+
 }

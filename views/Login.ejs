@@ -9,11 +9,13 @@
     <link href="../public/css/login.css" rel="Stylesheet" type="text/css" media="screen">
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
-    <h1 style="text-align: center; font-size: 48px; color: whitesmoke;"> Welcome to BreatheHero</h1>
 
 </head>
 <body>
-<div class="login-page">
+<div class="wrapper">
+    <h1 style="text-align: center; font-size: 48px; color: whitesmoke;"> Welcome to BreatheHero</h1>
+
+    <div class="login-page">
     <div class="form">
         <form class="register-form" id="signupform" enctype="application/x-www-form-urlencoded" name="signupform" onsubmit="return checkForm()"
               method="post" role="form" action="/signup">
@@ -45,11 +47,15 @@
 </div>
 
 
-</body>
+
+
+</div>
+
+
 
 <div class="footer" style="cursor: pointer" href="#" onclick="showAbout()">
     <h3 style="cursor: pointer;"> <strong>About BreatheHero</strong></h3>
-    <p  id="About Information" style=" display: none; cursor: hand;text-align: left">Developed by University of Auckland staff Robert Gallichan, Katherine Herbert and Dr
+    <p  id="About Information" style=" padding:5px; display: none; cursor: hand;text-align: left">Developed by University of Auckland staff Robert Gallichan, Katherine Herbert and Dr
         Christof Lutteroth,
         BreatheHero is a device that is changing the way children with chronic lung diseases complete Chest
         Physiotherapy(CPT).
@@ -61,7 +67,8 @@
         data.
         BreatheHero is bringing together sensor technology and exergaming and it aims to change the lives of millions with
         chronic lung diseases</p>
-    .</div>
+</div>
+</body>
 <script>
 
 
