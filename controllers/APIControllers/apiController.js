@@ -3,7 +3,12 @@
  */
 
 
-
+/**
+ * Method processes the data that was sent to the API from the user, either from the game or the stanndalone source.
+ * Processes the data to be logged inside of the database and determines the source of it.
+ * @param req the request sent
+ * @param res the response provided
+ */
 exports.sentData = function (req,res) {
     this. post = req.body;
     this. time = post.time;

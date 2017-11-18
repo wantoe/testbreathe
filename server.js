@@ -60,59 +60,138 @@ require('./Services/AuthenticationService') (passport);
 app.listen(port);
 
 
-
+/**
+ * Posting to the ValiadateClinians endpoint, so that you are able to validate clinicians */
 app.post('/api/ValidateClinicians', validateClinicians.ValidateClinicians);
 
+/**
+ * Makes a call to the main page so that you can access it.
+ */
 app.get('/', routes.index);//call for main page
 
+/**
+ * When you are a logged in from a parent, it allows you to access childs data.
+ */
 app.get('/api/child', parent.GetChildData);
 
+/**
+ * Makes a call to login.
+ */
 app.post('/login', user.login);//call for login post
 
+/**
+ * Allows you to sign up as a regular user, have to go through captcha first.
+ */
 app.post('/signup',captcha.checkCaptcha, user.signup);//call for signup post
 
+/**
+ * Logout method, erases the session.
+ */
 app.get('/logout', user.logout);
 
+/**
+ * Allows you to post to the patent's database, either from the portal or through a standalone client.
+ */
 app.post('/api/userdata',ensureAuthenticated, apiRoutes.sentData );
 
+/**
+ * Allows you to retrieve patient data.
+ */
 app.get('/api/userdata', ensureAuthenticated,apiRoutes.getData);
 
+/**
+ *  Takes you to the client page so that you can submit data.
+ */
 app.get('/datasubmit', ensureAuthenticated, navigation.senddata);
 
+/**
+ *  Allows you to get information about the specified user if you are a clinician.
+ */
 app.get('/api/ClinicalData', ensureAuthenticated, ClinicianPortal.getUserInfo);
 
+/**
+ * Tells you the users specific requirements of each user.
+ */
 app.get('/api/UserRequirements', ensureAuthenticated, apiRoutes.getUserRequirements);
 
+/**
+ * Allows you to change a user's requirements.
+ */
 app.post('/api/UserRequirements',ensureAuthenticated, ClinicianPortal.UpdateUserData);
 
+/**
+ * Allows you to check how much of the weekly quota a user has completed.
+ */
 app.get('/api/WeeklyQuota',ensureAuthenticated, apiRoutes.satisfiedHours);
 
+/**
+ * Allows you to check who the pending clinicians are (Waiting for approval)
+ */
 app.get('/api/PendingClinicians', ensureAuthenticated,  ClinicianPortal.getPendingClincians);
 
+/**
+ * When the clinician wanting to sign up has filled their form, they complete the captcha and send it to this endpoint.
+ */
 app.post('/ClinicianSignup',captcha.checkCaptcha, user.signupClinicians);
 
+/**
+ * Allows admin accounts to be created using the signup form
+ */
 app.post('/AdminSignup', ensureAuthenticated,  user.signupAdmin);
 
+/**
+ * Allows you to navigate to the admin signup page
+ */
 app.get('/AdminSignup', ensureAuthenticated, navigation.signUpAdmin);
-
+/**
+ * Navigation to the user dashboard
+ */
 app.get('/dashboard', ensureAuthenticated, navigation.dashboard);
-
+/**
+ * Allows the logged in admin to navigate to the admindash page.
+ */
 app.get('/AdminDash', ensureAuthenticated,  navigation.adminDash);
 
+/**
+ * Allows you to navigate to the clinician signup page
+ */
 app.get('/SignUpPhysician',   navigation.clinicianSignup);
 
+/**
+ * Navigate from a patient to the parentsignup page
+ */
 app.get('/ParentSignUp', ensureAuthenticated, navigation.parentSignUp);
 
+/**
+ * Post the completed parent sign up form
+ */
 app.post('/ParentSignUp',ensureAuthenticated,user.signUpParent);
 
-app.get('/UserSettingsDashboard',ensureAuthenticated, navigation.userSettingsDashboard);
+/**
+ * Allows the cliinician to navigate to patient settings.
+ */
+app.get('/UserSettingsDashboard',ensureAuthenticated, navigation.patientSettingsDashboard);
 
+/**
+ * Allows a parent to navigate to their dashboard.
+ */
 app.get('/ParentDash', ensureAuthenticated, navigation.parentdashboard);
-
+/**
+ * Allows a clinician to navigate to their dashboard.
+ */
 app.get('/ClinicianDash',ensureAuthenticated, navigation.clinicianDash);
-
+/**
+ * Allows the admin to decline clinicians
+ */
 app.post('/api/DeclineClinicians', validateClinicians.DeclineClinicians);
 
+/**
+ * C
+ * @param req The request to check authenticated
+ * @param res The response to provide
+ * @param next The callback Funtion
+ * @returns {*}
+ */
 function ensureAuthenticated(req, res, next) {
     console.log('ensureAuthenticated');
     if (req.session.userId !== undefined) {
