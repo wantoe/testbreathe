@@ -8,8 +8,10 @@
     <link href="../public/css/bootstrap.min.css" rel="Stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../public/css/sidebar.css" rel="stylesheet">
+
     <link rel="stylesheet" href="../public/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../public/css/submitdataform.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+
 
 
     <!--- Header --->
@@ -30,7 +32,7 @@
                                                                                      class="fa fa-paperclip"></i></a>
                 </li>
                 <li><a href="/ParentSignUp"> <span class="collapse in hidden-xs">Parent Signup</span> <i style="float: right;"
-                                                                                       class="fa fa-refresh"></i></a>
+                                                                                                         class="fa fa-user"></i></a>
                 </li>
                 <li><a href="/logout"><span class="collapse in hidden-xs">Logout</span> <i style="float:right;"
                                                                                            class="fa fa-sign-out"
@@ -40,29 +42,61 @@
         </div>
         <!-- /sidebar -->
 
-
-
-        <form class="cf" action="/api/userdata" method="post" onsubmit="sent">
-            <h2> Submit Data </h2>
-            <h3>Seperate multiple inputs using commas</h3>
-            <% if (message.length > 0) { %>
-            <div style="text-align: center;"><h3 style="color:black"><%= message %></h3></div>
-            <% } %>
-            <div >
-                <input name = 'time' type="datetime-local" id="input-name" placeholder="Session Start" min="2015-01-01T00:00:00" required="required">
-                <input name='duration' type="number" id="input-email" placeholder="Duration" min ="1" required="required">
-                <input name='successful_breaths'  id="input-subject" placeholder="Successful Breaths" required="required">
-                <input name='unsuccessful_time'  id="input-subject" placeholder="Unsuccessful Breaths (Time)"  required="required">
-                <input name='unsuccessful_pressure'  id="input-subject" placeholder="Unsuccessful Breaths (Pressure)" required="required">
-                <input name='average_exhl_pressure' step="any" type="number" id="input-subject" placeholder="Average Exhalation Pressure" min ="1" required="required">
-                <input name='average_exhl_time' step="any" type="number" id="input-subject" placeholder="Average Exhalation time" min ="1" required="required">
-                <input name='successful_huff_coughs'   id="input-subject" placeholder="Successful Huff Coughs" required="required">
-
-
+        <div style="padding-left: 17%; text-align:left" class="container">
+            <div class="well">
+            <h1 >Submit Data</h1>
+            <h5 > Seperate multiple inputs using commas</h5>
             </div>
+            <div class="col-lg-12 well">
+                <div class="row">
+                    <form method="post"  onsubmit="sent" action="/api/userdata">
 
-            <input type="submit" value="Submit" id="input-submit">
-        </form>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label>Time</label>
+                                    <input name = 'time' type="datetime-local" id="input-name" placeholder="Session Start" min="2015-01-01T00:00:00" required="required" class="form-control">
+                                </div>
+                                <div class=" form-group">
+                                    <label>Duration</label>
+                                    <input name='duration' type="number" id="input-email" placeholder="Duration" min ="1" required="required" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Successful Breaths</label>
+                                <input name='successful_breaths'  id="input-subject" placeholder="Successful Breaths" required="required" class="form-control">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label>Unsuccessful due to Time</label>
+                                <input name='unsuccessful_time'  id="input-subject" placeholder="Unsuccessful Breaths (Time)"  required="required" class="form-control">
+                            </div>
+                            <div class="row">
+                                <div class=" form-group">
+                                    <label>Unsuccessful due to Pressure</label>
+
+                                    <input name='unsuccessful_pressure'  id="input-subject" placeholder="Unsuccessful Breaths (Pressure)" required="required" class="form-control">
+                                </div>
+                                <div class=" form-group">
+                                    <label>Average Exhalation Pressure</label>
+
+                                    <input name='average_exhl_pressure' step="any" type="number" id="input-subject" placeholder="Average Exhalation Pressure" min ="1" required="required" class="form-control">
+                                </div>
+                                <div class=" form-group">
+                                    <label>Average Exhalation Time</label>
+
+                                    <input name='average_exhl_time' step="any" type="number" id="input-subject" placeholder="Average Exhalation time" min ="1" required="required" class="form-control">
+                                </div>
+                                <div class=" form-group">
+                                    <label>Successful Huff Coughs</label>
+
+                                    <input name='successful_huff_coughs'   id="input-subject" placeholder="Successful Huff Coughs" required="required" class="form-control">
+                                </div>
+                            </div>
+                            <button  class="btn btn-lg btn-info">Submit</button>
+                        </div>
+                    </form>
 
         <div id = "submitted"></div>
 

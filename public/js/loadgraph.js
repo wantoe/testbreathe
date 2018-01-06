@@ -4,11 +4,12 @@ function getData(value) {
         var time = [];
         var dur = [];
 
+
         console.log(data);
 
 
 
-        if (data.length > 0) {
+         if (data.length > 0) {
             for (var i = 0; i < data.length; i++) {
 
                 dur = dur.concat(data[i].duration);
@@ -30,7 +31,7 @@ function getData(value) {
         ctx.canvas.addEventListener('click',handleClick,false);
         var myChart = new Chart(ctx, {
             type: 'bar',
-            options: {responsive: false,  title: {text: 'Duration of Cycles vs Date For user: ' + data[0].user_id, display: true}},
+            options: {responsive: false,  title: {text: 'Duration of Cycles vs Date: ' + data[0].user_id, display: true}},
 
             data: {
                 labels: time,

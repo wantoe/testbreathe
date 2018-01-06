@@ -38,7 +38,7 @@
         </div>
         <!-- /sidebar -->
 
-        <div class="container" style="width: 500px; height: 500px; margin: auto">
+        <div class="container" >
             <table id="table"
                    data-toggle="table"
                    data-url="api/ClinicalData/"
@@ -183,7 +183,6 @@
                 $.get('/api/UserRequirements' + '?userId=' + id, function results(data,status) {
                     $('#TimeInfo').text('Daily CPT Time : ' + data[0].weekly_time );
                     $('#PressureInfo').text('CPT Pressure : ' + data[0].max_pressure);
-
                     $.get('/api/WeeklyQuota'+ '?userId=' + id, function results(data2,status){
 
                         var duration = (data2[0]['SUM(duration)']);

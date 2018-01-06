@@ -24,7 +24,8 @@
 
 
 <div class="wrapper">
-    <div class="row row-offcanvas row-offcanvas-left">
+    <div class="row row-off
+     row-offcanvas-left">
         <!-- sidebar -->
         <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
             <ul class="nav" id="menu">
@@ -49,12 +50,14 @@
     left: 0;
     right: 0;
     margin:auto;" id="main">
-            <h2 style="text-align: center">  View your data!  </h2>
+            <h2 id="title" style="text-align: center">  View your  data!  </h2>
             <h3 style="text-align: center">  Click the columns for more information.  </h3>
             <div class="alert alert-info" id = "TimeInfo"> </div>
             <div class="alert alert-info" id = "PressureInfo"> </div>
             <div style="display: none" class="alert alert-danger" id ="belowThresh"></div>
             <div style="display: none" class="alert alert-success" id="aboveThresh"></div>
+            <canvas  id="myChart"></canvas>
+
         </div>
         <!-- /main -->
 
@@ -80,12 +83,6 @@
 
     </div>
 
-    <canvas style="
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin:auto; position: absolute" id="myChart"></canvas>
 
 
 
@@ -95,11 +92,15 @@
 
 <script>
     $.get('/api/child', function results(dat,status){
-        console.log('yo');
+        console.log(dat);
+        $('#title').text('View ' + dat + '\'s Data');
     $.get('api/UserRequirements', function results(data,status) {
         $('#TimeInfo').text('Daily CPT Time : ' + data[0].weekly_time );
         $('#PressureInfo').text('CPT Pressure : ' + data[0].max_pressure);
         console.log(data[0]);
+
+
+
         $.get('api/WeeklyQuota', function results(data2,status) {
 
 

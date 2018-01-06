@@ -36,7 +36,7 @@
         </div>
         <!-- /sidebar -->
 
-        <div class="container" style="width: 500px; height: 500px; margin: auto">
+        <div class="container" >
             <table id="table"
                    data-toggle="table"
                    data-url="/api/ClinicalData/"
@@ -71,7 +71,7 @@
             <div class="modal-content" style="padding: 10px">
                 <span class="close">&times;</span>
 
-                <h3 style="text-align: center">Current Daily User Requirements</h3>
+                <h3 id="title" style="text-align: center"></h3>
                 <label for="stime">Current Daily CPT Time</label>
                 <p id = "stime"></p>
                 <label for="spressure">Current CPT Pressure</label>
@@ -83,7 +83,8 @@
 
 
                 <label for="userId"> User </label>
-                <input type="number" id ="userId"   name="userId" value="">
+                <input type="number" id ="userId"   name="userId" readonly>
+
                 <label for="NewTime">New Time</label>
                 <input type="number" id="NewTime" name="new_time" placeholder="New Time">
 
@@ -121,17 +122,20 @@
     $('.container').on("click", "#table tr", function(){
         $(this).addClass('selected').siblings().removeClass('selected');
         var value= $(this).find('td:first').html();
+        var firstName = $(this).find('td:nth-child(2)').html();
+        var lastName = $(this).find('td:nth-child(3)').html();
         var id = '?userId=';
-        console.log(value);
+        console.log(name);
         // Get the modal
         var modal = document.getElementById('myModal');
 
         $.get('/api/UserRequirements' + id + value, function(data,status){
 
             console.log(data[0]);
+            $('#title').text('Daily Requirements for '+ firstName + ' ' + lastName)
             $('#stime').text(data[0].weekly_time);
             $('#spressure').text(data[0].max_pressure);
-            $('#userId').value(value);
+            $('input[name="userId"]').val(value);
         });
 
         $('#myModal').toggle();
@@ -148,7 +152,6 @@
         span.onclick = function() {
             modal.style.display = "none";
             $(".bootstrap-table").toggle();
-            resetCanvas();
 
         };
 
@@ -157,7 +160,6 @@
             if (event.target == modal) {
                 modal.style.display = "none";
                 $(".bootstrap-table").toggle();
-                resetCanvas();
 
             }
         }
