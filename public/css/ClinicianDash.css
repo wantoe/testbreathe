@@ -57,9 +57,13 @@ html,body {
         visibility: visible;!important
 
     }
+    #title{
+        visibility: visible;!important;
+    }
     .canvas{
         top: 0;!important
         left: 0;!important
+        rig
     }
     body {
         visibility: hidden;!important
