@@ -48,6 +48,6 @@
 
 @media print {
     #title{
-        display: none;
+        display: none;!important
     }
 }

@@ -60,7 +60,7 @@ canvas{
 
 @media print {
     #sidebar{
-        display: none;
+        display: none; !important
     }
 
 }
