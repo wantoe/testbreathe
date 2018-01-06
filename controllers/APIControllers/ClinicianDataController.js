@@ -85,7 +85,7 @@ exports.UpdateUserData = function(req,res){
                console.log('done');
                //RENDER PAGE TO SHOW SUCCESS
                res.status(200);
-               res.render('UserSettingsDashboard.ejs',{message:'Success!'});
+               res.render('PatientSettingsDashboard.ejs',{message:'Success!'});
            }
 
         });

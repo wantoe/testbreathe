@@ -25,7 +25,7 @@
                 <li style="text-align: center"><a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i>
                         <span class="collapse in hidden-xs">Breathe Hero</span></a></li>
                 <li><a href="/ClinicianDash"><span class="collapse in hidden-xs">Dashboard</span> <i style="float: right;"
-                                                                                        class="fa fa-list"></i> </a></li>
+                                                                                                     class="fa fa-list"></i> </a></li>
                 <li><a href="/UserSettingsDashboard"><span class="collapse in hidden-xs">User Requirements</span> <i style="float: right;"
                                                                                                                      class="fa fa-list"></i> </a></li>
                 <li><a href="/logout"><span class="collapse in hidden-xs">Logout</span> <i style="float:right;"
@@ -71,7 +71,7 @@
             <div class="modal-content" style="padding: 10px">
                 <span class="close">&times;</span>
 
-                <h3 id="title" style="text-align: center"></h3>
+                <h3 id="title" style="text-align: center">Current Daily User Requirements</h3>
                 <label for="stime">Current Daily CPT Time</label>
                 <p id = "stime"></p>
                 <label for="spressure">Current CPT Pressure</label>
@@ -82,18 +82,17 @@
                 <form method="post" onsubmit="sent" action="/api/UserRequirements">
 
 
-                <label for="userId"> User </label>
-                <input type="number" id ="userId"   name="userId" readonly>
+                    <label for="userId"> User </label>
+                    <input type="number" id ="userId"   name="userId" readonly>
+                    <label for="NewTime">New Time</label>
+                    <input type="number" id="NewTime" name="new_time" placeholder="New Time">
 
-                <label for="NewTime">New Time</label>
-                <input type="number" id="NewTime" name="new_time" placeholder="New Time">
-
-                <label for="NewPressure">New Pressure</label>
-                <input type="number" id="NewPressure" name="new_pressure" placeholder="New Pressure">
-
+                    <label for="NewPressure">New Pressure</label>
+                    <input type="number" id="NewPressure" name="new_pressure" placeholder="New Pressure">
 
 
-                <input type="submit" value="Submit">
+
+                    <input type="submit" value="Submit">
 
                 </form>
             </div>
@@ -103,10 +102,10 @@
 
 
 
-        </div>
-
-
     </div>
+
+
+</div>
 
 
 </div>
@@ -125,7 +124,7 @@
         var firstName = $(this).find('td:nth-child(2)').html();
         var lastName = $(this).find('td:nth-child(3)').html();
         var id = '?userId=';
-        console.log(name);
+        console.log(value);
         // Get the modal
         var modal = document.getElementById('myModal');
 
@@ -136,6 +135,7 @@
             $('#stime').text(data[0].weekly_time);
             $('#spressure').text(data[0].max_pressure);
             $('input[name="userId"]').val(value);
+
         });
 
         $('#myModal').toggle();
