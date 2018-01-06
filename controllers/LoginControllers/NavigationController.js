@@ -78,10 +78,10 @@ exports.parentSignUp = function(req,res){
 
 };
 
-exports.userSettingsDashboard = function (req,res){
+exports.patientSettingsDashboard = function (req, res){
     var message = '';
     if (req.session.roleId === 3){
-        res.render('userSettingsDashboard.ejs', {message:message});
+        res.render('patientSettingsDashboard.ejs', {message:message});
     }else {
         res.sendStatus(403);
     }
