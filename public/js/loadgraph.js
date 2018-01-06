@@ -43,6 +43,8 @@ function getData(value) {
             }
         });
 
+
+
         function handleClick(evt){
             var elementToDisplay;
             var activeElement = myChart.getElementAtEvent(evt);
@@ -97,7 +99,6 @@ function getData(value) {
             }
         }
     });
-
 
 }
 

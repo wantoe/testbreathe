@@ -58,7 +58,12 @@ canvas{
     white-space: nowrap;
 }
 
+@media print {
+    #sidebar{
+        display: none;
+    }
 
+}
 
 
 

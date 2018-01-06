@@ -51,8 +51,20 @@ html,body {
 
 }
 
+@media print {
 
+    #graph-container{
+        visibility: visible;
 
+    }
+    .canvas{
+        top: 0;
+        left: 0;
+    }
+    body {
+        visibility: hidden;
+    }
+}
 .bootstrap-table th {
     text-align: center;
 }
