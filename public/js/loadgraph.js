@@ -1,4 +1,4 @@
-
+var myChart;
 function getData(value) {
      $.get('api/userdata' + value, function (data, status) {
         var time = [];
@@ -25,11 +25,12 @@ function getData(value) {
 
             }
         }
+        var title = document.getElementById('title').text;
         var ctx = document.getElementById('myChart').getContext('2d');
         ctx.canvas.height = 500;
         ctx.canvas.width = 500;
         ctx.canvas.addEventListener('click',handleClick,false);
-        var myChart = new Chart(ctx, {
+         myChart = new Chart(ctx, {
             type: 'bar',
             options: {responsive: false,  title: {text: 'Duration of Cycles vs Date for userId: ' + data[0].user_id, display: true}},
 
@@ -42,8 +43,6 @@ function getData(value) {
                 }]
             }
         });
-
-
 
         function handleClick(evt){
             var elementToDisplay;

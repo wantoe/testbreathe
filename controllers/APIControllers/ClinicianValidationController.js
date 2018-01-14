@@ -1,5 +1,14 @@
-
+var dbService = require('../../Services/DatabaseService');
+var callbacks = require('./Callbacks');
+/**
+ *
+ * @param req
+ * @param res
+ * @constructor
+ * Allows for clinicians to be validated.
+ */
 exports.ValidateClinicians = function validateClinicians(req,res){
+    // Change this from the frontend
   post = req.body;
 
 cliniciansToValidate = post.users;
@@ -8,44 +17,35 @@ cliniciansToValidate = post.users;
 
  var len = cliniciansToValidate.length;
 
-if (cliniciansToValidate !== undefined) {
-    var usernames = cliniciansToValidate.split(',');
-    for(var i in usernames) {
-        console.log(usernames[i]);
-        db.query(SQLVerify, [usernames[i], 1], function (err, results) {
+        db.query(SQLVerify, [cliniciansToValidate, 1], function (err, results) {
             var message = 'Success!';
 
             if (err) {
-                console.log(err);
-                message = 'Error try again';
+               res.sendStatus(409);
             }
             console.log(results);
+            res.sendStatus(200);
         });
-    }
-    res.sendStatus(200);
-}
+
+
 
 };
 
 
+/**
+ *
+ * @param req
+ * @param res
+ * @constructor
+ * Allows for clinicians to be declined.
+ */
 exports.DeclineClinicians = function DeclineClinicians(req,res){
    var SQLDecline = 'CALL DeclineClinicians(?,?)';
 
    post = req.body;
    clinicians = post.users;
    size = clinicians.length;
-   db.query(SQLDecline, [clinicians, size], function(err,results){
 
-      var  message ='Success!';
+   dbService.dbServiceWithParams(SQLDecline, [clinicians, size], callbacks.declineCliniciansCallback, req , res);
 
-        if(err){
-            console.log(err);
-             message = 'Error try again';
-        }
-
-        res.render('AdminDash.ejs', {message:message});
-       console.log('RENDER');
-
-
-   });
 };

@@ -1,3 +1,11 @@
+var dbService = require('../../Services/DatabaseService');
+var callBacks = require('./Callbacks');
+/**
+ *
+ * @param req
+ * @param res
+ * Gets information about the selected users for clinicians.
+ */
 exports.getUserInfo = function (req,res){
     var limit = req.query.limit;
     var offset = req.query.offset;
@@ -14,12 +22,14 @@ exports.getUserInfo = function (req,res){
         SQL = 'CALL SearchUser(?,?,?)';
         SQLCount = 'CALL GetUserCount(?)';
         db.query(SQL, [search, limit, offset], function (err, result) {
+
             db.query(SQLCount, [search], function (error, result2) {
 
                 total = result2[0][0]['count(user_id)'];
                 total = JSON.stringify({total: total, rows: result[0]}, null, 4);
                 console.log(total);
                 res.send(total);
+
 
             });
         });
@@ -30,6 +40,12 @@ exports.getUserInfo = function (req,res){
 
  };
 
+/**
+ *
+ * @param req
+ * @param res
+ * Gets the temporarily registered clinicians.
+ */
 
 exports.getPendingClincians = function (req,res){
     var limit = req.query.limit;
@@ -61,6 +77,12 @@ exports.getPendingClincians = function (req,res){
 };
 
 
+/**
+ *
+ * @param req
+ * @param res
+ * Updates the user data for current patients.
+ */
 exports.UpdateUserData = function(req,res){
     var post = req.body;
     var pressure = post.new_pressure;
@@ -76,19 +98,8 @@ exports.UpdateUserData = function(req,res){
 
     if(req.session.roleId === 3){
 
-        db.query(SQL,[userId,time,pressure], function updateUser(err,results){
+        dbService.dbServiceWithParams(SQL,[userId,time,pressure], callBacks.updateUserDataCallback, req, res );
 
-           if(err){
-               console.log(err);
-               res.send(500);
-           } else {
-               console.log('done');
-               //RENDER PAGE TO SHOW SUCCESS
-               res.status(200);
-               res.render('PatientSettingsDashboard.ejs',{message:'Success!'});
-           }
-
-        });
 
     }else {
         res.sendStatus(403);

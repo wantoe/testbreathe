@@ -1,8 +1,8 @@
 /**
  * Created by Sid on 19/07/2017.
  */
-
-
+const dbService = require('../../Services/DatabaseService');
+const callbacks = require('./Callbacks');
 /**
  * Method processes the data that was sent to the API from the user, either from the game or the stanndalone source.
  * Processes the data to be logged inside of the database and determines the source of it.
@@ -47,21 +47,18 @@ exports.sentData = function (req,res) {
             }
             break;
          default :
-             db.query(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs,source], function insertData(err, results) {
-                 if(err){
-                     res.send(err,400);
-                 }else {
-                 console.log(results);
-                 res.status(200);
-                 message='Success!';
-                 res.render('datapage.ejs',{message:message});
-                     }
-             });
+             dbService.dbServiceWithParams(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs,source],callbacks.sentDataCallback,req,res);
+
 
     }
     
 };
-
+/**
+ *
+ * @param req
+ * @param res
+ * Processes patient data and retrieves it for patients to see.
+ */
 exports.getData = function (req,res) {
     this. SQL = 'Call RetrievePatientData(?)';
 
@@ -99,16 +96,10 @@ exports.getData = function (req,res) {
 
        }
 
-        db.query(SQL, [idToPost], function (err, result) {
-            if (!err) {
-                console.log(result[0]);
-                res.send(result[0]);
-            } else {
-                console.log(err);
-                res.send(err);
-            }
 
-        });
+       dbService.dbServiceWithParams(SQL, [idToPost], callbacks.getDataCallback, req, res);
+
+
    }else {
         res.status(401);
        message = 'Login to retrieve data';
@@ -116,6 +107,13 @@ exports.getData = function (req,res) {
    }
 };
 
+/**
+ *
+ * @param req
+ * @param res
+ *
+ * A method to see if the patient has satisfied their CPT hours.
+ */
 
 exports.satisfiedHours = function (req,res){
     var userId;
@@ -132,21 +130,11 @@ exports.satisfiedHours = function (req,res){
 
     }
 
+
+
    if (req.session.roleId !== undefined){
         SQL = 'CALL GetWeeklyPatientData(?)';
-
-       db.query(SQL,[userId], function checkReqs(err,results){
-
-            if(err){
-                console.log(err);
-                res.sendStatus(500);
-            }else {
-                res.send(results[0]);
-            }
-
-       });
-
-
+       dbService.dbServiceWithParams(SQL, [userId],callbacks.SatisfiedHoursCallback,req,res );
    }else {
        res.sendStatus(403);
    }
@@ -155,6 +143,11 @@ exports.satisfiedHours = function (req,res){
 
 };
 
+/**
+ * @param req
+ * @param res
+ * Finds the clients current user requirements.
+ */
 
 exports.getUserRequirements = function findUserHours(req,res){
     var userId;
@@ -175,13 +168,9 @@ exports.getUserRequirements = function findUserHours(req,res){
     SQL = 'CALL GetUserRequirements(?)';
 
 
-    db.query(SQL,[userId], function checkReqs(err,results){
 
-        if(err){
-            res.sendstatus(500);
-        }else {
-            res.send(results[0]);
-        }
-    });
+    dbService.dbServiceWithParams(SQL,[userId],callbacks.getUserRequirementsCallback,req,res);
+
+
 
 };

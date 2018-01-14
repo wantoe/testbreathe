@@ -3,6 +3,12 @@ const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 const BasicStrategy = require('passport-http').BasicStrategy;
 
+
+/**
+ *
+ * @param passport
+ * Used for BASIC Authentication
+ */
 module.exports = function (passport) {
 
 passport.use('basic',new BasicStrategy(

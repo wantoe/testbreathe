@@ -1,5 +1,12 @@
 var request = require('request');
 
+/**
+ *
+ * @param req
+ * @param res
+ * @param next
+ * A service to check that CAPTCHA has been fulfilled
+ */
 exports.checkCaptcha = function checkCaptcha (req,res,next) {
     var secret = '6Lff4DMUAAAAAEURnXObqKGHysA-51VAUDRRHDz5';
     console.log(req.body['g-recaptcha-response']);
