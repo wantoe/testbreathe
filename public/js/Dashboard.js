@@ -1,13 +1,14 @@
 
 $.get('api/UserRequirements', function results(data,status) {
-    $('#TimeInfo').text('Daily CPT Time : ' + data[0].weekly_time );
+    $('#TimeInfo').text('Daily CPT Time : ' + data[0].daily_time );
     $('#PressureInfo').text('CPT Pressure : ' + data[0].max_pressure);
 
     $.get('api/WeeklyQuota', function results(data2,status) {
 
 
         var duration = (data2[0]['SUM(duration)']);
-        var weeklyTime = data[0].weekly_time;
+        console.log(data[0]);
+        var weeklyTime = data[0].daily_time;
         var danger = $('#belowThresh');
         var success = $('#aboveThresh');
 

@@ -3,7 +3,8 @@ $('.container').on("click", "#table tr", function(){
     var value= $(this).find('td:first').html();
     var firstName = $(this).find('td:nth-child(2)').html();
     var lastName = $(this).find('td:nth-child(3)').html();
-    $('#title').text('Data for '+ firstName + ' ' + lastName)
+    var id = $(this).find('td:nth-child(1)').html();
+    $('#title').text('Data for '+ firstName + ' ' + lastName + ' (#' + id + ")");
     var id = '?userId=';
     console.log(value);
     getData(id.concat(value));
@@ -57,9 +58,12 @@ function getUserStats(value,row,index){
         $.get('/api/WeeklyQuota'+ '?userId=' + id, function results(data2,status){
 
             var duration = (data2[0]['SUM(duration)']);
-            var weeklyTime = data[0].weekly_time;
+            var weeklyTime = data[0].daily_time;
+
+
+
             switch(true){
-                case (duration === null):
+                case (duration === null ):
                     children[row].classList.value = 'danger';
                     break;
                 case (duration < ((weeklyTime * 7)/2)):

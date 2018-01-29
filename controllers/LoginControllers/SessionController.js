@@ -70,6 +70,14 @@ exports.login = function (req, res) {
 
 };
 
+
+exports.validateUser = function validateUser(req,res){
+    var SQL = 'CALL CheckAccount(?)';
+
+
+};
+
+
 /**
  *Exports the method that handles the signup form.
  *Calls the CreatePatient stored procedure in the MySQL database, if there's an error, it's a duplicate account error and so it is redirected (should really check error message)

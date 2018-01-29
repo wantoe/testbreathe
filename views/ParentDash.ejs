@@ -95,7 +95,7 @@
         console.log(dat);
         $('#title').text('View ' + dat + '\'s Data');
     $.get('api/UserRequirements', function results(data,status) {
-        $('#TimeInfo').text('Daily CPT Time : ' + data[0].weekly_time );
+        $('#TimeInfo').text('Daily CPT Time : ' + data[0].daily_time );
         $('#PressureInfo').text('CPT Pressure : ' + data[0].max_pressure);
         console.log(data[0]);
 
@@ -105,7 +105,7 @@
 
 
             var duration = (data2[0]['SUM(duration)']);
-            var weeklyTime = data[0].weekly_time;
+            var weeklyTime = data[0].daily_time;
             var danger = $('#belowThresh');
             var success = $('#aboveThresh');
 

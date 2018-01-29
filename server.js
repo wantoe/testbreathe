@@ -185,6 +185,9 @@ app.get('/ClinicianDash',ensureAuthenticated, navigation.clinicianDash);
  */
 app.post('/api/DeclineClinicians', validateClinicians.DeclineClinicians);
 
+
+app.get('/api/validateUser', user.checkValidation);
+
 /**
  * C
  * @param req The request to check authenticated
