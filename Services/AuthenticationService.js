@@ -15,12 +15,15 @@ passport.use('basic',new BasicStrategy(
     function (username,password,done){
         var SQL = 'Call CheckAccount(?)';
 
+        console.log(username);
+        console.log(password);
+
         db.query(SQL, [username], function findAccount(err, results) {
             if (results[0].length > 0 ) {
                 //CHANGE SO THAT IT USES SELECT DISTINCT
 
                 bcrypt.compare(password, results[0][0].password, function(req,isValid){
-                    console.log('hi');
+                    console.log(password);
                         console.log(results[0][0].password === password);
 
                         if(isValid || results[0][0].password === password){

@@ -28,6 +28,15 @@ $.get('api/UserRequirements', function results(data,status) {
 
     });
 });
+
+
+$.get('api/validateUser', function results(data,status){
+        console.log(data);
+
+       $('#title').text("View your data " + data['first_name'] + " " + data['last_name'] + " " + "(#" + data['user_id'] + ")");
+});
+
+
 var modal = document.getElementById('myModal');
 
 

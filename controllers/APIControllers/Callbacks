@@ -68,8 +68,7 @@ exports.updateUserDataCallback = function updateUserDataCallback(err,results,req
     } else {
         console.log('done');
         //RENDER PAGE TO SHOW SUCCESS
-        res.status(200);
-        res.render('PatientSettingsDashboard.ejs',{message:'Success!'});
+        res.status(200).redirect('/ClinicianDash');
     }
 
 };

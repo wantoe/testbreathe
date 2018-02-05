@@ -71,9 +71,19 @@ exports.login = function (req, res) {
 };
 
 
-exports.validateUser = function validateUser(req,res){
-    var SQL = 'CALL CheckAccount(?)';
+exports.validateUser = function validateUser(req,res){  1
 
+    if(req.session.userId !== undefined){
+        var userId = req.session.userId;
+    }else {
+        var userId = req.user.userId;
+    }
+
+    var SQL = 'select user_id, first_name, last_name from users where user_id =' + userId;
+
+    db.query(SQL, function(err,dbres){
+        res.status(200).send(dbres[0]);
+    });
 
 };
 

@@ -32,7 +32,7 @@ function getData(value) {
         ctx.canvas.addEventListener('click',handleClick,false);
          myChart = new Chart(ctx, {
             type: 'bar',
-            options: {responsive: false,  title: {text: 'Duration of Cycles vs Date for userId: ' + data[0].user_id, display: true}},
+            options: {responsive: false,  title: {text: 'Duration of Cycles vs Date', display: true}},
 
             data: {
                 labels: time,

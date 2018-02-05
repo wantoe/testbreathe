@@ -64,7 +64,6 @@ exports.getData = function (req,res) {
 
     var userId;
     var roleId;
-    console.log(req);
 
     if(req.session.userId === undefined){
         userId = req.user.userId;
@@ -75,7 +74,6 @@ exports.getData = function (req,res) {
     }
     this. idToPost = req.query.userId;
 
-    console.log(req.session);
 
     if(userId !== undefined) {
        switch (roleId) {

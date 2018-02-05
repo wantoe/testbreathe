@@ -185,6 +185,7 @@ app.get('/ClinicianDash',ensureAuthenticated, navigation.clinicianDash);
  */
 app.post('/api/DeclineClinicians', validateClinicians.DeclineClinicians);
 
+app.get('/api/ValidateUser', ensureAuthenticated, user.validateUser);
 
 
 /**
@@ -197,6 +198,9 @@ app.post('/api/DeclineClinicians', validateClinicians.DeclineClinicians);
 function ensureAuthenticated(req, res, next) {
     console.log('ensureAuthenticated');
     if (req.session.userId !== undefined) {
+        console.log('next');
         return next();
     }
+
+
     passport.authenticate('basic',{session: false} )(req,res,next);}
