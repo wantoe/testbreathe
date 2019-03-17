@@ -4,7 +4,7 @@
   "description": "Portal for BreatheHero device",
   "main": "server.js",
   "scripts": {
-    "test": "mocha test --reporter mochawesome --reporter-options autoOpen=true",
+    "test": "mocha test/homePage.test.js --reporter mochawesome --reporter-options autoOpen=true",
     "start": "node server.js"
   },
   "repository": {
@@ -35,12 +35,12 @@
     "chai-as-promised": "^7.1.1",
     "chai-http": "^3.0.0",
     "chromedriver": "^2.46.0",
-	"faker": "^4.1.0",
+    "faker": "^4.1.0",
     "mocha": "^3.5.3",
     "mochawesome": "^3.1.1",
     "nodemon": "^1.14.7",
-    "selenium-webdriver": "^4.0.0-alpha.1",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "selenium-webdriver": "^4.0.0-alpha.1"
   },
   "keywords": [
     "Portal"

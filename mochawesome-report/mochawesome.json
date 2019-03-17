@@ -1,23 +1,145 @@
 {
   "stats": {
-    "suites": 0,
+    "suites": 1,
     "tests": 0,
     "passes": 0,
     "pending": 0,
     "failures": 0,
-    "start": "2019-03-17T04:00:25.100Z",
-    "end": "2019-03-17T04:00:25.102Z",
-    "duration": 2,
-    "testsRegistered": 0,
-    "passPercent": null,
-    "pendingPercent": null,
-    "other": 0,
-    "hasOther": false,
-    "skipped": 0,
-    "hasSkipped": false,
-    "passPercentClass": "success",
-    "pendingPercentClass": "success"
+    "start": "2019-03-17T05:04:57.371Z",
+    "end": "2019-03-17T05:05:15.092Z",
+    "duration": 17721,
+    "testsRegistered": 3,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 1,
+    "hasOther": true,
+    "skipped": 3,
+    "hasSkipped": true,
+    "passPercentClass": "danger",
+    "pendingPercentClass": "danger"
   },
-  "suites": false,
+  "suites": {
+    "uuid": "c7e62876-c574-4e93-b872-b10ff039d093",
+    "title": "",
+    "fullFile": "",
+    "file": "",
+    "beforeHooks": [],
+    "afterHooks": [],
+    "tests": [],
+    "suites": [
+      {
+        "uuid": "aa30d9b2-8b16-4058-bf20-7337fda798c8",
+        "title": "Testing login using username and password",
+        "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\homePage.test.js",
+        "file": "\\test\\homePage.test.js",
+        "beforeHooks": [
+          {
+            "title": "\"before each\" hook for \"click the username box and enter the username\"",
+            "fullTitle": "Testing login using username and password \"before each\" hook for \"click the username box and enter the username\"",
+            "timedOut": false,
+            "duration": 17679,
+            "state": "failed",
+            "pass": false,
+            "fail": true,
+            "pending": false,
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visit('localhost:8080');\nawait page.findElements();",
+            "err": {
+              "message": "NoSuchWindowError: no such window: target window already closed\nfrom unknown error: web view not found\n  (Session info: chrome=72.0.3626.121)\n  (Driver info: chromedriver=2.46.628402 (536cd7adbad73a3783fdc2cab92ab2ba7ec361e1),platform=Windows NT 10.0.17134 x86_64)",
+              "estack": "NoSuchWindowError: no such window: target window already closed\nfrom unknown error: web view not found\n  (Session info: chrome=72.0.3626.121)\n  (Driver info: chromedriver=2.46.628402 (536cd7adbad73a3783fdc2cab92ab2ba7ec361e1),platform=Windows NT 10.0.17134 x86_64)\n    at Object.checkLegacyResponse (node_modules\\selenium-webdriver\\lib\\error.js:585:15)\n    at parseHttpResponse (node_modules\\selenium-webdriver\\lib\\http.js:533:13)\n    at Executor.execute (node_modules\\selenium-webdriver\\lib\\http.js:468:26)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+            },
+            "isRoot": false,
+            "uuid": "a2a3b5e9-041d-4d34-92f6-a72b56111457",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "afterHooks": [
+          {
+            "title": "\"after each\" hook",
+            "fullTitle": "Testing login using username and password \"after each\" hook",
+            "timedOut": false,
+            "duration": 29,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "await page.quit();",
+            "err": {},
+            "isRoot": false,
+            "uuid": "d42b0688-73e4-48af-afde-aa9fffc302ea",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "tests": [
+          {
+            "title": "click the username box and enter the username",
+            "fullTitle": "Testing login using username and password click the username box and enter the username",
+            "timedOut": false,
+            "duration": 0,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "const result = await page.enterUsername();\nexpect(result.writtenUsername).to.include('tester1');",
+            "err": {},
+            "isRoot": false,
+            "uuid": "1fa2e47e-d54a-493c-b161-bfe5d8cfd415",
+            "isHook": false,
+            "skipped": true
+          },
+          {
+            "title": "click the password box and enter the password",
+            "fullTitle": "Testing login using username and password click the password box and enter the password",
+            "timedOut": false,
+            "duration": 0,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "const result = await page.enterPassword();\nexpect(result.writtenPassword).to.include('tester1');",
+            "err": {},
+            "isRoot": false,
+            "uuid": "1159ba97-0c2d-4f11-8966-7f26c68672a7",
+            "isHook": false,
+            "skipped": true
+          },
+          {
+            "title": "click the login button and logs in",
+            "fullTitle": "Testing login using username and password click the login button and logs in",
+            "timedOut": false,
+            "duration": 0,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "const result = await page.clickLogin();\nexpect(result).to.include('FAILED');",
+            "err": {},
+            "isRoot": false,
+            "uuid": "7073b899-b3ff-42d9-9a0d-9d60981aa7ba",
+            "isHook": false,
+            "skipped": true
+          }
+        ],
+        "suites": [],
+        "passes": [],
+        "failures": [],
+        "pending": [],
+        "skipped": [
+          "1fa2e47e-d54a-493c-b161-bfe5d8cfd415",
+          "1159ba97-0c2d-4f11-8966-7f26c68672a7",
+          "7073b899-b3ff-42d9-9a0d-9d60981aa7ba"
+        ],
+        "duration": null,
+        "root": false,
+        "rootEmpty": false,
+        "_timeout": 50000
+      }
+    ],
+    "passes": [],
+    "failures": [],
+    "pending": [],
+    "skipped": [],
+    "duration": 0,
+    "root": true,
+    "rootEmpty": true,
+    "_timeout": 2000
+  },
   "copyrightYear": 2019
 }
