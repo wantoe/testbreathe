@@ -1,25 +1,25 @@
 {
   "stats": {
     "suites": 1,
-    "tests": 0,
+    "tests": 1,
     "passes": 0,
     "pending": 0,
-    "failures": 0,
-    "start": "2019-03-17T05:04:57.371Z",
-    "end": "2019-03-17T05:05:15.092Z",
-    "duration": 17721,
-    "testsRegistered": 3,
+    "failures": 1,
+    "start": "2019-03-17T05:47:12.476Z",
+    "end": "2019-03-17T05:47:20.305Z",
+    "duration": 7829,
+    "testsRegistered": 1,
     "passPercent": 0,
     "pendingPercent": 0,
-    "other": 1,
-    "hasOther": true,
-    "skipped": 3,
-    "hasSkipped": true,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false,
     "passPercentClass": "danger",
     "pendingPercentClass": "danger"
   },
   "suites": {
-    "uuid": "c7e62876-c574-4e93-b872-b10ff039d093",
+    "uuid": "7b85a827-d934-4970-b741-ddb291b282d3",
     "title": "",
     "fullFile": "",
     "file": "",
@@ -28,27 +28,23 @@
     "tests": [],
     "suites": [
       {
-        "uuid": "aa30d9b2-8b16-4058-bf20-7337fda798c8",
+        "uuid": "fb5afb5b-3c0d-4198-b12a-60c6e1329918",
         "title": "Testing login using username and password",
         "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\homePage.test.js",
         "file": "\\test\\homePage.test.js",
         "beforeHooks": [
           {
-            "title": "\"before each\" hook for \"click the username box and enter the username\"",
-            "fullTitle": "Testing login using username and password \"before each\" hook for \"click the username box and enter the username\"",
+            "title": "\"before each\" hook",
+            "fullTitle": "Testing login using username and password \"before each\" hook",
             "timedOut": false,
-            "duration": 17679,
-            "state": "failed",
+            "duration": 3639,
             "pass": false,
-            "fail": true,
+            "fail": false,
             "pending": false,
-            "code": "page = new Page();\ndriver = page.driver;\nawait page.visit('localhost:8080');\nawait page.findElements();",
-            "err": {
-              "message": "NoSuchWindowError: no such window: target window already closed\nfrom unknown error: web view not found\n  (Session info: chrome=72.0.3626.121)\n  (Driver info: chromedriver=2.46.628402 (536cd7adbad73a3783fdc2cab92ab2ba7ec361e1),platform=Windows NT 10.0.17134 x86_64)",
-              "estack": "NoSuchWindowError: no such window: target window already closed\nfrom unknown error: web view not found\n  (Session info: chrome=72.0.3626.121)\n  (Driver info: chromedriver=2.46.628402 (536cd7adbad73a3783fdc2cab92ab2ba7ec361e1),platform=Windows NT 10.0.17134 x86_64)\n    at Object.checkLegacyResponse (node_modules\\selenium-webdriver\\lib\\error.js:585:15)\n    at parseHttpResponse (node_modules\\selenium-webdriver\\lib\\http.js:533:13)\n    at Executor.execute (node_modules\\selenium-webdriver\\lib\\http.js:468:26)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
-            },
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visit('localhost:8080');",
+            "err": {},
             "isRoot": false,
-            "uuid": "a2a3b5e9-041d-4d34-92f6-a72b56111457",
+            "uuid": "f9a75a9f-2b48-4414-868a-b042f3d6685c",
             "isHook": true,
             "skipped": false
           }
@@ -58,75 +54,47 @@
             "title": "\"after each\" hook",
             "fullTitle": "Testing login using username and password \"after each\" hook",
             "timedOut": false,
-            "duration": 29,
+            "duration": 30,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "await page.quit();",
             "err": {},
             "isRoot": false,
-            "uuid": "d42b0688-73e4-48af-afde-aa9fffc302ea",
+            "uuid": "6f53cda4-c3ef-4f3e-91b1-21d4fdb1098b",
             "isHook": true,
             "skipped": false
           }
         ],
         "tests": [
           {
-            "title": "click the username box and enter the username",
-            "fullTitle": "Testing login using username and password click the username box and enter the username",
+            "title": "enter credentials, click the login button and logs in",
+            "fullTitle": "Testing login using username and password enter credentials, click the login button and logs in",
             "timedOut": false,
-            "duration": 0,
+            "duration": 4150,
+            "state": "failed",
             "pass": false,
-            "fail": false,
+            "fail": true,
             "pending": false,
-            "code": "const result = await page.enterUsername();\nexpect(result.writtenUsername).to.include('tester1');",
-            "err": {},
+            "code": "const result = await page.clickLogin();\nexpect(result).to.include('Christof Lutteroth');",
+            "err": {
+              "message": "AssertionError: expected 'View your data!' to include 'Christof Lutteroth'",
+              "estack": "AssertionError: expected 'View your data!' to include 'Christof Lutteroth'\n    at Context.it (test\\homePage.test.js:29:35)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+            },
             "isRoot": false,
-            "uuid": "1fa2e47e-d54a-493c-b161-bfe5d8cfd415",
+            "uuid": "6ab2d8df-e0f4-4031-9418-a6a1565dddb7",
             "isHook": false,
-            "skipped": true
-          },
-          {
-            "title": "click the password box and enter the password",
-            "fullTitle": "Testing login using username and password click the password box and enter the password",
-            "timedOut": false,
-            "duration": 0,
-            "pass": false,
-            "fail": false,
-            "pending": false,
-            "code": "const result = await page.enterPassword();\nexpect(result.writtenPassword).to.include('tester1');",
-            "err": {},
-            "isRoot": false,
-            "uuid": "1159ba97-0c2d-4f11-8966-7f26c68672a7",
-            "isHook": false,
-            "skipped": true
-          },
-          {
-            "title": "click the login button and logs in",
-            "fullTitle": "Testing login using username and password click the login button and logs in",
-            "timedOut": false,
-            "duration": 0,
-            "pass": false,
-            "fail": false,
-            "pending": false,
-            "code": "const result = await page.clickLogin();\nexpect(result).to.include('FAILED');",
-            "err": {},
-            "isRoot": false,
-            "uuid": "7073b899-b3ff-42d9-9a0d-9d60981aa7ba",
-            "isHook": false,
-            "skipped": true
+            "skipped": false
           }
         ],
         "suites": [],
         "passes": [],
-        "failures": [],
-        "pending": [],
-        "skipped": [
-          "1fa2e47e-d54a-493c-b161-bfe5d8cfd415",
-          "1159ba97-0c2d-4f11-8966-7f26c68672a7",
-          "7073b899-b3ff-42d9-9a0d-9d60981aa7ba"
+        "failures": [
+          "6ab2d8df-e0f4-4031-9418-a6a1565dddb7"
         ],
-        "duration": null,
+        "pending": [],
+        "skipped": [],
+        "duration": 4150,
         "root": false,
         "rootEmpty": false,
         "_timeout": 50000
