@@ -4,7 +4,10 @@ module.exports = {
     homePagePasswordID: 'loginpassword',
     homePageButtonName: 'login',
     homePageAccountXPath: '//*[@id="messages"]/a',
-    homePageClinicianXPath: '//*[@id="messages"]',
+    homePageClinicianLinkText: 'Clinicians sign up here',
     homePageAbout: '/html/body/div[2]/h3/strong',
-    resultsPageTitle: '//*[@id="title"]'
+    resultsPageTitle: '//*[@id="title"]',
+    invalidCredentials: '/html/body/div[1]/div/div[2]/h3',
+    wrongUsernamePassword: '/html/body/div[1]/div/div[2]/h3',
+    homePageAboutInfoXPath: '//*[@id="About Information"]'
 }
