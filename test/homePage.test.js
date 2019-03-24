@@ -25,15 +25,15 @@ process.on('unhandledRejection', () => {});
                 await page.quit();
             });
 
-            it('enter credentials, click the login button and logs in', async () => {
+            it ('enter credentials, click the login button and logs in', async () => {
                 const usernameE = await page.getUsernameE();
                 const passwordE = await page.getPasswordE();
 
                 page.waitUntilDisplayed(usernameE);
                 page.waitUntilDisplayed(passwordE);
 
-                usernameE.sendKeys(fakeData.user);
-                passwordE.sendKeys(fakeData.userPassword);
+                await usernameE.sendKeys(fakeData.user);
+                await passwordE.sendKeys(fakeData.userPassword);
                 usernameE.submit();
 
                 const resultsPageTitleE = await page.getResultsPageTitleE();
@@ -70,8 +70,8 @@ process.on('unhandledRejection', () => {});
 
                 page.waitUntilDisplayed(usernameE);
 
-                usernameE.sendKeys(fakeData.user);
-                passwordE.sendKeys('asdf');
+                await usernameE.sendKeys(fakeData.user);
+                await passwordE.sendKeys('asdf');
                 usernameE.submit();
 
                 page.waitUntilLoaded('login');
@@ -88,8 +88,8 @@ process.on('unhandledRejection', () => {});
 
                 page.waitUntilDisplayed(usernameE);
 
-                usernameE.sendKeys('asdf');
-                passwordE.sendKeys('asdf');
+                await usernameE.sendKeys('asdf');
+                await passwordE.sendKeys('asdf');
                 usernameE.submit();
 
                 page.waitUntilLoaded('login');
@@ -123,7 +123,7 @@ process.on('unhandledRejection', () => {});
                 await page.quit();
             });
 
-            it('click the new account button to transition to form', async () => {
+            it ('click the new account button to transition to form', async () => {
                 await page.clickNewAccount();
                 const result = await driver.getCurrentUrl();
                 expect(result).to.include('#');
@@ -144,17 +144,17 @@ process.on('unhandledRejection', () => {});
             this.timeout(50000);
             let driver, page;
 
-            beforeEach(async () => {
+            beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
                 await page.visit('localhost:8080');
             });
 
-            afterEach(async () => {
+            afterEach (async () => {
                 await page.quit();
             });
 
-            it('click the clinician signup to transition to new form', async () => {
+            it ('click the clinician signup to transition to new form', async () => {
                 await page.clickClinicianForm();
 
                 page.waitUntilLoaded('SignUpPhysician');
@@ -178,17 +178,17 @@ process.on('unhandledRejection', () => {});
             this.timeout(50000);
             let driver, page;
 
-            beforeEach(async () => {
+            beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
                 await page.visit('localhost:8080');
             });
 
-            afterEach(async() => {
+            afterEach (async() => {
                 await page.quit();
             });
 
-            it('click the about button, expect text to show up', async () => {
+            it ('click the about button, expect text to show up', async () => {
                 await page.clickAbout();
 
                 homePageAboutInfoE = await page.getHomePageAboutInfoE();

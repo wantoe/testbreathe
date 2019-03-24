@@ -24,6 +24,8 @@ module.exports = {
     mainPageSubmitAveragePressureXPath: '//*[@id="input-subject"]',
     mainPageSubmitAverageExhalationXPath: '//*[@id="input-subject"]',
     mainPageSubmitSuccessfulCoughsXPath: '//*[@id="input-subject"]',
-    mainPageSubmitButtonXPath: '/html/body/div/div/div[2]/div[2]/div/form/div/button'
+    mainPageSubmitButtonXPath: '/html/body/div/div/div[2]/div[2]/div/form/div/button',
+    mainPageSubmitTitleXPath: '/html/body/div/div/div[2]/div[1]/h1',
+    mainPageSignupTitleXPath: '/html/body/div/div/div[2]/h1',
 
 }
