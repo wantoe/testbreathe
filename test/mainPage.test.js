@@ -122,29 +122,17 @@ process.on('unhandledRejection', () => {});
                 //get the form elements.
                 const submitDateE = await page.getSubmitDateE();
                 const submitDurationE = await page.getSubmitDurationE();
-                const submitSuccessfulE = await page.getSubmitSuccessfulE();
-                const submitUnsuccessfulTimeE = await page.getSubmitUnsuccessfulTimeE();
-                const submitUnsuccessfulPressureE = await page.getSubmitUnsuccessfulPressureE();
-                const submitAveragePressureE = await page.getSubmitAveragePressureE();
-                const submitAverageExhalationE = await page.getSubmitAverageExhalationE();
-                const submitSuccessfulCoughsE = await page.getSubmitSuccessfulCoughsE();
                 const submitButtonE = await page.getSubmitButtonE();
 
                 //submit the data.
-                var datetime = require('node-datetime');
-                var dt = datetime.now();
-                var formatted = dt.format('d/m/Y H:M:S');
+                var formatted = '28' + '3' + '2019\t' + '12' + '31' + 'PM';
                 
                 await submitDateE.sendKeys(formatted);
-                await submitDurationE.sendKeys(10);
-                await submitSuccessfulE.sendKeys(3);
-                await submitUnsuccessfulTimeE.sendKeys(8);
-                await submitUnsuccessfulPressureE.sendKeys(2);
-                await submitAveragePressureE.sendKeys(4);
-                await submitAverageExhalationE.sendKeys(5);
-                await submitSuccessfulCoughsE.sendKeys(2);
+                await submitDurationE.sendKeys('10\t3\t8\t2\t4\t5\t2');
+
+                await driver.sleep(10000);
                 
-                submitButtonE.click();
+                await submitButtonE.click();
 
                 expect(true);
 
@@ -153,6 +141,66 @@ process.on('unhandledRejection', () => {});
         });
     } catch (ex) {
         log.console(new Error(ex.message));
+    } finally {
+
+    }
+})();
+
+(async function testParental() {
+    try {
+        describe('Testing parental signup form', async function () {
+            this.timeout(50000);
+            let page, driver;
+
+            beforeEach(async () => {
+                page = new Page();
+                driver = page.driver;
+                await page.visit('localhost:8080');
+
+                //This is the login functionality code, and will get us to the main page.
+                const usernameE = await page.getUsernameE();
+                const passwordE = await page.getPasswordE();
+
+                page.waitUntilDisplayed(usernameE);
+                page.waitUntilDisplayed(passwordE);
+
+                await usernameE.sendKeys(fakeData.user);
+                await passwordE.sendKeys(fakeData.userPassword);
+                usernameE.submit();
+            });
+
+            afterEach(async () => {
+                page.quit();
+            });
+
+            it('Able to submit a parental signup form', async () => {
+                const parentalE = await page.getSignupE();
+                await parentalE.click();
+
+                const parentalNameE = await page.getParentalNameE();
+
+                const firstName = 'foo' + '\t';
+                const lastName = 'bar' + '\t';
+                const mail = 'foo.bar@gmail.com' + '\t';
+                const username = 'foo-bar' + '\t';
+                const confirmation = 'foo-bar';
+                const password = confirmation + '\t';
+        
+                const vals = firstName + lastName + mail + username + password + confirmation;
+
+                await parentalNameE.sendKeys(vals);
+
+                const parentalButtonE = await page.getParentalButtonE();
+                parentalButtonE.click();
+
+                const parentalSuccessE = await page.getParentalSuccessE();
+                const res = await parentalSuccessE.getText();
+
+                expect(res).to.include('Success!');
+            });
+        });
+    } catch (ex) {
+        Log.console(new Error(ex.message));
     } finally {
 
     }
