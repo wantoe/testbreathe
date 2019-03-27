@@ -94,11 +94,11 @@
 html,body {
     display: flex;
     flex-direction: column;
-    background: #76b852; /* fallback for old browsers */
-    background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-    background: -moz-linear-gradient(right, #76b852, #8DC26F);
-    background: -o-linear-gradient(right, #76b852, #8DC26F);
-    background: linear-gradient(to left, #76b852, #8DC26F);
+    background: #19437b; /* fallback for old browsers */
+    background: -webkit-linear-gradient(right, #19437b, #19437b);
+    background: -moz-linear-gradient(right, #19437b, #19437b);
+    background: -o-linear-gradient(right, #19437b, #19437b);
+    background: linear-gradient(to left, #19437b, #19437b);
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
