@@ -76,6 +76,37 @@ exports.getPendingClincians = function (req,res){
     }
 };
 
+/**
+ * 
+ * @param req
+ * @param res
+ * Gets a list of all registered accounts.
+ */
+
+ exports.getAllAccounts = function(req,res){
+    var limit = req.query.limit;
+    var offset = req.query.offset;
+    var search = req.query.search;
+    var SQL = '';
+    var count = '';
+    var total = '';
+
+    if(req.session.roleId === 4) {
+        SQL = 'CALL GetAllAccounts(?,?)';
+        SQLCount = 'CALL CountAllAccounts()';
+        db.query(SQL, [limit, offset], function (err, result2) {
+            db.query(SQLCount, function (error, result) {
+                total = result[0][0]['count(username)'];
+                total = JSON.stringify({total: total, rows: result2[0]}, null, 4);
+                console.log(total);
+                res.send(total);
+            });
+        });
+
+    }else {
+        res.send(401);
+    }
+ }
 
 /**
  *
