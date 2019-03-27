@@ -48,10 +48,7 @@ exports.sentData = function (req,res) {
             break;
          default :
              dbService.dbServiceWithParams(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs,source],callbacks.sentDataCallback,req,res);
-
-
     }
-    
 };
 /**
  *

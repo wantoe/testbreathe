@@ -18,7 +18,6 @@ exports.getUserInfo = function (req,res){
         if (search === undefined)
             search = "";
 
-
         SQL = 'CALL SearchUser(?,?,?)';
         SQLCount = 'CALL GetUserCount(?)';
         db.query(SQL, [search, limit, offset], function (err, result) {
@@ -29,15 +28,11 @@ exports.getUserInfo = function (req,res){
                 total = JSON.stringify({total: total, rows: result[0]}, null, 4);
                 console.log(total);
                 res.send(total);
-
-
             });
         });
     }else {
         res.send(401);
     }
-
-
  };
 
 /**
@@ -92,8 +87,8 @@ exports.getPendingClincians = function (req,res){
     var total = '';
 
     if(req.session.roleId === 4) {
-        SQL = 'CALL GetAllAccounts(?,?)';
-        SQLCount = 'CALL CountAllAccounts()';
+        SQL = 'CALL GetAccounts(?, ?)';
+        SQLCount = 'CALL CountAccounts()';
         db.query(SQL, [limit, offset], function (err, result2) {
             db.query(SQLCount, function (error, result) {
                 total = result[0][0]['count(username)'];

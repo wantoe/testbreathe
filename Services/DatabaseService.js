@@ -14,9 +14,8 @@ exports.dbService = function dbService(statement, callback, request, res){
 };
 
 
-exports.dbServiceWithParams = function  dbService (statement, parameters ,  callback ,request, res){
+exports.dbServiceWithParams = function  dbService (statement, parameters ,  callback, request, res){
         db.query(statement, parameters, function(err,results){
-
             callback(err,results,request,res);
         });
 }

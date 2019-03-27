@@ -130,6 +130,11 @@ app.get('/api/WeeklyQuota',ensureAuthenticated, apiRoutes.satisfiedHours);
 app.get('/api/PendingClinicians', ensureAuthenticated,  ClinicianPortal.getPendingClincians);
 
 /**
+ * Allows you to check all accounts.
+ */
+app.get('/api/AllAccounts', ensureAuthenticated, ClinicianPortal.getAllAccounts);
+
+/**
  * When the clinician wanting to sign up has filled their form, they complete the captcha and send it to this endpoint.
  */
 app.post('/ClinicianSignup',captcha.checkCaptcha, user.signupClinicians);
