@@ -118,6 +118,7 @@
     function accept(){
         var usernames = '';
         var len = checkedRows.length;
+
         if(len > 0) {
 
             for( i = 0; i < len; i++){
@@ -131,21 +132,23 @@
 
     function decline(){
         var usernames = [];
-        var len = checkedRows.length;
 
-        if(len > 0) {
+        table = document.getElementById("clinician-table");
+        tr = table.getElementsByTagName("tr");
 
-            for( i = 0; i < len; i++){
-                console.log(i);
-                if( i !== len -1 ) {
-                    usernames = usernames + (checkedRows[i].username + ',');
-                }else {
-                    usernames = usernames + (checkedRows[i].username);
-                }
-            }
-            $.post('/api/DeclineClinicians',{users: usernames});
-            location.reload();
+        usernames = new Array();
+
+        for(i = 0; i < tr.length; i++) {
+           if(tr[i].innerHTML.includes("data-index=\"1\"")) {
+                td = tr[i].getElementsByTagName("td");
+                usernames.push(td[1].textContent);
+           }
         }
+
+        $.post('/api/DeclineClinicians',{users: usernames});
+            location.reload();
+
+        console.log(tr);
     }
 
     //this function needs to post a request to "login" as a different user.
