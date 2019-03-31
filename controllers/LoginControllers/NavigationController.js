@@ -50,6 +50,15 @@ exports.clinicianDash = function(req,res){
     }
 };
 
+exports.signUpPatient = function(req,res){
+    var message = '';
+    if (req.session.roleId === 3){
+        res.render('SignUpPatient.ejs', {message:message});
+    }else {
+        res.sendStatus(403);
+    }
+};
+
 exports.signUpAdmin = function(req,res){
 
     if(req.session.roleId === 4){

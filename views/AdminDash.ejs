@@ -116,18 +116,26 @@
 
 <script>
     function accept(){
-        var usernames = '';
-        var len = checkedRows.length;
+        var usernames = [];
 
-        if(len > 0) {
+    table = document.getElementById("clinician-table");
+    tr = table.getElementsByTagName("tr");
 
-            for( i = 0; i < len; i++){
-                $.post('/api/ValidateClinicians', {users: checkedRows[i].username}, function(err,res){
-                    console.log(err);
-                });
-                location.reload();
-            }
+    usernames = new Array();
+
+    for(i = 0; i < tr.length; i++) {
+        if(tr[i].innerHTML.includes("data-index=\"1\"")) {
+            td = tr[i].getElementsByTagName("td");
+            usernames.push(td[1].textContent);
         }
+    }
+
+    $.post('/api/ValidateClinicians',{users: usernames}, function(err,res){
+        console.log(err);
+    });
+        location.reload();
+
+    console.log(tr);
     }
 
     function decline(){

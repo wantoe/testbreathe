@@ -168,6 +168,11 @@ app.get('/SignUpPhysician',   navigation.clinicianSignup);
 app.get('/ParentSignUp', ensureAuthenticated, navigation.parentSignUp);
 
 /**
+ * Navigate from a clinician to the patient registration page
+ */
+app.get('/SignUpPatient', ensureAuthenticated, navigation.signUpPatient);
+
+/**
  * Post the completed parent sign up form
  */
 app.post('/ParentSignUp',ensureAuthenticated,user.signUpParent);
