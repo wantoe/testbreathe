@@ -95,3 +95,13 @@ exports.patientSettingsDashboard = function (req, res){
         res.sendStatus(403);
     }
 };
+
+exports.loginAs = function (req, res) {
+    SQL = 'select user.id, username, password from users where username ='
+    
+    if (req.session.roleId === 4){
+        console.log(req.body());
+    } else {
+        console.log('failure');
+    }
+};

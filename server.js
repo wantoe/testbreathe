@@ -158,6 +158,11 @@ app.get('/dashboard', ensureAuthenticated, navigation.dashboard);
 app.get('/AdminDash', ensureAuthenticated,  navigation.adminDash);
 
 /**
+ * Allows the logged in admin to login as another selected user.
+ */
+app.get('/api/loginAs', ensureAuthenticated, navigation.loginAs);
+
+/**
  * Allows you to navigate to the clinician signup page
  */
 app.get('/SignUpPhysician',   navigation.clinicianSignup);

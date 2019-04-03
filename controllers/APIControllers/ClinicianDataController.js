@@ -87,16 +87,20 @@ exports.getPendingClincians = function (req,res){
     var total = '';
 
     if(req.session.roleId === 4) {
-        SQL = 'CALL GetAccounts(?, ?)';
-        SQLCount = 'CALL CountAccounts()';
-        db.query(SQL, [limit, offset], function (err, result2) {
-            db.query(SQLCount, function (error, result) {
-                total = result[0][0]['count(username)'];
-                total = JSON.stringify({total: total, rows: result2[0]}, null, 4);
-                console.log(total);
-                res.send(total);
-            });
+        if(req.session.userId !== undefined){
+            var userId = req.session.userId;
+        }else {
+            var userId = req.user.userId;
+        }
+    
+        var SQL = 'select username, email, first_name, last_name from users';
+    
+        db.query(SQL, function(err,dbres){
+            out = JSON.stringify({total: dbres.length, rows: dbres}, null, 4);
+            console.log(out);
+            res.send(out);
         });
+    
 
     }else {
         res.send(401);

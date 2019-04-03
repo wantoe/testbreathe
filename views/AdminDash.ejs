@@ -77,7 +77,7 @@
             <h1 style="text-align: center; font-size: 38">Account Checking</h1>
                 <table id="accounts-table"
                     data-toggle="table"
-                    data-url="api/Accounts"
+                    data-url="api/AllAccounts"
                     data-height="400"
                     data-width="200px"
                     data-side-pagination="server"
@@ -98,8 +98,6 @@
                             <th data-field="email">Email</th>
                             <th data-field="first_name">First Name</th>
                             <th data-field="last_name">Last Name</th>
-                            <th data-field="title">Title</th>
-                            <th data-field="clinic">Clinic</th>
                         </tr>
                     </thead>
                 </table>
@@ -161,7 +159,20 @@
 
     //this function needs to post a request to "login" as a different user.
     function view(){
+        var username;
 
+        table = document.getElementById("accounts-table");
+        tr = table.getElementsByTagName("tr");
+
+        for(i = 0; i < tr.length; i++) {
+           if(tr[i].innerHTML.includes("data-index=\"1\"")) {
+                td = tr[i].getElementsByTagName("td");
+                 username = td[0].textContent;
+           }
+        }
+
+        $.post('/api/loginAs',{user: username});
+            //location.reload();
     }
 
 </script>
