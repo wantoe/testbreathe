@@ -94,6 +94,7 @@
                     <thead>
                         <tr>
                             <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="user_id">User ID</th>
                             <th data-field="username">Username</th>
                             <th data-field="email">Email</th>
                             <th data-field="first_name">First Name</th>
@@ -159,19 +160,17 @@
 
     //this function needs to post a request to "login" as a different user.
     function view(){
-        var username;
+        var user_id;
 
         table = document.getElementById("accounts-table");
-        tr = table.getElementsByTagName("tr");
+        test = table.getElementsByClassName("selected");
+        td = test[0].getElementsByTagName("td");
 
-        for(i = 0; i < tr.length; i++) {
-           if(tr[i].innerHTML.includes("data-index=\"1\"")) {
-                td = tr[i].getElementsByTagName("td");
-                 username = td[0].textContent;
-           }
-        }
+        user_id = td[1].textContent;
 
-        $.post('/api/loginAs',{user: username});
+        console.log(user_id);
+
+        $.post('/api/loginAs',{user_id: user_id});
             //location.reload();
     }
 

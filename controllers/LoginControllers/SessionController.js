@@ -16,6 +16,8 @@ exports.login = function (req, res) {
     var message = '';
     var fs = require('fs');
 
+    console.log(username);
+
     //Initialize stored procedure to call
     var SQL = 'CALL CheckAccount(?)';
 

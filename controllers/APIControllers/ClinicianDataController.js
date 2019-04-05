@@ -93,11 +93,10 @@ exports.getPendingClincians = function (req,res){
             var userId = req.user.userId;
         }
     
-        var SQL = 'select username, email, first_name, last_name from users';
+        var SQL = 'select user_id, username, email, first_name, last_name from users';
     
         db.query(SQL, function(err,dbres){
             out = JSON.stringify({total: dbres.length, rows: dbres}, null, 4);
-            console.log(out);
             res.send(out);
         });
     
