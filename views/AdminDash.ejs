@@ -118,21 +118,19 @@
         var usernames = [];
 
     table = document.getElementById("clinician-table");
-    tr = table.getElementsByTagName("tr");
+    tr = table.getElementsByClassName("selected");
 
     usernames = new Array();
 
     for(i = 0; i < tr.length; i++) {
-        if(tr[i].innerHTML.includes("data-index=\"1\"")) {
-            td = tr[i].getElementsByTagName("td");
-            usernames.push(td[1].textContent);
-        }
+        td = tr[i].getElementsByTagName("td");
+        usernames.push(td[1].textContent);
     }
 
     $.post('/api/ValidateClinicians',{users: usernames}, function(err,res){
         console.log(err);
     });
-        location.reload();
+        //location.reload();
 
     console.log(tr);
     }
@@ -141,19 +139,17 @@
         var usernames = [];
 
         table = document.getElementById("clinician-table");
-        tr = table.getElementsByTagName("tr");
+        tr = table.getElementsByClassName("selected");
 
         usernames = new Array();
 
         for(i = 0; i < tr.length; i++) {
-           if(tr[i].innerHTML.includes("data-index=\"1\"")) {
-                td = tr[i].getElementsByTagName("td");
-                usernames.push(td[1].textContent);
-           }
+            td = tr[i].getElementsByTagName("td");
+            usernames.push(td[1].textContent);
         }
 
         $.post('/api/DeclineClinicians',{users: usernames});
-            location.reload();
+            //location.reload();
 
         console.log(tr);
     }

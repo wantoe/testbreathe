@@ -9,14 +9,17 @@ var callbacks = require('./Callbacks');
  */
 exports.ValidateClinicians = function validateClinicians(req,res){
     // Change this from the frontend
-  post = req.body;
+   post = req.body;
 
-cliniciansToValidate = post.users;
+   console.log(post);
+
+   cliniciansToValidate = Object.values(post)[0];
 
  var SQLVerify = 'CALL ValidateClinicians(?,?)';
 
- var len = cliniciansToValidate.length;
+ console.log(cliniciansToValidate);
 
+ var len = cliniciansToValidate.length;
         db.query(SQLVerify, [cliniciansToValidate, 1], function (err, results) {
             var message = 'Success!';
 
@@ -26,9 +29,6 @@ cliniciansToValidate = post.users;
             console.log(results);
             res.sendStatus(200);
         });
-
-
-
 };
 
 
@@ -43,7 +43,7 @@ exports.DeclineClinicians = function DeclineClinicians(req,res){
    var SQLDecline = 'CALL DeclineClinicians(?,?)';
 
    post = req.body;
-   clinicians = post.users;
+   clinicians = Object.values(post)[0];
    size = clinicians.length;
 
    dbService.dbServiceWithParams(SQLDecline, [clinicians, size], callbacks.declineCliniciansCallback, req , res);
