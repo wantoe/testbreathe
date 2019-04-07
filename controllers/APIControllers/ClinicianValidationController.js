@@ -17,8 +17,6 @@ exports.ValidateClinicians = function validateClinicians(req,res){
 
  var SQLVerify = 'CALL ValidateClinicians(?,?)';
 
- console.log(cliniciansToValidate);
-
  var len = cliniciansToValidate.length;
         db.query(SQLVerify, [cliniciansToValidate, 1], function (err, results) {
             var message = 'Success!';

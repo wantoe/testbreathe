@@ -320,9 +320,16 @@ exports.logout = function (req, res) {
 
 };
 
+const path = require('path');
 
+exports.getGame = function (req, res) {
+    console.log('Sending game...');
+    res.sendFile(path.join(__dirname, '../../res/', 'game.zip'));
+};
 
-
+exports.getImage = function (req, res) {
+    console.log('Sending picture...');
+};
 
 function sanitizeSignup(username,password){
 

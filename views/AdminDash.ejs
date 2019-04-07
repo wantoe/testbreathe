@@ -130,7 +130,7 @@
     $.post('/api/ValidateClinicians',{users: usernames}, function(err,res){
         console.log(err);
     });
-        //location.reload();
+    location.reload();
 
     console.log(tr);
     }
@@ -149,7 +149,7 @@
         }
 
         $.post('/api/DeclineClinicians',{users: usernames});
-            //location.reload();
+        location.reload();
 
         console.log(tr);
     }

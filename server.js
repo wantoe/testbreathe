@@ -200,7 +200,20 @@ app.get('/ClinicianDash',ensureAuthenticated, navigation.clinicianDash);
  */
 app.post('/api/DeclineClinicians', validateClinicians.DeclineClinicians);
 
+/**
+ * This function validates the user data.
+ */
 app.get('/api/ValidateUser', ensureAuthenticated, user.validateUser);
+
+/**
+ * This function allows the user to download the game after clicking the correct button.
+ */
+app.get('/api/game.zip', ensureAuthenticated, user.getGame);
+
+/**
+ * This is a test, to check if resources are being exposed correctly.
+ */
+app.get('/api/BreatheHeroLogo-v2.png', ensureAuthenticated, user.getImage);
 
 
 /**
