@@ -3,6 +3,7 @@
  */
 var dbService = require('../../Services/DatabaseService');
 var bcrypt = require('bcrypt');
+var path = require('path');
 
 exports.senddata = function (req,res){
     var message = '';
@@ -102,69 +103,87 @@ exports.patientSettingsDashboard = function (req, res){
 exports.loginAs = function (req, res) {
     if (req.session.roleId === 4){
         var user_id = req.body.user_id;
-        var sess = req.session;
-        var SQL = 'CALL CheckAccount(?)'
-        var fs = require('fs');
+        getUsernameandPassword(user_id, login, req, res);
+    } else {
+        res.sendStatus(403);
+    }
+};
 
-        db.query('select username, password from users where user_id=' + user_id, null, function (err, result) {
-            var temp = result[0];
+function getUsernameandPassword(user_id, callback, req, res) {
+    db.query('select username, password from users where user_id=' + user_id, null, function (err, result) {
+        var temp = result[0];
 
-            username = temp.username;
-            password = temp.password;
+        username = temp.username;
+        password = temp.password;
 
-            console.log('In first query');
+        results = {username: username, 
+                   password: password};
 
-            db.query(SQL, [username], function (err, results) {
-                // If the passwords match, start a session and send user to dashboard.
-                if (results[0].length > 0 ) {
-                    //CHANGE SO THAT IT USES SELECT DISTINCT
-                    
-                    console.log("In second query");
+        if(err) {
+           return callback(err, null, req, res);
+        } else {
+           return callback(null, results, req, res);
+        }
+    });
+};
 
-                    bcrypt.compare(password, results[0][0].password, function(req,isValid) {
-        
-                        if (isValid || results[0][0].password === password) {
+function login(err, result, req, res) {
+    var sess = req.session;
+    var username = result.username;
+    var password = result.password;
+    var message = '';
+    var fs = require('fs');
 
-                            var ress = results[0][0];
-                            sess.userId = ress.user_id;
-                            sess.userName = ress.username;
-                            sess.email = results[0].email;
-                            sess.firstName = ress.first_name;
-                            sess.lastName = ress.last_name;
-                            sess.roleId = ress.role_id;
-        
-                            var role_id = sess.roleId;
+        //Initialize stored procedure to call
+    var SQL = 'CALL CheckAccount(?)';
+    
+        // Calls the query, and handles the result in a callback function
+    db.query(SQL, [username], function (err, results) {
+    
+        // If the passwords match, start a session and send user to dashboard.
+        if (results[0].length > 0 ) {
+            //CHANGE SO THAT IT USES SELECT DISTINCT
+            bcrypt.compare(password, results[0][0].password, function(req,isValid) {
+    
+                if (isValid || results[0][0].password === password) {
+                    var ress = results[0][0];
+                    sess.userId = ress.user_id;
+                    sess.userName = ress.username;
+                    sess.email = results[0].email;
+                    sess.firstName = ress.first_name;
+                    sess.lastName = ress.last_name;
+                    sess.roleId = ress.role_id;
 
-                            console.log(role_id);
+                    var role_id = sess.roleId;
 
-                            if (role_id === 1) {
-                                message = 'Welcome ' + ' To the BreatheHero Portal';
-                                console.log("Rendering Client Dash...");
-                                res.render('Dashboard.ejs', {message: message});
-                            } else if (role_id === 2) {
-                                message = 'Welcome ' + ' To the BreatheHero Portal';
-                                console.log("Rendering Parent Dash...");
-                                res.render('ParentDash.ejs', {message: message});
-        
-                            } else if (role_id === 3) {
-                                // Clinician portal
-                                console.log("Rendering Clinician Dash...")
-                                res.render('ClinicianDash.ejs');
-                            } else if (role_id === 4) {
-                                // Do nothing here, can't log in as another admin.
-                                console.log("Whoops, I shouldn't be here...");
-                            }
-        
-                        }else {
-                            message ='Invalid Credentials';
-                            res.render('Login.ejs', {message: message});
-                        }
-                    });
-                } else {
-                    console.log('failure');
+                    render(role_id, res);
                 }
             });
+        }
+            //If passwords don't match send error message and redirect to login page.
+        else {
+            message = 'Wrong Username or Password';
+            res.render('Login.ejs', {message: message});
+        }
+    }); 
+};
 
-        });
+function render(role_id, res) {
+    if (role_id === 1) {
+        message = 'Welcome ' + ' To the BreatheHero Portal';
+        res.sendFile(path.join(__dirname + '../../../views/', 'Dashboard.ejs'));
+    } else if (role_id === 2) {
+        message = 'Welcome ' + ' To the BreatheHero Portal';
+        res.render('ParentDash.ejs', {message: message});
+    } else if (role_id === 3) {
+        // Clinician portal
+        res.render('ClinicianDash.ejs');
+    } else if (role_id === 4) {
+        //admin portal
+        res.render('AdminDash.ejs');
+    } else {
+        res.render('Login.ejs');
     }
+
+    console.log('Rendered');
 };
