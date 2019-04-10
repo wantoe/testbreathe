@@ -128,11 +128,13 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="gameTab">
                         <div>
-                            ADD GAME STATUS FOR PATIENT HERE
+                            <h4>
+
+                            </h4>
                         </div>
 
                         <div style="padding: 5%">
-                            <button class="btn btn-primary btn-lg position-static" type="button" onclick="">Toggle Game Availablility</button>
+                            <button class="btn btn-primary btn-lg position-static" type="button" onclick="updateUserGameStatus()">Toggle Game Availablility</button>
                         </div>
                     </div>
                 </div>
@@ -184,5 +186,22 @@
 
 </html>
 
-<script src="../public/js/ClinicianDash.js"></script>
+<script src="../public/js/ClinicianDash.js">
+    
+</script>
+
+<script>
+    function updateUserGameStatus() {
+    var table = document.getElementById('table');
+    var trs = table.getElementsByClassName('selected');
+    var tds = trs[0].getElementsByTagName('td');
+
+    var userId = tds[0].textContent;
+
+    $.post('/api/updateGameStatus', {user_id: userId} ,function out (err, res){
+        console.log(err);
+    });
+};
+</script>
+
 

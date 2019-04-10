@@ -302,7 +302,35 @@ exports.signUpParent = function signUpParent(req,res){
 
 };
 
+exports.updateGameStatus = function updateGameStatus(req, res) {
+    this.post = req.body;
+    this.userId = post.user_id;
 
+    gameStatus = getGameStatus(userId, newGameStatus);
+}
+
+function getGameStatus(userId, callback) {
+    var SQL = 'select * from patients where user_id=' + userId;
+
+    db.query(SQL, function (err, results) {
+        gameStatus = results[0].game_enabled;
+        console.log(gameStatus);
+        if(gameStatus == 1) {
+            newStatus = false;
+        } else {
+            newStatus = true;
+        }
+
+        return callback(userId, newStatus);
+
+    });
+};
+
+function newGameStatus(userId, status) {
+    var SQL = 'CALL UpdateGameStatus(?, ?)';
+    
+    db.query(SQL, [userId, status]);
+}
 
 /*
 Destroys session on logout and redirects to login page.

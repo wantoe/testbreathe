@@ -157,7 +157,6 @@ exports.getUserRequirements = function findUserHours(req,res){
 
     }else {
         userId = req.query.userId;
-
     }
 
     SQL = 'CALL GetUserRequirements(?)';

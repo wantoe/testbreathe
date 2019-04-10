@@ -215,6 +215,10 @@ app.get('/api/game.zip', ensureAuthenticated, user.getGame);
  */
 app.get('/api/BreatheHeroLogo-v2.png', ensureAuthenticated, user.getImage);
 
+/**
+ * This is the endpoint that updates the game availability field in patients.
+ */
+app.post('/api/updateGameStatus', ensureAuthenticated, user.updateGameStatus);
 
 /**
  * C
