@@ -51,9 +51,32 @@ $('.container').on("click", "#table tr", function(){
             $('#spressure').text(0);
         }
         $('input[name="userId"]').val(value);
-
     });
 
+    var table = document.getElementById('table');
+    var trs = table.getElementsByClassName('selected');
+    var tds = trs[0].getElementsByTagName('td');
+
+    var userId = tds[0].textContent;
+
+    var jqxhr = $.post('/api/getGameStatus', {user_id: userId}, function out (err, res){
+        textElement = document.querySelector('#game-status');
+
+        textElement.innerText = 'Enabled';
+    })
+    .done(function() {
+        console.log(jqxhr.status);
+    })
+    .fail(function() {
+        textElement = document.querySelector('#game-status');
+
+        console.log(jqxhr.status);
+        if(jqxhr.status == 418) {
+            textElement.innerText = 'Disabled';
+        } else {
+            textElement.innerText = 'Error Retrieving Status';
+        }
+    });
 });
 
 function onCancelClick(){
@@ -86,9 +109,6 @@ $('#prescriptions').click(function(){
 function getUserStats(value,row,index){
     var classes = ['active', 'success', 'info', 'warning', 'danger'];
     var ind;
-
-
-
 
     var id = value.user_id;
     var rows = $('tbody', '#table');

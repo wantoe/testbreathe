@@ -221,6 +221,11 @@ app.get('/api/BreatheHeroLogo-v2.png', ensureAuthenticated, user.getImage);
 app.post('/api/updateGameStatus', ensureAuthenticated, user.updateGameStatus);
 
 /**
+ * This is the endpoing for obtaining the current status of access for a user to the game.
+ */
+app.post('/api/getGameStatus', ensureAuthenticated, user.getGameStatus);
+
+/**
  * C
  * @param req The request to check authenticated
  * @param res The response to provide
