@@ -223,7 +223,7 @@ app.post('/api/updateGameStatus', ensureAuthenticated, user.updateGameStatus);
 /**
  * This is the endpoing for obtaining the current status of access for a user to the game.
  */
-app.post('/api/getGameStatus', ensureAuthenticated, user.getGameStatus);
+app.get('/api/getGameStatus', ensureAuthenticated, user.returnGameStatus);
 
 /**
  * C

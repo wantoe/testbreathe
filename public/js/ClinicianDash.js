@@ -59,22 +59,17 @@ $('.container').on("click", "#table tr", function(){
 
     var userId = tds[0].textContent;
 
-    var jqxhr = $.post('/api/getGameStatus', {user_id: userId}, function out (err, res){
+    var jqxhr = $.get('/api/getGameStatus?user_id=' + userId, function out (err, res){
         textElement = document.querySelector('#game-status');
 
-        textElement.innerText = 'Enabled';
-    })
-    .done(function() {
-        console.log(jqxhr.status);
-    })
-    .fail(function() {
-        textElement = document.querySelector('#game-status');
+        console.log(jqxhr.responseText);
 
-        console.log(jqxhr.status);
-        if(jqxhr.status == 418) {
-            textElement.innerText = 'Disabled';
+        result = JSON.parse(jqxhr.responseText);
+        
+        if(result.game_enabled) {
+            textElement.innerText = "Enabled";
         } else {
-            textElement.innerText = 'Error Retrieving Status';
+            textElement.innerText = "Disabled";
         }
     });
 });

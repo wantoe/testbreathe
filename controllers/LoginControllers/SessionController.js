@@ -338,22 +338,14 @@ function newGameStatus(userId, status) {
 /**
  * This method retrieves the game status of a particular user.
  */
-exports.getGameStatus = function getGameStatus(req, res) {
-    this.post = req.body;
-
-    this.userId = post.user_id;
+exports.returnGameStatus = function returnGameStatus(req, res) {
+    this.userId = req.param("user_id");
 
     var SQL = 'select * from patients where user_id=' + userId;
 
     db.query(SQL, function (err, results) {
         gameStatus = results[0].game_enabled;
-        console.log(gameStatus);
-
-        if(gameStatus) {
-            res.sendStatus(200);
-        } else {
-            res.sendStatus(418);
-        }
+        res.send({game_enabled: gameStatus});
     });
 }
 
