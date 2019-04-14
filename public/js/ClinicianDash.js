@@ -51,9 +51,27 @@ $('.container').on("click", "#table tr", function(){
             $('#spressure').text(0);
         }
         $('input[name="userId"]').val(value);
-
     });
 
+    var table = document.getElementById('table');
+    var trs = table.getElementsByClassName('selected');
+    var tds = trs[0].getElementsByTagName('td');
+
+    var userId = tds[0].textContent;
+
+    var jqxhr = $.get('/api/getGameStatus?user_id=' + userId, function out (err, res){
+        textElement = document.querySelector('#game-status');
+
+        console.log(jqxhr.responseText);
+
+        result = JSON.parse(jqxhr.responseText);
+        
+        if(result.game_enabled) {
+            textElement.innerText = "Enabled";
+        } else {
+            textElement.innerText = "Disabled";
+        }
+    });
 });
 
 function onCancelClick(){
@@ -86,9 +104,6 @@ $('#prescriptions').click(function(){
 function getUserStats(value,row,index){
     var classes = ['active', 'success', 'info', 'warning', 'danger'];
     var ind;
-
-
-
 
     var id = value.user_id;
     var rows = $('tbody', '#table');

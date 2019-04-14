@@ -30,6 +30,8 @@
                         <span class="collapse in hidden-xs">Breathe Hero</span></a></li>
                 <li><a href="/ClinicianDash"><span class="collapse in hidden-xs">Dashboard</span> <i style="float: right;"
                                                                                         class="fa fa-list"></i> </a></li>
+                <li><a href="/SignUpPatient"><span class="collapse in hidden-xs">Patient Registration</span> <i style="float: right;"
+                    class="fa fa-list"></i> </a></li>
                 <li><a href="/logout"><span class="collapse in hidden-xs">Logout</span> <i style="float:right;"
                                                                                            class="fa fa-sign-out"
                                                                                            aria-hidden="true"></i>
@@ -83,6 +85,7 @@
                     <li role="presentation"><a href="#browseTab" id="#prescriptions" aria-controls="browseTab" role="tab" data-toggle="tab">Prescriptions</a>
 
                     </li>
+                    <li role="presentation"><a href="#gameTab" id="#game" aria-controls="gameTab" role="tab" data-toggle="tab">Game Settings</a></li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
@@ -122,6 +125,17 @@
                             <input type="submit" value="Submit">
                             <input type="Cancel" onclick="onCancelClick()" class="btn-danger" value="Cancel">
                         </form>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="gameTab">
+                        <div>
+                            <h4 id="game-status">
+                                Loading....
+                            </h4>
+                        </div>
+
+                        <div style="padding: 5%">
+                            <button class="btn btn-primary btn-lg position-static" type="button" onclick="updateUserGameStatus()">Toggle Game Availablility</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -172,5 +186,24 @@
 
 </html>
 
-<script src="../public/js/ClinicianDash.js"></script>
+<script src="../public/js/ClinicianDash.js">
+    
+</script>
+
+<script>
+    function updateUserGameStatus() {
+    var table = document.getElementById('table');
+    var trs = table.getElementsByClassName('selected');
+    var tds = trs[0].getElementsByTagName('td');
+
+    var userId = tds[0].textContent;
+
+    $.post('/api/updateGameStatus', {user_id: userId} ,function out (err, res){
+        console.log(err);
+    });
+
+    location.reload();
+};
+</script>
+
 

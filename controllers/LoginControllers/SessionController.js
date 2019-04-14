@@ -16,6 +16,8 @@ exports.login = function (req, res) {
     var message = '';
     var fs = require('fs');
 
+    console.log(username);
+
     //Initialize stored procedure to call
     var SQL = 'CALL CheckAccount(?)';
 
@@ -300,7 +302,52 @@ exports.signUpParent = function signUpParent(req,res){
 
 };
 
+/**
+ * This method updates the game status for this particular user.
+ */
+exports.updateGameStatus = function updateGameStatus(req, res) {
+    this.post = req.body;
+    this.userId = post.user_id;
 
+    gameStatus = getGameStatus(userId, newGameStatus);
+}
+
+function getGameStatus(userId, callback) {
+    var SQL = 'select * from patients where user_id=' + userId;
+
+    db.query(SQL, function (err, results) {
+        gameStatus = results[0].game_enabled;
+        console.log(gameStatus);
+        if(gameStatus == 1) {
+            newStatus = false;
+        } else {
+            newStatus = true;
+        }
+
+        return callback(userId, newStatus);
+
+    });
+};
+
+function newGameStatus(userId, status) {
+    var SQL = 'CALL UpdateGameStatus(?, ?)';
+    
+    db.query(SQL, [userId, status]);
+}
+
+/**
+ * This method retrieves the game status of a particular user.
+ */
+exports.returnGameStatus = function returnGameStatus(req, res) {
+    this.userId = req.param("user_id");
+
+    var SQL = 'select * from patients where user_id=' + userId;
+
+    db.query(SQL, function (err, results) {
+        gameStatus = results[0].game_enabled;
+        res.send({game_enabled: gameStatus});
+    });
+}
 
 /*
 Destroys session on logout and redirects to login page.
@@ -318,9 +365,16 @@ exports.logout = function (req, res) {
 
 };
 
+const path = require('path');
 
+exports.getGame = function (req, res) {
+    console.log('Sending game...');
+    res.sendFile(path.join(__dirname, '../../res/', 'game.zip'));
+};
 
-
+exports.getImage = function (req, res) {
+    console.log('Sending picture...');
+};
 
 function sanitizeSignup(username,password){
 

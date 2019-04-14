@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Admin Dashboard</title>
     <!-- Bootstrap Core CSS -->
     <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
     <link href="../public/css/bootstrap.min.css" rel="Stylesheet">
@@ -37,7 +37,8 @@
         <!-- /sidebar -->
 
         <div class="container">
-            <table id="table"
+        <h1 style="text-align: center; font-size: 38">Pending Clinicians</h1>
+            <table id="clinician-table"
                    data-toggle="table"
                    data-url="api/PendingClinicians"
                    data-height="400"
@@ -53,9 +54,6 @@
                    data-show-export="true"
                    data-show-pagination-switch="true"
             >
-
-
-
                 <thead>
                 <tr>
                     <th data-field="state" data-checkbox="true"></th>
@@ -67,57 +65,112 @@
                     <th data-field="clinic">Clinic</th>
                 </tr>
                 </thead>
-
             </table>
 
-            <div style=" ;margin:auto; text-align: center ; float:right; bottom: 0;">
-                <button class="btn btn-success" ONCLICK="accept()">Create Accounts </button>
+            <div style=" margin:auto; text-align: center ; float:right; bottom: 0;">
+                <button class="btn btn-success" onclick="accept()">Create Accounts </button>
                 <button value="submit" class="btn btn-danger" onclick="decline()" >Delete Accounts </button>
             </div>
         </div>
 
-
+        <div class = "container"> 
+            <h1 style="text-align: center; font-size: 38">Account Checking</h1>
+                <table id="accounts-table"
+                    data-toggle="table"
+                    data-url="api/AllAccounts"
+                    data-height="400"
+                    data-width="200px"
+                    data-side-pagination="server"
+                    data-pagination="true"
+                    data-page-list="[5, 10, 20]"
+                    data-search="true"
+                    data-toolbar="#toolbar"
+                    data-show-refresh="true"
+                    data-show-toggle="true"
+                    data-show-columns="true"
+                    data-show-export="true"
+                    data-show-pagination-switch="true"
+                >   
+                    <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="user_id">User ID</th>
+                            <th data-field="username">Username</th>
+                            <th data-field="email">Email</th>
+                            <th data-field="first_name">First Name</th>
+                            <th data-field="last_name">Last Name</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div style=" margin:auto; text-align: center ; float:right; bottom: 0;">
+                        <button value="submit" class="btn btn-danger" onclick="view()" >View Account </button>
+                </div>
+        </div>
     </div>
-
-
 </div>
+
+
+
 <script type="text/javascript" src ="../public/js/AdminDash.js"></script>
 
 <script>
     function accept(){
-        var usernames = '';
-        var len = checkedRows.length;
-        if(len > 0) {
+        var usernames = [];
 
-            for( i = 0; i < len; i++){
-                $.post('/api/ValidateClinicians', {users: checkedRows[i].username}, function(err,res){
-                    console.log(err);
-                });
-                location.reload();
-                }
+    table = document.getElementById("clinician-table");
+    tr = table.getElementsByClassName("selected");
 
-        }
+    usernames = new Array();
 
+    for(i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        usernames.push(td[1].textContent);
+    }
 
+    $.post('/api/ValidateClinicians',{users: usernames}, function(err,res){
+        console.log(err);
+    });
+    location.reload();
+
+    console.log(tr);
     }
 
     function decline(){
         var usernames = [];
-        var len = checkedRows.length;
 
-        if(len > 0) {
+        table = document.getElementById("clinician-table");
+        tr = table.getElementsByClassName("selected");
 
-            for( i = 0; i < len; i++){
-                console.log(i);
-                if( i !== len -1 ) {
-                    usernames = usernames + (checkedRows[i].username + ',');
-                }else {
-                    usernames = usernames + (checkedRows[i].username);
-                }
-            }
-            $.post('/api/DeclineClinicians',{users: usernames});
-            location.reload();
+        usernames = new Array();
+
+        for(i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            usernames.push(td[1].textContent);
         }
+
+        $.post('/api/DeclineClinicians',{users: usernames});
+        location.reload();
+
+        console.log(tr);
+    }
+
+    //this function needs to post a request to "login" as a different user.
+    function view(){
+        var user_id;
+
+        table = document.getElementById("accounts-table");
+        test = table.getElementsByClassName("selected");
+        td = test[0].getElementsByTagName("td");
+
+        user_id = td[1].textContent;
+
+        console.log(user_id);
+
+        var jqxhr = $.post('/api/loginAs',{user_id: user_id})
+        .done(function() {
+            console.log(jqxhr.responseText);
+            $('html').html(jqxhr.responseText);
+        });
     }
 
 </script>

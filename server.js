@@ -130,6 +130,11 @@ app.get('/api/WeeklyQuota',ensureAuthenticated, apiRoutes.satisfiedHours);
 app.get('/api/PendingClinicians', ensureAuthenticated,  ClinicianPortal.getPendingClincians);
 
 /**
+ * Allows you to check all accounts.
+ */
+app.get('/api/AllAccounts', ensureAuthenticated, ClinicianPortal.getAllAccounts);
+
+/**
  * When the clinician wanting to sign up has filled their form, they complete the captcha and send it to this endpoint.
  */
 app.post('/ClinicianSignup',captcha.checkCaptcha, user.signupClinicians);
@@ -153,6 +158,11 @@ app.get('/dashboard', ensureAuthenticated, navigation.dashboard);
 app.get('/AdminDash', ensureAuthenticated,  navigation.adminDash);
 
 /**
+ * Allows the logged in admin to login as another selected user.
+ */
+app.post('/api/loginAs', ensureAuthenticated, navigation.loginAs);
+
+/**
  * Allows you to navigate to the clinician signup page
  */
 app.get('/SignUpPhysician',   navigation.clinicianSignup);
@@ -161,6 +171,11 @@ app.get('/SignUpPhysician',   navigation.clinicianSignup);
  * Navigate from a patient to the parentsignup page
  */
 app.get('/ParentSignUp', ensureAuthenticated, navigation.parentSignUp);
+
+/**
+ * Navigate from a clinician to the patient registration page
+ */
+app.get('/SignUpPatient', ensureAuthenticated, navigation.signUpPatient);
 
 /**
  * Post the completed parent sign up form
@@ -185,8 +200,30 @@ app.get('/ClinicianDash',ensureAuthenticated, navigation.clinicianDash);
  */
 app.post('/api/DeclineClinicians', validateClinicians.DeclineClinicians);
 
+/**
+ * This function validates the user data.
+ */
 app.get('/api/ValidateUser', ensureAuthenticated, user.validateUser);
 
+/**
+ * This function allows the user to download the game after clicking the correct button.
+ */
+app.get('/api/game.zip', ensureAuthenticated, user.getGame);
+
+/**
+ * This is a test, to check if resources are being exposed correctly.
+ */
+app.get('/api/BreatheHeroLogo-v2.png', ensureAuthenticated, user.getImage);
+
+/**
+ * This is the endpoint that updates the game availability field in patients.
+ */
+app.post('/api/updateGameStatus', ensureAuthenticated, user.updateGameStatus);
+
+/**
+ * This is the endpoing for obtaining the current status of access for a user to the game.
+ */
+app.get('/api/getGameStatus', ensureAuthenticated, user.returnGameStatus);
 
 /**
  * C
