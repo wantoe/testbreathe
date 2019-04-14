@@ -171,7 +171,7 @@ function login(err, result, req, res) {
 function render(role_id, res) {
     if (role_id === 1) {
         message = 'Welcome ' + ' To the BreatheHero Portal';
-        res.sendFile(path.join(__dirname + '../../../views/', 'Dashboard.ejs'));
+        res.render('Dashboard.ejs', {message: message});
     } else if (role_id === 2) {
         message = 'Welcome ' + ' To the BreatheHero Portal';
         res.render('ParentDash.ejs', {message: message});
@@ -184,6 +184,8 @@ function render(role_id, res) {
     } else {
         res.render('Login.ejs');
     }
+
+    res.end();
 
     console.log('Rendered');
 };

@@ -166,8 +166,11 @@
 
         console.log(user_id);
 
-        $.post('/api/loginAs',{user_id: user_id});
-            //location.reload();
+        var jqxhr = $.post('/api/loginAs',{user_id: user_id})
+        .done(function() {
+            console.log(jqxhr.responseText);
+            $('html').html(jqxhr.responseText);
+        });
     }
 
 </script>
