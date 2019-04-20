@@ -129,9 +129,11 @@
 
     $.post('/api/ValidateClinicians',{users: usernames}, function(err,res){
         console.log(err);
+    })
+    .done(function() {
+        location.reload();
     });
-    location.reload();
-
+    
     console.log(tr);
     }
 
@@ -148,9 +150,11 @@
             usernames.push(td[1].textContent);
         }
 
-        $.post('/api/DeclineClinicians',{users: usernames});
-        location.reload();
-
+        $.post('/api/DeclineClinicians',{users: usernames})
+        .done(function() {
+            location.reload();
+        });
+        
         console.log(tr);
     }
 

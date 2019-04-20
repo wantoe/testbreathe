@@ -40,7 +40,6 @@ exports.login = function (req, res) {
                     sess.lastName = ress.last_name;
                     sess.roleId = ress.role_id;
 
-                    console.log(sess.id);
                     var role_id = sess.roleId;
                     if (role_id === 1) {
                         message = 'Welcome ' + ' To the BreatheHero Portal';

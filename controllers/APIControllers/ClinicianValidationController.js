@@ -11,8 +11,6 @@ exports.ValidateClinicians = function validateClinicians(req,res){
     // Change this from the frontend
    post = req.body;
 
-   console.log(post);
-
    cliniciansToValidate = Object.values(post)[0];
 
  var SQLVerify = 'CALL ValidateClinicians(?,?)';
@@ -24,7 +22,6 @@ exports.ValidateClinicians = function validateClinicians(req,res){
             if (err) {
                res.sendStatus(409);
             }
-            console.log(results);
             res.sendStatus(200);
         });
 };
