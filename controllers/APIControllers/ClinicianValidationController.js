@@ -13,7 +13,9 @@ exports.ValidateClinicians = function validateClinicians(req,res){
 
    cliniciansToValidate = Object.values(post)[0];
 
-   console.log(cliniciansToValidate);
+   if(cliniciansToValidate == null) {
+      res.sendStatus(406);
+   }
 
    var SQLVerify = 'CALL ValidateClinicians(?,?)';
 
