@@ -49,7 +49,7 @@ exports.DeclineClinicians = function DeclineClinicians(req,res){
    var SQLDecline = 'CALL DeclineClinicians(?,?)';
 
    post = req.body;
-   clinicians = Object.values(post)[0];
+   clinicians = Object.keys(post).map(e => post[e]);
    size = clinicians.length;
 
    dbService.dbServiceWithParams(SQLDecline, [clinicians, size], callbacks.declineCliniciansCallback, req , res);
