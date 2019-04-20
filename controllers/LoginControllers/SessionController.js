@@ -273,6 +273,34 @@ exports.signupAdmin = function (req, res) {
 
 
 
+exports.signUpPatient = function signUpPatient(req,res){
+    this.post = req.body;
+    this.username = post.username;
+    this.password = post.password;
+    this.email = post.email;
+    this.firstname = post.first_name;
+    this.lastname = post.last_name;
+    this.rpassword = post.confirm_password;
+
+    var SQL = 'CALL CreatePatient(?,?,?,?,?,?)';
+
+    bcrypt.genSalt(13, function (err, salt) {
+        bcrypt.hash(password, salt, function (err, hash) {
+            db.query(SQL, [username, password, email, firstname, lastname, 1], function (err, results) {
+
+                if (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                } else {
+                    res.render('SignUpPatient.ejs', {message: 'Success!'});
+                }
+
+            });
+        });
+    });
+
+};
+
 exports.signUpParent = function signUpParent(req,res){
     this.post = req.body;
     this.username = post.username;

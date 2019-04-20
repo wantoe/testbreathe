@@ -178,6 +178,11 @@ app.get('/ParentSignUp', ensureAuthenticated, navigation.parentSignUp);
 app.get('/SignUpPatient', ensureAuthenticated, navigation.signUpPatient);
 
 /**
+ * Post the completed patient signup form
+ */
+app.post('/SignUpPatient', ensureAuthenticated, user.signUpPatient);
+
+/**
  * Post the completed parent sign up form
  */
 app.post('/ParentSignUp',ensureAuthenticated,user.signUpParent);
