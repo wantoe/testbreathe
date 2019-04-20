@@ -11,7 +11,12 @@ exports.ValidateClinicians = function validateClinicians(req,res){
     // Change this from the frontend
    post = req.body;
 
-   cliniciansToValidate = Object.values(post)[0];
+   //THIS CALL DOES NOT WORK ON THE SERVER
+   //cliniciansToValidate = Object.values(post)[0];
+
+   console.log(post);
+
+   cliniciansToValidate = Object.keys(post).map(e => post[e]);
 
    if(cliniciansToValidate == null) {
       res.sendStatus(406);
@@ -20,8 +25,11 @@ exports.ValidateClinicians = function validateClinicians(req,res){
    var SQLVerify = 'CALL ValidateClinicians(?,?)';
 
    var len = cliniciansToValidate.length;
-        db.query(SQLVerify, [cliniciansToValidate, 1], function (err, results) {
+   console.log(len);
+
+        db.query(SQLVerify, [cliniciansToValidate, len], function (err, results) {
             var message = 'Success!';
+            console.log('query complete');
 
             if (err) {
                res.sendStatus(409);
@@ -29,7 +37,6 @@ exports.ValidateClinicians = function validateClinicians(req,res){
             res.sendStatus(200);
         });
 };
-
 
 /**
  *
