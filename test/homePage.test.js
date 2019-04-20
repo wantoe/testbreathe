@@ -18,7 +18,7 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit('localhost:8080');
+                await page.visit(page.url);
             });
 
             afterEach (async () => {
@@ -57,7 +57,7 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit('localhost:8080');
+                await page.visit(page.url);
             });
 
             afterEach (async () => {
@@ -70,7 +70,7 @@ process.on('unhandledRejection', () => {});
 
                 page.waitUntilDisplayed(usernameE);
 
-                await usernameE.sendKeys(fakeData.user);
+                await usernameE.sendKeys(fakeUser.username);
                 await passwordE.sendKeys('asdf');
                 usernameE.submit();
 
@@ -107,6 +107,86 @@ process.on('unhandledRejection', () => {});
     }
 })();
 
+(async function testLoginClinician() {
+    try {
+        describe('Testing login of clinician', async function () {
+            this.timeout(50000);
+            let driver, page;
+
+            beforeEach(async () => {
+                page = new Page();
+                driver = page.driver;
+                await page.visit(page.url);
+            });
+
+            afterEach(async() => {
+                await page.quit();
+            });
+
+            it('enter clinician credentials and login', async function () {
+                const usernameE = await page.getUsernameE();
+                const passwordE = await page.getPasswordE();
+
+                page.waitUntilDisplayed(usernameE);
+
+                await usernameE.sendKeys(fakeClinician.username);
+                await passwordE.sendKeys(fakeClinician.password);
+                usernameE.submit();
+
+                const clinicianTableE = await page.getClinicianTableE();
+
+                page.waitUntilDisplayed(clinicianTableE);
+
+                //if the table displays, then this page has been reached successfully.
+                expect(true);
+            });
+        });
+    } catch(ex) {
+        console.log(new Error(ex.message));
+    } finally {
+
+    }
+});
+
+(async function testLoginAdmin() {
+    try {
+        describe('Testing login of admin', async function () {
+            this.timeout(50000);
+            let driver, page;
+
+            beforeEach(async () => {
+                page = new Page();
+                driver = page.driver;
+                await page.visit(page.url);
+            });
+
+            afterEach(async() => {
+                await page.quit();
+            });
+
+            it('enter admin credentials and login', async function () {
+                const usernameE = await page.getUsernameE();
+                const passwordE = await page.getPasswordE();
+
+                page.waitUntilDisplayed(usernameE);
+
+                await usernameE.sendKeys(fakeAdmin.username);
+                await passwordE.sendKeys(fakeAdmin.password);
+                usernameE.submit();
+
+                const adminTitleE = await page.getAdminPageTitleE();
+                const result = await adminTitleE.getText();
+
+                expect(result).to.include("Pending Clinicians");
+            });
+        })
+    } catch(ex) {
+        console.log(new Error(ex));
+    } finally {
+
+    }
+});
+
 (async function testCreate() {
     try {
         describe ('Testing new account form', async function () {
@@ -116,7 +196,7 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit('localhost:8080');
+                await page.visit(page.url);
             });
 
             afterEach (async () => {
@@ -147,7 +227,7 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit('localhost:8080');
+                await page.visit(page.url);
             });
 
             afterEach (async () => {
@@ -181,7 +261,7 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit('localhost:8080');
+                await page.visit(page.url);
             });
 
             afterEach (async() => {

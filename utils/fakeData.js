@@ -2,7 +2,19 @@
 
 const faker = require('faker');
 
-module.exports = {
-    user: 'tester1',
-    userPassword: 'tester1'
-}
+fakeUser = {
+    username: 'tester1',
+    password: 'tester1'
+};
+
+fakeClinician = {
+    username: 'sid11',
+    password: 'sid'
+};
+
+fakeAdmin = {
+    username: 'sidadmin',
+    password: 'sid'
+};
+
+module.exports = fakeUser, fakeClinician, fakeAdmin;

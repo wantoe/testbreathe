@@ -18,7 +18,7 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit('localhost:8080');
+                await page.visit(page.url);
 
                 //This is the login functionality code, and will get us to the main page.
                 const usernameE = await page.getUsernameE();
@@ -97,7 +97,7 @@ process.on('unhandledRejection', () => {});
             beforeEach(async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit('localhost:8080');
+                await page.visit(page.url);
 
                 //This is the login functionality code, and will get us to the main page.
                 const usernameE = await page.getUsernameE();
@@ -155,7 +155,7 @@ process.on('unhandledRejection', () => {});
             beforeEach(async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit('localhost:8080');
+                await page.visit(page.url);
 
                 //This is the login functionality code, and will get us to the main page.
                 const usernameE = await page.getUsernameE();

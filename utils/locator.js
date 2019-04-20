@@ -1,5 +1,8 @@
 //HTML element locators
 module.exports = {
+    local: 'localhost:8080',
+    live: 'https:breathehero.com',
+
     homePageUsernameID: 'loginusername',
     homePagePasswordID: 'loginpassword',
     homePageButtonName: 'login',
@@ -23,5 +26,10 @@ module.exports = {
     mainPageSignupTitleXPath: '/html/body/div/div/div[2]/h1',
     mainPageParentalNameXPath: '/html/body/div/div/div[2]/div/div/form/div/div[1]/div[1]/input',
     mainPageParentalButtonXPath: '/html/body/div/div/div[2]/div/div/form/div/button',
-    mainPageParentalSuccessXPath: '/html/body/div/div/div[2]/div[2]/h3'
+    mainPageParentalSuccessXPath: '/html/body/div/div/div[2]/div[2]/h3',
+
+    clinicianPageTableXPath: '/html/body/div[1]/div/div[2]/div[1]',
+    clinicianPageModalHeaderXPath: '//*[@id="title"]',
+
+    adminPageTitleXPath: '/html/body/div/div/div[2]/h1'
 }
