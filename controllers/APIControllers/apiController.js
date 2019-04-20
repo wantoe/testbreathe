@@ -19,6 +19,8 @@ exports.sentData = function (req,res) {
     this. average_exhl_pressure = post.average_exhl_pressure;
     this. average_exhl_time = post.average_exhl_time;
     this. huff_coughs = post.successful_huff_coughs;
+    this. hasGame = post.hasGame;
+
     var source;
 
     console.log(req.body);
@@ -34,7 +36,7 @@ exports.sentData = function (req,res) {
 
 
 
-    this. SQL = 'Call InsertPatientData(?,?,?,?,?,?,?,?,?,?)';
+    this. SQL = 'Call InsertPatientData(?,?,?,?,?,?,?,?,?,?,?)';
 
     switch (idToPost){
         case undefined:
@@ -47,7 +49,7 @@ exports.sentData = function (req,res) {
             }
             break;
          default :
-             dbService.dbServiceWithParams(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs,source],callbacks.sentDataCallback,req,res);
+             dbService.dbServiceWithParams(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs,source, hasGame],callbacks.sentDataCallback,req,res);
     }
 };
 /**

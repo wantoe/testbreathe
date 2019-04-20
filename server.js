@@ -97,7 +97,7 @@ app.post('/api/userdata',ensureAuthenticated, apiRoutes.sentData );
 /**
  * Allows you to retrieve patient data.
  */
-app.get('/api/userdata', ensureAuthenticated,apiRoutes.getData);
+app.get('/api/userdata', ensureAuthenticated, apiRoutes.getData);
 
 /**
  *  Takes you to the client page so that you can submit data.
