@@ -1,5 +1,6 @@
 const { describe, it, after, before } = require('mocha');
 const Page = require('../lib/homePage');
+const AdminPage = require('../lib/adminPage');
 const fakeData = require('../utils/fakeData');
 
 const chai = require('chai');
@@ -18,7 +19,7 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit(page.url);
+                await page.visitDefault();
             });
 
             afterEach (async () => {
@@ -32,8 +33,8 @@ process.on('unhandledRejection', () => {});
                 page.waitUntilDisplayed(usernameE);
                 page.waitUntilDisplayed(passwordE);
 
-                await usernameE.sendKeys(fakeData.user);
-                await passwordE.sendKeys(fakeData.userPassword);
+                await usernameE.sendKeys(fakeUser.username);
+                await passwordE.sendKeys(fakeUser.password);
                 usernameE.submit();
 
                 const resultsPageTitleE = await page.getResultsPageTitleE();
@@ -57,7 +58,7 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit(page.url);
+                await page.visitDefault();
             });
 
             afterEach (async () => {
@@ -116,7 +117,7 @@ process.on('unhandledRejection', () => {});
             beforeEach(async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit(page.url);
+                await page.visitDefault();
             });
 
             afterEach(async() => {
@@ -146,7 +147,7 @@ process.on('unhandledRejection', () => {});
     } finally {
 
     }
-});
+})();
 
 (async function testLoginAdmin() {
     try {
@@ -157,7 +158,7 @@ process.on('unhandledRejection', () => {});
             beforeEach(async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit(page.url);
+                await page.visitDefault();
             });
 
             afterEach(async() => {
@@ -174,7 +175,9 @@ process.on('unhandledRejection', () => {});
                 await passwordE.sendKeys(fakeAdmin.password);
                 usernameE.submit();
 
-                const adminTitleE = await page.getAdminPageTitleE();
+                let adminPage = new AdminPage();
+
+                const adminTitleE = await adminPage.getAdminPageTitleE();
                 const result = await adminTitleE.getText();
 
                 expect(result).to.include("Pending Clinicians");
@@ -185,7 +188,7 @@ process.on('unhandledRejection', () => {});
     } finally {
 
     }
-});
+})();
 
 (async function testCreate() {
     try {
@@ -196,7 +199,7 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit(page.url);
+                await page.visitDefault();
             });
 
             afterEach (async () => {
@@ -227,7 +230,7 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit(page.url);
+                await page.visitDefault();
             });
 
             afterEach (async () => {
@@ -261,7 +264,7 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit(page.url);
+                await page.visitDefault();
             });
 
             afterEach (async() => {

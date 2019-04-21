@@ -1,25 +1,25 @@
 {
   "stats": {
-    "suites": 8,
-    "tests": 12,
-    "passes": 12,
+    "suites": 12,
+    "tests": 18,
+    "passes": 14,
     "pending": 0,
-    "failures": 0,
-    "start": "2019-03-26T21:55:18.508Z",
-    "end": "2019-03-26T21:56:15.465Z",
-    "duration": 56957,
-    "testsRegistered": 12,
-    "passPercent": 100,
+    "failures": 4,
+    "start": "2019-04-21T04:28:30.459Z",
+    "end": "2019-04-21T04:30:06.458Z",
+    "duration": 95999,
+    "testsRegistered": 18,
+    "passPercent": 77.8,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
     "skipped": 0,
     "hasSkipped": false,
-    "passPercentClass": "success",
+    "passPercentClass": "warning",
     "pendingPercentClass": "danger"
   },
   "suites": {
-    "uuid": "2931df8f-412c-4522-9edd-69b6face88cb",
+    "uuid": "dde32b0a-fb69-40ca-827f-9c2ba511c24a",
     "title": "",
     "fullFile": "",
     "file": "",
@@ -28,7 +28,236 @@
     "tests": [],
     "suites": [
       {
-        "uuid": "1b75462c-2806-482f-9c59-bf3b65c8314d",
+        "uuid": "3a081336-5bc9-4263-89dc-6cbc638afa25",
+        "title": "Testing the menu",
+        "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\clinicianPage.test.js",
+        "file": "\\test\\clinicianPage.test.js",
+        "beforeHooks": [
+          {
+            "title": "\"before each\" hook",
+            "fullTitle": "Testing the menu \"before each\" hook",
+            "timedOut": false,
+            "duration": 2718,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visitDefault();\nawait page.login(fakeClinician.username, fakeClinician.password);",
+            "err": {},
+            "isRoot": false,
+            "uuid": "101f859d-0f9b-4b09-8e99-ee720ad784bc",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "afterHooks": [
+          {
+            "title": "\"after each\" hook",
+            "fullTitle": "Testing the menu \"after each\" hook",
+            "timedOut": false,
+            "duration": 25,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "await page.quit();",
+            "err": {},
+            "isRoot": false,
+            "uuid": "8d2a8aa1-cf39-4619-a59e-1278076a3430",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "tests": [
+          {
+            "title": "Clicking on patient registration transitions to the form",
+            "fullTitle": "Testing the menu Clicking on patient registration transitions to the form",
+            "timedOut": false,
+            "duration": 588,
+            "state": "passed",
+            "speed": "slow",
+            "pass": true,
+            "fail": false,
+            "pending": false,
+            "code": "let registrationE, regHeaderE;\nregistrationE = await page.getRegistrationE();\nregistrationE.click();\nregHeaderE = await page.getFormHeaderE();\nconst result = await regHeaderE.getText();\nexpect(result).to.include('Patient Registration Form');",
+            "err": {},
+            "isRoot": false,
+            "uuid": "8cb54d3b-6859-4b37-b7ad-737515e14838",
+            "isHook": false,
+            "skipped": false
+          },
+          {
+            "title": "Clicking on dashboard transitions to dashboard",
+            "fullTitle": "Testing the menu Clicking on dashboard transitions to dashboard",
+            "timedOut": false,
+            "duration": 637,
+            "state": "passed",
+            "speed": "slow",
+            "pass": true,
+            "fail": false,
+            "pending": false,
+            "code": "let registrationE, dashboardE, tableE;\nregistrationE = await page.getRegistrationE();\nregistrationE.click();\ndashboardE = await page.getDashboardE();\ndashboardE.click();\ntableE = await page.getClinicianTableE();\n//if it doesn't timeout on waiting to find the table element, it's in the right page.\nexpect(true);",
+            "err": {},
+            "isRoot": false,
+            "uuid": "a0e3c4d3-c6fb-46de-829f-955fe366e477",
+            "isHook": false,
+            "skipped": false
+          },
+          {
+            "title": "Clicking logout logs you out",
+            "fullTitle": "Testing the menu Clicking logout logs you out",
+            "timedOut": false,
+            "duration": 15003,
+            "state": "failed",
+            "pass": false,
+            "fail": true,
+            "pending": false,
+            "code": "let logoutE;\nlogoutE = await page.getLogoutE();\nlogoutE.click();\nconst result = await page.currentUrl();\nexpect(result).to.equal('https://breathehero.com');",
+            "err": {
+              "message": "TimeoutError: Looking for an element\nWait timed out after 15003ms",
+              "estack": "TimeoutError: Looking for an element\nWait timed out after 15003ms\n    at node_modules\\selenium-webdriver\\lib\\webdriver.js:834:17\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+            },
+            "isRoot": false,
+            "uuid": "496736bb-96f9-4acc-982a-1befaa5753bc",
+            "isHook": false,
+            "skipped": false
+          }
+        ],
+        "suites": [],
+        "passes": [
+          "8cb54d3b-6859-4b37-b7ad-737515e14838",
+          "a0e3c4d3-c6fb-46de-829f-955fe366e477"
+        ],
+        "failures": [
+          "496736bb-96f9-4acc-982a-1befaa5753bc"
+        ],
+        "pending": [],
+        "skipped": [],
+        "duration": 16228,
+        "root": false,
+        "rootEmpty": false,
+        "_timeout": 50000
+      },
+      {
+        "uuid": "64b42903-6e22-42f1-b3eb-fbeb4a0d3e39",
+        "title": "Testing the clinician table",
+        "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\clinicianPage.test.js",
+        "file": "\\test\\clinicianPage.test.js",
+        "beforeHooks": [
+          {
+            "title": "\"before each\" hook",
+            "fullTitle": "Testing the clinician table \"before each\" hook",
+            "timedOut": false,
+            "duration": 2780,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visitDefault();\nawait page.login(fakeClinician.username, fakeClinician.password);",
+            "err": {},
+            "isRoot": false,
+            "uuid": "13e1f8fb-8a44-400e-bf7c-698208e2b939",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "afterHooks": [
+          {
+            "title": "\"after each\" hook",
+            "fullTitle": "Testing the clinician table \"after each\" hook",
+            "timedOut": false,
+            "duration": 465,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "await page.quit();",
+            "err": {},
+            "isRoot": false,
+            "uuid": "a0e8c909-f0a3-4d1f-8185-13f91fbeb4fb",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "tests": [
+          {
+            "title": "Clicking on the entry in the table",
+            "fullTitle": "Testing the clinician table Clicking on the entry in the table",
+            "timedOut": false,
+            "duration": 15,
+            "state": "passed",
+            "speed": "fast",
+            "pass": true,
+            "fail": false,
+            "pending": false,
+            "code": "const clinicianTableE = page.getClinicianTableE();\nlet vals = await page.findElementsbyTagName('tr');\n\n//find ID no. 155 (testing account ID) and click on it.\nfor(i = 0; i < vals.length; i++) {\n    row = vals[i];\n    if(row[0] == 155) {\n        row.click();\n        const modalHeaderE = await page.getClinicianModalHeaderE();\n        const result = await modalHeaderE.getText();\n        expect(result).to.include(\"Data for tester1\");\n    }\n}",
+            "err": {},
+            "isRoot": false,
+            "uuid": "dff3b2b0-17d0-472b-9311-ab7100584d9d",
+            "isHook": false,
+            "skipped": false
+          }
+        ],
+        "suites": [],
+        "passes": [
+          "dff3b2b0-17d0-472b-9311-ab7100584d9d"
+        ],
+        "failures": [],
+        "pending": [],
+        "skipped": [],
+        "duration": 15,
+        "root": false,
+        "rootEmpty": false,
+        "_timeout": 50000
+      },
+      {
+        "uuid": "4d05fe8c-1fd6-47f6-ba79-5614255ffad4",
+        "title": "Testing the popup window",
+        "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\clinicianPage.test.js",
+        "file": "\\test\\clinicianPage.test.js",
+        "beforeHooks": [
+          {
+            "title": "\"before each\" hook",
+            "fullTitle": "Testing the popup window \"before each\" hook",
+            "timedOut": false,
+            "duration": 0,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visitDefault();\nawait page.login(fakeClinician.username, fakeClinician.password);",
+            "err": {},
+            "isRoot": false,
+            "uuid": "d12f8286-c9bd-42a3-a340-443265428724",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "afterHooks": [
+          {
+            "title": "\"after each\" hook",
+            "fullTitle": "Testing the popup window \"after each\" hook",
+            "timedOut": false,
+            "duration": 0,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "await page.quit();",
+            "err": {},
+            "isRoot": false,
+            "uuid": "9365d5e9-fa05-47d6-8858-8278a452cb4f",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "tests": [],
+        "suites": [],
+        "passes": [],
+        "failures": [],
+        "pending": [],
+        "skipped": [],
+        "duration": 0,
+        "root": false,
+        "rootEmpty": false,
+        "_timeout": 50000
+      },
+      {
+        "uuid": "a29ae045-cfae-499f-9d80-a0ea6da20d88",
         "title": "Testing login using username and password",
         "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\homePage.test.js",
         "file": "\\test\\homePage.test.js",
@@ -37,14 +266,14 @@
             "title": "\"before each\" hook",
             "fullTitle": "Testing login using username and password \"before each\" hook",
             "timedOut": false,
-            "duration": 3666,
+            "duration": 2724,
             "pass": false,
             "fail": false,
             "pending": false,
-            "code": "page = new Page();\ndriver = page.driver;\nawait page.visit('localhost:8080');",
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visitDefault();",
             "err": {},
             "isRoot": false,
-            "uuid": "2a491d16-64b5-4e31-a264-aea15ef9b408",
+            "uuid": "f31f7b8a-0933-40c3-8b3d-c8af2338216f",
             "isHook": true,
             "skipped": false
           }
@@ -54,14 +283,14 @@
             "title": "\"after each\" hook",
             "fullTitle": "Testing login using username and password \"after each\" hook",
             "timedOut": false,
-            "duration": 47,
+            "duration": 26,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "await page.quit();",
             "err": {},
             "isRoot": false,
-            "uuid": "774e7526-a2b8-49ed-b65e-7dc47a8be4c1",
+            "uuid": "44e6b16c-91a0-421f-99ee-36f9513b88b1",
             "isHook": true,
             "skipped": false
           }
@@ -71,34 +300,34 @@
             "title": "enter credentials, click the login button and logs in",
             "fullTitle": "Testing login using username and password enter credentials, click the login button and logs in",
             "timedOut": false,
-            "duration": 1011,
+            "duration": 984,
             "state": "passed",
             "speed": "slow",
             "pass": true,
             "fail": false,
             "pending": false,
-            "code": "const usernameE = await page.getUsernameE();\nconst passwordE = await page.getPasswordE();\npage.waitUntilDisplayed(usernameE);\npage.waitUntilDisplayed(passwordE);\nawait usernameE.sendKeys(fakeData.user);\nawait passwordE.sendKeys(fakeData.userPassword);\nusernameE.submit();\nconst resultsPageTitleE = await page.getResultsPageTitleE();\nconst result = await resultsPageTitleE.getText();\nexpect(result).to.include('View your data');",
+            "code": "const usernameE = await page.getUsernameE();\nconst passwordE = await page.getPasswordE();\npage.waitUntilDisplayed(usernameE);\npage.waitUntilDisplayed(passwordE);\nawait usernameE.sendKeys(fakeUser.username);\nawait passwordE.sendKeys(fakeUser.password);\nusernameE.submit();\nconst resultsPageTitleE = await page.getResultsPageTitleE();\nconst result = await resultsPageTitleE.getText();\nexpect(result).to.include('View your data');",
             "err": {},
             "isRoot": false,
-            "uuid": "cd8a091e-9dbc-41a2-aeba-be9acd8352e8",
+            "uuid": "3bd428ed-e0b4-45b1-92c7-4b09442f1bcc",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "cd8a091e-9dbc-41a2-aeba-be9acd8352e8"
+          "3bd428ed-e0b4-45b1-92c7-4b09442f1bcc"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 1011,
+        "duration": 984,
         "root": false,
         "rootEmpty": false,
         "_timeout": 50000
       },
       {
-        "uuid": "6143c33c-b919-4f83-9420-6bd7475d1820",
+        "uuid": "46e18605-cce3-4962-ac64-00051d67836c",
         "title": "Testing login with false credentials",
         "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\homePage.test.js",
         "file": "\\test\\homePage.test.js",
@@ -107,14 +336,14 @@
             "title": "\"before each\" hook",
             "fullTitle": "Testing login with false credentials \"before each\" hook",
             "timedOut": false,
-            "duration": 2744,
+            "duration": 2713,
             "pass": false,
             "fail": false,
             "pending": false,
-            "code": "page = new Page();\ndriver = page.driver;\nawait page.visit('localhost:8080');",
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visitDefault();",
             "err": {},
             "isRoot": false,
-            "uuid": "21ccc18f-1489-48bf-9cb4-8ce10dfa7fe8",
+            "uuid": "a81871e7-53ec-40b7-a10c-3da6acfc7e19",
             "isHook": true,
             "skipped": false
           }
@@ -124,14 +353,14 @@
             "title": "\"after each\" hook",
             "fullTitle": "Testing login with false credentials \"after each\" hook",
             "timedOut": false,
-            "duration": 22,
+            "duration": 25,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "await page.quit();",
             "err": {},
             "isRoot": false,
-            "uuid": "c0d48f6d-043a-45c8-9134-31da062aae2a",
+            "uuid": "00aa5cf2-9015-4972-8ae8-b9362c2cab8b",
             "isHook": true,
             "skipped": false
           }
@@ -141,16 +370,16 @@
             "title": "enter invalid credentials, results in a failed credentials message",
             "fullTitle": "Testing login with false credentials enter invalid credentials, results in a failed credentials message",
             "timedOut": false,
-            "duration": 1075,
+            "duration": 1083,
             "state": "passed",
             "speed": "slow",
             "pass": true,
             "fail": false,
             "pending": false,
-            "code": "const usernameE = await page.getUsernameE();\nconst passwordE = await page.getPasswordE();\npage.waitUntilDisplayed(usernameE);\nawait usernameE.sendKeys(fakeData.user);\nawait passwordE.sendKeys('asdf');\nusernameE.submit();\npage.waitUntilLoaded('login');\nconst invalidCredentialsE = await page.getInvalidCredentialsE();\nconst result = await invalidCredentialsE.getText();\nexpect(result).to.include('Invalid Credentials');",
+            "code": "const usernameE = await page.getUsernameE();\nconst passwordE = await page.getPasswordE();\npage.waitUntilDisplayed(usernameE);\nawait usernameE.sendKeys(fakeUser.username);\nawait passwordE.sendKeys('asdf');\nusernameE.submit();\npage.waitUntilLoaded('login');\nconst invalidCredentialsE = await page.getInvalidCredentialsE();\nconst result = await invalidCredentialsE.getText();\nexpect(result).to.include('Invalid Credentials');",
             "err": {},
             "isRoot": false,
-            "uuid": "75b7542f-8bb2-41de-bfae-a6f40cffba41",
+            "uuid": "3685c6c7-4533-4092-a792-abce09e8824b",
             "isHook": false,
             "skipped": false
           },
@@ -158,7 +387,7 @@
             "title": "enter unregistered username, results in a wrong username or password message",
             "fullTitle": "Testing login with false credentials enter unregistered username, results in a wrong username or password message",
             "timedOut": false,
-            "duration": 615,
+            "duration": 639,
             "state": "passed",
             "speed": "slow",
             "pass": true,
@@ -167,26 +396,168 @@
             "code": "const usernameE = await page.getUsernameE();\nconst passwordE = await page.getPasswordE();\npage.waitUntilDisplayed(usernameE);\nawait usernameE.sendKeys('asdf');\nawait passwordE.sendKeys('asdf');\nusernameE.submit();\npage.waitUntilLoaded('login');\nconst invalidUsernamePasswordE = await page.getInvalidUsernamePasswordE();\nconst result = await invalidUsernamePasswordE.getText();\nexpect(result).to.include('Wrong Username or Password');",
             "err": {},
             "isRoot": false,
-            "uuid": "251fbb9d-84e6-4544-9b8c-5d537a9e4e83",
+            "uuid": "8e12e041-7ee3-4122-b5f8-8027f9674d68",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "75b7542f-8bb2-41de-bfae-a6f40cffba41",
-          "251fbb9d-84e6-4544-9b8c-5d537a9e4e83"
+          "3685c6c7-4533-4092-a792-abce09e8824b",
+          "8e12e041-7ee3-4122-b5f8-8027f9674d68"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 1690,
+        "duration": 1722,
         "root": false,
         "rootEmpty": false,
         "_timeout": 50000
       },
       {
-        "uuid": "5f18c55c-7b0c-4599-8e5c-fa21c211c6ec",
+        "uuid": "d2d179ad-e8c7-4bc8-a3cc-f33ea5375c3d",
+        "title": "Testing login of clinician",
+        "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\homePage.test.js",
+        "file": "\\test\\homePage.test.js",
+        "beforeHooks": [
+          {
+            "title": "\"before each\" hook",
+            "fullTitle": "Testing login of clinician \"before each\" hook",
+            "timedOut": false,
+            "duration": 2717,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visitDefault();",
+            "err": {},
+            "isRoot": false,
+            "uuid": "a87d3f81-d696-4fd7-8d17-78134b24cc39",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "afterHooks": [
+          {
+            "title": "\"after each\" hook",
+            "fullTitle": "Testing login of clinician \"after each\" hook",
+            "timedOut": false,
+            "duration": 30,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "await page.quit();",
+            "err": {},
+            "isRoot": false,
+            "uuid": "d4e5dab8-3e2a-4686-b1c0-c29e2af266f3",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "tests": [
+          {
+            "title": "enter clinician credentials and login",
+            "fullTitle": "Testing login of clinician enter clinician credentials and login",
+            "timedOut": false,
+            "duration": 580,
+            "state": "passed",
+            "speed": "slow",
+            "pass": true,
+            "fail": false,
+            "pending": false,
+            "code": "const usernameE = await page.getUsernameE();\nconst passwordE = await page.getPasswordE();\npage.waitUntilDisplayed(usernameE);\nawait usernameE.sendKeys(fakeClinician.username);\nawait passwordE.sendKeys(fakeClinician.password);\nusernameE.submit();\nconst clinicianTableE = await page.getClinicianTableE();\npage.waitUntilDisplayed(clinicianTableE);\n//if the table displays, then this page has been reached successfully.\nexpect(true);",
+            "err": {},
+            "isRoot": false,
+            "uuid": "e09c72d7-fd45-4fcd-ab4e-8eab1e4c835f",
+            "isHook": false,
+            "skipped": false
+          }
+        ],
+        "suites": [],
+        "passes": [
+          "e09c72d7-fd45-4fcd-ab4e-8eab1e4c835f"
+        ],
+        "failures": [],
+        "pending": [],
+        "skipped": [],
+        "duration": 580,
+        "root": false,
+        "rootEmpty": false,
+        "_timeout": 50000
+      },
+      {
+        "uuid": "16068543-4480-44cd-93f7-75f6eb6ccdd4",
+        "title": "Testing login of admin",
+        "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\homePage.test.js",
+        "file": "\\test\\homePage.test.js",
+        "beforeHooks": [
+          {
+            "title": "\"before each\" hook",
+            "fullTitle": "Testing login of admin \"before each\" hook",
+            "timedOut": false,
+            "duration": 2783,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visitDefault();",
+            "err": {},
+            "isRoot": false,
+            "uuid": "79eae4c9-2dd8-4226-b481-e62b033d5f46",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "afterHooks": [
+          {
+            "title": "\"after each\" hook",
+            "fullTitle": "Testing login of admin \"after each\" hook",
+            "timedOut": false,
+            "duration": 23,
+            "pass": false,
+            "fail": false,
+            "pending": false,
+            "code": "await page.quit();",
+            "err": {},
+            "isRoot": false,
+            "uuid": "33fa51e2-ef01-42bf-888b-a7ddb990b4f9",
+            "isHook": true,
+            "skipped": false
+          }
+        ],
+        "tests": [
+          {
+            "title": "enter admin credentials and login",
+            "fullTitle": "Testing login of admin enter admin credentials and login",
+            "timedOut": false,
+            "duration": 98,
+            "state": "failed",
+            "pass": false,
+            "fail": true,
+            "pending": false,
+            "code": "const usernameE = await page.getUsernameE();\nconst passwordE = await page.getPasswordE();\npage.waitUntilDisplayed(usernameE);\nawait usernameE.sendKeys(fakeAdmin.username);\nawait passwordE.sendKeys(fakeAdmin.password);\nusernameE.submit();\nconst adminTitleE = await adminPage.getAdminPageTitleE();\nconst result = await adminTitleE.getText();\nexpect(result).to.include(\"Pending Clinicians\");",
+            "err": {
+              "message": "TypeError: adminPage.getAdminPageTitleE is not a function",
+              "estack": "TypeError: adminPage.getAdminPageTitleE is not a function\n    at Context.<anonymous> (test\\homePage.test.js:178:53)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+            },
+            "isRoot": false,
+            "uuid": "46ee2ed5-30f9-4a0f-a6f7-3ab86a7644e5",
+            "isHook": false,
+            "skipped": false
+          }
+        ],
+        "suites": [],
+        "passes": [],
+        "failures": [
+          "46ee2ed5-30f9-4a0f-a6f7-3ab86a7644e5"
+        ],
+        "pending": [],
+        "skipped": [],
+        "duration": 98,
+        "root": false,
+        "rootEmpty": false,
+        "_timeout": 50000
+      },
+      {
+        "uuid": "8f3bcea2-799a-4899-aa2c-4334b07b8ab8",
         "title": "Testing new account form",
         "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\homePage.test.js",
         "file": "\\test\\homePage.test.js",
@@ -195,14 +566,14 @@
             "title": "\"before each\" hook",
             "fullTitle": "Testing new account form \"before each\" hook",
             "timedOut": false,
-            "duration": 2743,
+            "duration": 2770,
             "pass": false,
             "fail": false,
             "pending": false,
-            "code": "page = new Page();\ndriver = page.driver;\nawait page.visit('localhost:8080');",
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visitDefault();",
             "err": {},
             "isRoot": false,
-            "uuid": "c49fbc3d-d3c3-48a0-9459-a2eb54072d96",
+            "uuid": "ff66c823-e359-4146-ac40-c63f26466833",
             "isHook": true,
             "skipped": false
           }
@@ -212,14 +583,14 @@
             "title": "\"after each\" hook",
             "fullTitle": "Testing new account form \"after each\" hook",
             "timedOut": false,
-            "duration": 24,
+            "duration": 34,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "await page.quit();",
             "err": {},
             "isRoot": false,
-            "uuid": "35f3f11a-e256-4766-b845-599e015dc77b",
+            "uuid": "a538d99e-02e2-48d8-b585-83edca780870",
             "isHook": true,
             "skipped": false
           }
@@ -229,7 +600,7 @@
             "title": "click the new account button to transition to form",
             "fullTitle": "Testing new account form click the new account button to transition to form",
             "timedOut": false,
-            "duration": 52,
+            "duration": 65,
             "state": "passed",
             "speed": "medium",
             "pass": true,
@@ -238,25 +609,25 @@
             "code": "await page.clickNewAccount();\nconst result = await driver.getCurrentUrl();\nexpect(result).to.include('#');",
             "err": {},
             "isRoot": false,
-            "uuid": "190ad672-c23b-4294-92a2-6d3fdb13b0b0",
+            "uuid": "997bb0ba-7e0b-4a44-9c69-019a729079e0",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "190ad672-c23b-4294-92a2-6d3fdb13b0b0"
+          "997bb0ba-7e0b-4a44-9c69-019a729079e0"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 52,
+        "duration": 65,
         "root": false,
         "rootEmpty": false,
         "_timeout": 50000
       },
       {
-        "uuid": "714c81c7-d005-4067-931b-d334838a651a",
+        "uuid": "3a2a6d0d-3cf2-415e-8cd1-0d4841a519d6",
         "title": "Testing clinician form",
         "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\homePage.test.js",
         "file": "\\test\\homePage.test.js",
@@ -265,14 +636,14 @@
             "title": "\"before each\" hook",
             "fullTitle": "Testing clinician form \"before each\" hook",
             "timedOut": false,
-            "duration": 2764,
+            "duration": 2727,
             "pass": false,
             "fail": false,
             "pending": false,
-            "code": "page = new Page();\ndriver = page.driver;\nawait page.visit('localhost:8080');",
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visitDefault();",
             "err": {},
             "isRoot": false,
-            "uuid": "7e4572d0-0df2-4be3-9abd-ea1a5c12c008",
+            "uuid": "18531ae6-5fc9-460b-b733-1f124daf211a",
             "isHook": true,
             "skipped": false
           }
@@ -282,14 +653,14 @@
             "title": "\"after each\" hook",
             "fullTitle": "Testing clinician form \"after each\" hook",
             "timedOut": false,
-            "duration": 27,
+            "duration": 30,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "await page.quit();",
             "err": {},
             "isRoot": false,
-            "uuid": "5e085e4f-feda-4b3b-b708-37fa81256ce1",
+            "uuid": "043c7619-b3a6-42b4-9521-760d925bf538",
             "isHook": true,
             "skipped": false
           }
@@ -299,7 +670,7 @@
             "title": "click the clinician signup to transition to new form",
             "fullTitle": "Testing clinician form click the clinician signup to transition to new form",
             "timedOut": false,
-            "duration": 344,
+            "duration": 358,
             "state": "passed",
             "speed": "slow",
             "pass": true,
@@ -308,25 +679,25 @@
             "code": "await page.clickClinicianForm();\npage.waitUntilLoaded('SignUpPhysician');\nconst result = await driver.getCurrentUrl();\nexpect(result).to.include('SignUpPhysician');",
             "err": {},
             "isRoot": false,
-            "uuid": "25d80c8c-df1b-4236-873a-22c90e63daf2",
+            "uuid": "5093c6d2-bb0f-4412-adf8-bc76f8c34038",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "25d80c8c-df1b-4236-873a-22c90e63daf2"
+          "5093c6d2-bb0f-4412-adf8-bc76f8c34038"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 344,
+        "duration": 358,
         "root": false,
         "rootEmpty": false,
         "_timeout": 50000
       },
       {
-        "uuid": "96cfaaec-ea23-4a91-b485-b17f8bf5c7c4",
+        "uuid": "1262ca33-0e3d-40be-8d07-09494ad16190",
         "title": "Testing the about button",
         "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\homePage.test.js",
         "file": "\\test\\homePage.test.js",
@@ -335,14 +706,14 @@
             "title": "\"before each\" hook",
             "fullTitle": "Testing the about button \"before each\" hook",
             "timedOut": false,
-            "duration": 2720,
+            "duration": 2761,
             "pass": false,
             "fail": false,
             "pending": false,
-            "code": "page = new Page();\ndriver = page.driver;\nawait page.visit('localhost:8080');",
+            "code": "page = new Page();\ndriver = page.driver;\nawait page.visitDefault();",
             "err": {},
             "isRoot": false,
-            "uuid": "01121b95-5e18-42e7-940b-67e4797f66fe",
+            "uuid": "6cfd61ce-d034-456f-af7d-40d084c7726f",
             "isHook": true,
             "skipped": false
           }
@@ -352,14 +723,14 @@
             "title": "\"after each\" hook",
             "fullTitle": "Testing the about button \"after each\" hook",
             "timedOut": false,
-            "duration": 29,
+            "duration": 21,
             "pass": false,
             "fail": false,
             "pending": false,
             "code": "await page.quit();",
             "err": {},
             "isRoot": false,
-            "uuid": "aa159356-e6bf-4eca-b4f7-242a8036404a",
+            "uuid": "9349b80a-688a-4c41-8a6c-5cc54ee5ff43",
             "isHook": true,
             "skipped": false
           }
@@ -369,7 +740,7 @@
             "title": "click the about button, expect text to show up",
             "fullTitle": "Testing the about button click the about button, expect text to show up",
             "timedOut": false,
-            "duration": 71,
+            "duration": 68,
             "state": "passed",
             "speed": "medium",
             "pass": true,
@@ -378,25 +749,25 @@
             "code": "await page.clickAbout();\nhomePageAboutInfoE = await page.getHomePageAboutInfoE();\nconst result = await homePageAboutInfoE.getText();\nexpect(result).to.include('Developed by University of Auckland staff');",
             "err": {},
             "isRoot": false,
-            "uuid": "31c69990-9dba-48f1-86f6-f48d0882f9ca",
+            "uuid": "49a4c297-cc52-496d-9d9e-6cc2ad00d456",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "31c69990-9dba-48f1-86f6-f48d0882f9ca"
+          "49a4c297-cc52-496d-9d9e-6cc2ad00d456"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 71,
+        "duration": 68,
         "root": false,
         "rootEmpty": false,
         "_timeout": 50000
       },
       {
-        "uuid": "739e8856-1531-4292-815d-6d33024ebf2a",
+        "uuid": "dffa58a4-20e2-4122-bcc7-7ccbc04795ee",
         "title": "Testing main menu functionality",
         "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\mainPage.test.js",
         "file": "\\test\\mainPage.test.js",
@@ -405,14 +776,14 @@
             "title": "\"before each\" hook",
             "fullTitle": "Testing main menu functionality \"before each\" hook",
             "timedOut": false,
-            "duration": 2820,
+            "duration": 2853,
             "pass": false,
             "fail": false,
             "pending": false,
-            "code": "page = new Page();\ndriver = page.driver;\nawait page.visit('localhost:8080');\n//This is the login functionality code, and will get us to the main page.\nconst usernameE = await page.getUsernameE();\nconst passwordE = await page.getPasswordE();\npage.waitUntilDisplayed(usernameE);\npage.waitUntilDisplayed(passwordE);\nawait usernameE.sendKeys(fakeData.user);\nawait passwordE.sendKeys(fakeData.userPassword);\nusernameE.submit();",
+            "code": "page = new Page();\ndriver = page.driver;\n\nawait page.visitDefault();\nawait page.login(fakeUser.username, fakeUser.password);",
             "err": {},
             "isRoot": false,
-            "uuid": "8c66faf5-fe8d-4398-9bc9-f64b27f58ea1",
+            "uuid": "74cc4f34-601d-436c-913d-b9089de8f211",
             "isHook": true,
             "skipped": false
           }
@@ -429,7 +800,7 @@
             "code": "page.quit();",
             "err": {},
             "isRoot": false,
-            "uuid": "23e3e9a9-e0b8-4881-9721-6404d7fa163f",
+            "uuid": "03df3150-4a67-4a93-b8ce-67c35018bf7e",
             "isHook": true,
             "skipped": false
           }
@@ -439,7 +810,7 @@
             "title": "Clicking on the submit button transitions to submit",
             "fullTitle": "Testing main menu functionality Clicking on the submit button transitions to submit",
             "timedOut": false,
-            "duration": 1031,
+            "duration": 1086,
             "state": "passed",
             "speed": "slow",
             "pass": true,
@@ -448,7 +819,7 @@
             "code": "const submitE = await page.getSubmitE();\nsubmitE.click();\nconst submitTitleE = await page.getSubmitTitleE();\nresult = await submitTitleE.getText();\nexpect(result).to.include('Submit Data');",
             "err": {},
             "isRoot": false,
-            "uuid": "e12e506c-4433-4cca-8bd3-ace418534330",
+            "uuid": "e91fe305-5a2c-4721-a299-47c6b1ec3fe0",
             "isHook": false,
             "skipped": false
           },
@@ -456,7 +827,7 @@
             "title": "Clicking on the signup button transitions to signup",
             "fullTitle": "Testing main menu functionality Clicking on the signup button transitions to signup",
             "timedOut": false,
-            "duration": 1031,
+            "duration": 1037,
             "state": "passed",
             "speed": "slow",
             "pass": true,
@@ -465,7 +836,7 @@
             "code": "const signupE = await page.getSignupE();\nsignupE.click();\nconst signupTitleE = await page.getSignupTitleE();\nconst result = await signupTitleE.getText();\nexpect(result).to.include('Registration Form for Parents');",
             "err": {},
             "isRoot": false,
-            "uuid": "79f45d3f-445f-4296-afc8-70ba0fc35fb3",
+            "uuid": "e53522ec-5c37-493d-b13a-9b30a1f93ad5",
             "isHook": false,
             "skipped": false
           },
@@ -473,7 +844,7 @@
             "title": "Clicking on the logout button transitions to logout",
             "fullTitle": "Testing main menu functionality Clicking on the logout button transitions to logout",
             "timedOut": false,
-            "duration": 1256,
+            "duration": 1258,
             "state": "passed",
             "speed": "slow",
             "pass": true,
@@ -482,7 +853,7 @@
             "code": "const logoutE = await page.getLogoutE();\nlogoutE.click();\nconst homeAboutE = await page.getHomePageAboutE();\nconst result = await homeAboutE.getText();\nexpect(result).to.include('About BreatheHero');",
             "err": {},
             "isRoot": false,
-            "uuid": "3162a1cb-5517-4dcf-8a6a-7d6b5a8d9d56",
+            "uuid": "990b131d-f6e2-44c1-98a3-c83021cfa209",
             "isHook": false,
             "skipped": false
           },
@@ -490,7 +861,7 @@
             "title": "Clicking on the activity button transitions to activity",
             "fullTitle": "Testing main menu functionality Clicking on the activity button transitions to activity",
             "timedOut": false,
-            "duration": 1132,
+            "duration": 1090,
             "state": "passed",
             "speed": "slow",
             "pass": true,
@@ -499,28 +870,28 @@
             "code": "//transition to a different page, as activity is the default.\nconst submitE = await page.getSubmitE();\nsubmitE.click();\nconst activityE = await page.getActivityE();\nactivityE.click();\nconst resultsPageTitleE = await page.getResultsPageTitleE();\nconst result = await resultsPageTitleE.getText();\nexpect(result).to.include('View your data');",
             "err": {},
             "isRoot": false,
-            "uuid": "4e1c3134-6e94-48a7-b2d3-f87364aa9884",
+            "uuid": "ee794c2d-2fbb-48e8-b2b9-2cf99e0afab5",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
         "passes": [
-          "e12e506c-4433-4cca-8bd3-ace418534330",
-          "79f45d3f-445f-4296-afc8-70ba0fc35fb3",
-          "3162a1cb-5517-4dcf-8a6a-7d6b5a8d9d56",
-          "4e1c3134-6e94-48a7-b2d3-f87364aa9884"
+          "e91fe305-5a2c-4721-a299-47c6b1ec3fe0",
+          "e53522ec-5c37-493d-b13a-9b30a1f93ad5",
+          "990b131d-f6e2-44c1-98a3-c83021cfa209",
+          "ee794c2d-2fbb-48e8-b2b9-2cf99e0afab5"
         ],
         "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 4450,
+        "duration": 4471,
         "root": false,
         "rootEmpty": false,
         "_timeout": 50000
       },
       {
-        "uuid": "cc800860-84b7-4f21-b006-73a8c894660a",
+        "uuid": "945bf74c-5370-4341-aabc-b8359f70c601",
         "title": "Testing the submit form",
         "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\mainPage.test.js",
         "file": "\\test\\mainPage.test.js",
@@ -529,14 +900,14 @@
             "title": "\"before each\" hook",
             "fullTitle": "Testing the submit form \"before each\" hook",
             "timedOut": false,
-            "duration": 2749,
+            "duration": 2806,
             "pass": false,
             "fail": false,
             "pending": false,
-            "code": "page = new Page();\ndriver = page.driver;\nawait page.visit('localhost:8080');\n//This is the login functionality code, and will get us to the main page.\nconst usernameE = await page.getUsernameE();\nconst passwordE = await page.getPasswordE();\npage.waitUntilDisplayed(usernameE);\npage.waitUntilDisplayed(passwordE);\nawait usernameE.sendKeys(fakeData.user);\nawait passwordE.sendKeys(fakeData.userPassword);\nusernameE.submit();",
+            "code": "page = new Page();\ndriver = page.driver;\n\nawait page.visitDefault();\nawait page.login(fakeUser.username, fakeUser.password);",
             "err": {},
             "isRoot": false,
-            "uuid": "87aab099-f00e-4c00-8396-5efa8b08bf90",
+            "uuid": "886ca3e2-41a5-4261-ab39-79e8d7073ae4",
             "isHook": true,
             "skipped": false
           }
@@ -553,7 +924,7 @@
             "code": "page.quit();",
             "err": {},
             "isRoot": false,
-            "uuid": "3e768c2f-c1b4-411b-95de-57dbb4e38b3e",
+            "uuid": "e339cb19-f446-491d-950f-3017d54a04e0",
             "isHook": true,
             "skipped": false
           }
@@ -563,34 +934,36 @@
             "title": "Testing the form with current date and random vals",
             "fullTitle": "Testing the submit form Testing the form with current date and random vals",
             "timedOut": false,
-            "duration": 11391,
-            "state": "passed",
-            "speed": "slow",
-            "pass": true,
-            "fail": false,
+            "duration": 17177,
+            "state": "failed",
+            "pass": false,
+            "fail": true,
             "pending": false,
             "code": "const submitE = await page.getSubmitE();\nsubmitE.click();\n//get the form elements.\nconst submitDateE = await page.getSubmitDateE();\nconst submitDurationE = await page.getSubmitDurationE();\nconst submitButtonE = await page.getSubmitButtonE();\n//submit the data.\nvar formatted = '28' + '3' + '2019\\t' + '12' + '31' + 'PM';\n\nawait submitDateE.sendKeys(formatted);\nawait submitDurationE.sendKeys('10\\t3\\t8\\t2\\t4\\t5\\t2');\nawait driver.sleep(10000);\n\nawait submitButtonE.click();\nexpect(true);\n//TODO: automate verification. Currently, just check that there is a new value equal to the current date through postman.",
-            "err": {},
+            "err": {
+              "message": "WebDriverError: chrome not reachable\n  (Session info: chrome=73.0.3683.103)\n  (Driver info: chromedriver=2.46.628402 (536cd7adbad73a3783fdc2cab92ab2ba7ec361e1),platform=Windows NT 10.0.17134 x86_64)",
+              "estack": "WebDriverError: chrome not reachable\n  (Session info: chrome=73.0.3683.103)\n  (Driver info: chromedriver=2.46.628402 (536cd7adbad73a3783fdc2cab92ab2ba7ec361e1),platform=Windows NT 10.0.17134 x86_64)\n    at Object.checkLegacyResponse (node_modules\\selenium-webdriver\\lib\\error.js:585:15)\n    at parseHttpResponse (node_modules\\selenium-webdriver\\lib\\http.js:533:13)\n    at Executor.execute (node_modules\\selenium-webdriver\\lib\\http.js:468:26)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+            },
             "isRoot": false,
-            "uuid": "4de00ea2-3ea5-4028-a88f-16df7ee9adce",
+            "uuid": "53df4ffc-52c3-4eda-b682-5e315f62c78d",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
-        "passes": [
-          "4de00ea2-3ea5-4028-a88f-16df7ee9adce"
+        "passes": [],
+        "failures": [
+          "53df4ffc-52c3-4eda-b682-5e315f62c78d"
         ],
-        "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 11391,
+        "duration": 17177,
         "root": false,
         "rootEmpty": false,
         "_timeout": 50000
       },
       {
-        "uuid": "7f1b4462-c8e7-44b8-9058-ef92d04d1b92",
+        "uuid": "365b1685-1e23-4a1c-93d3-929612e24d53",
         "title": "Testing parental signup form",
         "fullFile": "C:\\Users\\Rodge\\Documents\\breathehero-portal\\test\\mainPage.test.js",
         "file": "\\test\\mainPage.test.js",
@@ -599,14 +972,14 @@
             "title": "\"before each\" hook",
             "fullTitle": "Testing parental signup form \"before each\" hook",
             "timedOut": false,
-            "duration": 2802,
+            "duration": 2771,
             "pass": false,
             "fail": false,
             "pending": false,
-            "code": "page = new Page();\ndriver = page.driver;\nawait page.visit('localhost:8080');\n//This is the login functionality code, and will get us to the main page.\nconst usernameE = await page.getUsernameE();\nconst passwordE = await page.getPasswordE();\npage.waitUntilDisplayed(usernameE);\npage.waitUntilDisplayed(passwordE);\nawait usernameE.sendKeys(fakeData.user);\nawait passwordE.sendKeys(fakeData.userPassword);\nusernameE.submit();",
+            "code": "page = new Page();\ndriver = page.driver;\n\nawait page.visitDefault();\nawait page.login(fakeUser.username, fakeUser.password);",
             "err": {},
             "isRoot": false,
-            "uuid": "a3391f22-9a9c-470a-98e3-1dbf65a15192",
+            "uuid": "67fb0c1e-56fa-491a-b187-c0f3b5455df1",
             "isHook": true,
             "skipped": false
           }
@@ -623,7 +996,7 @@
             "code": "page.quit();",
             "err": {},
             "isRoot": false,
-            "uuid": "06be1363-5cea-40d8-8533-393193904538",
+            "uuid": "fe3c4f46-8261-4dc0-89dc-41ed9d15a794",
             "isHook": true,
             "skipped": false
           }
@@ -633,28 +1006,30 @@
             "title": "Able to submit a parental signup form",
             "fullTitle": "Testing parental signup form Able to submit a parental signup form",
             "timedOut": false,
-            "duration": 2430,
-            "state": "passed",
-            "speed": "slow",
-            "pass": true,
-            "fail": false,
+            "duration": 1925,
+            "state": "failed",
+            "pass": false,
+            "fail": true,
             "pending": false,
             "code": "const parentalE = await page.getSignupE();\nawait parentalE.click();\nconst parentalNameE = await page.getParentalNameE();\nconst firstName = 'foo' + '\\t';\nconst lastName = 'bar' + '\\t';\nconst mail = 'foo.bar@gmail.com' + '\\t';\nconst username = 'foo-bar' + '\\t';\nconst confirmation = 'foo-bar';\nconst password = confirmation + '\\t';\n        \nconst vals = firstName + lastName + mail + username + password + confirmation;\nawait parentalNameE.sendKeys(vals);\nconst parentalButtonE = await page.getParentalButtonE();\nparentalButtonE.click();\nconst parentalSuccessE = await page.getParentalSuccessE();\nconst res = await parentalSuccessE.getText();\nexpect(res).to.include('Success!');",
-            "err": {},
+            "err": {
+              "message": "AssertionError: expected 'Duplicate Username!' to include 'Success!'",
+              "estack": "AssertionError: expected 'Duplicate Username!' to include 'Success!'\n    at Context.it (test\\mainPage.test.js:172:32)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+            },
             "isRoot": false,
-            "uuid": "339a5ea5-235c-426d-b04f-08fc288bbe48",
+            "uuid": "ac619273-9d0e-421d-bd8f-09f434c0a28f",
             "isHook": false,
             "skipped": false
           }
         ],
         "suites": [],
-        "passes": [
-          "339a5ea5-235c-426d-b04f-08fc288bbe48"
+        "passes": [],
+        "failures": [
+          "ac619273-9d0e-421d-bd8f-09f434c0a28f"
         ],
-        "failures": [],
         "pending": [],
         "skipped": [],
-        "duration": 2430,
+        "duration": 1925,
         "root": false,
         "rootEmpty": false,
         "_timeout": 50000

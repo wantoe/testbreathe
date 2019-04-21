@@ -18,18 +18,9 @@ process.on('unhandledRejection', () => {});
             beforeEach (async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit(page.url);
-
-                //This is the login functionality code, and will get us to the main page.
-                const usernameE = await page.getUsernameE();
-                const passwordE = await page.getPasswordE();
-
-                page.waitUntilDisplayed(usernameE);
-                page.waitUntilDisplayed(passwordE);
-
-                await usernameE.sendKeys(fakeData.user);
-                await passwordE.sendKeys(fakeData.userPassword);
-                usernameE.submit();
+                
+                await page.visitDefault();
+                await page.login(fakeUser.username, fakeUser.password);
             });
 
             afterEach (async () => {
@@ -97,18 +88,9 @@ process.on('unhandledRejection', () => {});
             beforeEach(async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit(page.url);
-
-                //This is the login functionality code, and will get us to the main page.
-                const usernameE = await page.getUsernameE();
-                const passwordE = await page.getPasswordE();
-
-                page.waitUntilDisplayed(usernameE);
-                page.waitUntilDisplayed(passwordE);
-
-                await usernameE.sendKeys(fakeData.user);
-                await passwordE.sendKeys(fakeData.userPassword);
-                usernameE.submit();
+                
+                await page.visitDefault();
+                await page.login(fakeUser.username, fakeUser.password);
             });
 
             afterEach(async () => {
@@ -155,18 +137,9 @@ process.on('unhandledRejection', () => {});
             beforeEach(async () => {
                 page = new Page();
                 driver = page.driver;
-                await page.visit(page.url);
-
-                //This is the login functionality code, and will get us to the main page.
-                const usernameE = await page.getUsernameE();
-                const passwordE = await page.getPasswordE();
-
-                page.waitUntilDisplayed(usernameE);
-                page.waitUntilDisplayed(passwordE);
-
-                await usernameE.sendKeys(fakeData.user);
-                await passwordE.sendKeys(fakeData.userPassword);
-                usernameE.submit();
+                
+                await page.visitDefault();
+                await page.login(fakeUser.username, fakeUser.password);
             });
 
             afterEach(async () => {

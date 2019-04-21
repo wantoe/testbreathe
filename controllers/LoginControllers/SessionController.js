@@ -318,7 +318,12 @@ exports.signUpParent = function signUpParent(req,res){
 
                 if (err) {
                     console.log(err);
-                    res.sendStatus(500);
+
+                    if(err.toString().includes('Duplicate entry')) {
+                        res.render('ParentSignUp.ejs', {message: 'Duplicate Username!'});
+                    } else {
+                        res.sendStatus(500);
+                    }
                 } else {
                     res.render('ParentSignUp.ejs', {message: 'Success!'});
                 }

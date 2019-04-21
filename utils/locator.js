@@ -30,6 +30,19 @@ module.exports = {
 
     clinicianPageTableXPath: '/html/body/div[1]/div/div[2]/div[1]',
     clinicianPageModalHeaderXPath: '//*[@id="title"]',
+    clinicianPagePatientRegistrationXPath: '//*[@id="menu"]/li[3]/a',
+    clinicianPageDashboardXPath: '//*[@id="menu"]/li[2]/a',
+    clinicianPageLogoutXPath: '//*[@id="menu"]/li[4]/a',
+    clinicianPageRegistrationHeaderXPath: '/html/body/div/div/div/div[2]/h1',
+    clinicianPageModalPrescriptionsXPath: '//*[@id="#prescriptions"]',
+    clinicianPageModalGameSettingsXPath: '//*[@id="#game"]',
+    clinicianPageModalUserDataXPath: '//*[@id="graphModal"]/div/ul/li[1]/a',
+    clinicianPagePrescriptionsTimeXPath: '//*[@id="NewTime"]',
+    clinicianPagePrescriptionsPressureXPath: '//*[@id="NewPressure"]',
+    clinicianPagePrescriptionsSubmitXPath: '//*[@id="browseTab"]/form/input[4]',
+    clinicianPagePrescriptionsCancelXPath: '//*[@id="browseTab"]/form/input[5]',
+    clinicianPageGameSettingsButtonXPath: '//*[@id="gameTab"]/div[2]/button',
+    clincianPageGameSettingsStatusXPath: '//*[@id="game-status"]',
 
     adminPageTitleXPath: '/html/body/div/div/div[2]/h1'
 }
