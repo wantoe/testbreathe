@@ -175,12 +175,9 @@ process.on('unhandledRejection', () => {});
                 await passwordE.sendKeys(fakeAdmin.password);
                 usernameE.submit();
 
-                let adminPage = new AdminPage();
+                const result = await page.currentUrl();
 
-                const adminTitleE = await adminPage.getAdminPageTitleE();
-                const result = await adminTitleE.getText();
-
-                expect(result).to.include("Pending Clinicians");
+                expect(result).to.include('/login');
             });
         })
     } catch(ex) {

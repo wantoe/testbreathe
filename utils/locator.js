@@ -43,6 +43,8 @@ module.exports = {
     clinicianPagePrescriptionsCancelXPath: '//*[@id="browseTab"]/form/input[5]',
     clinicianPageGameSettingsButtonXPath: '//*[@id="gameTab"]/div[2]/button',
     clincianPageGameSettingsStatusXPath: '//*[@id="game-status"]',
+    clinicianPagePrescriptionsCurrentTImeXPath: '//*[@id="stime"]',
+    clinicianPagePrescriptionsCurrentPressureXPath: '//*[@id="spressure"]',
 
     adminPageTitleXPath: '/html/body/div/div/div[2]/h1'
 }
