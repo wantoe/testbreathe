@@ -46,5 +46,22 @@ module.exports = {
     clinicianPagePrescriptionsCurrentTImeXPath: '//*[@id="stime"]',
     clinicianPagePrescriptionsCurrentPressureXPath: '//*[@id="spressure"]',
 
-    adminPageTitleXPath: '/html/body/div/div/div[2]/h1'
+    adminPageTitleXPath: '/html/body/div/div/div[2]/h1',
+    adminPageDashboardXPath: '//*[@id="menu"]/li[2]/a',
+    adminPageSignupXPath: '//*[@id="menu"]/li[3]/a',
+    adminPageLogoutXPath: '//*[@id="menu"]/li[4]/a',
+    adminPageClinicianTableXPath: '/html/body/div/div/div[2]/div[1]',
+    adminPageCreateAccountsXPath: '/html/body/div/div/div[2]/div[3]/button[1]',
+    adminPageDeleteAccountsXPath: '/html/body/div/div/div[2]/div[3]/button[2]',
+    adminPageUserTableXPath: '/html/body/div/div/div[3]/div[1]',
+    adminPageViewAccountXPath: '/html/body/div/div/div[3]/div[3]/button',
+    adminPageSignupTitleXPath: '/html/body/div/div/div[2]/h1',
+    adminPageFirstNameXPath: '/html/body/div/div/div[2]/div/div/form/div/div[1]/div[1]/input',
+    adminPageLastNameXPath: '/html/body/div/div/div[2]/div/div/form/div/div[1]/div[2]/input',
+    adminPageEmailXPath: '/html/body/div/div/div[2]/div/div/form/div/div[2]/input',
+    adminPageUsernameXPath: '/html/body/div/div/div[2]/div/div/form/div/div[3]/input',
+    adminPagePasswordXPath: '/html/body/div/div/div[2]/div/div/form/div/div[4]/div[1]/input',
+    adminPageRepeatPassXPath: '/html/body/div/div/div[2]/div/div/form/div/div[4]/div[2]/input',
+    adminPageSubmitXPath: '/html/body/div/div/div[2]/div/div/form/div/button'
+
 }
