@@ -62,6 +62,7 @@ module.exports = {
     adminPageUsernameXPath: '/html/body/div/div/div[2]/div/div/form/div/div[3]/input',
     adminPagePasswordXPath: '/html/body/div/div/div[2]/div/div/form/div/div[4]/div[1]/input',
     adminPageRepeatPassXPath: '/html/body/div/div/div[2]/div/div/form/div/div[4]/div[2]/input',
-    adminPageSubmitXPath: '/html/body/div/div/div[2]/div/div/form/div/button'
+    adminPageSubmitXPath: '/html/body/div/div/div[2]/div/div/form/div/button',
+	adminPageSignupSuccessfulXPath: '/html/body/div/div/div[2]/div[2]/h3'
 
 }
