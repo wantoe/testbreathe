@@ -162,12 +162,12 @@ exports.signupClinicians = function (req, res) {
 
     if(isSanitized !== 'Success!'){
 
-        res.render('Login.ejs', {message: isSanitized});
+        res.render('SignUpPhysician.ejs', {message: isSanitized});
 
     }else  if (password !== repeatPassword) {
 
         message = 'Sorry passwords do not match.';
-        res.render('Login.ejs', {message: message})
+        res.render('SignUpPhysician.ejs', {message: message})
 
     } else {
 
@@ -229,7 +229,7 @@ exports.signupAdmin = function (req, res) {
     console.log(isSanitized);
     if(isSanitized !== 'Success!'){
 
-        res.render('Login.ejs', {message: isSanitized})}
+        res.render('AdminSignUp.ejs', {message: isSanitized})}
 
         else if (password !== rpassword) {
 
