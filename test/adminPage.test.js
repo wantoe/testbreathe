@@ -158,7 +158,42 @@ process.on('unhandledRejection', () => {});
 
 (async function testUserTable() {
     try {
-        
+        describe('Testing the user table', async function () {
+			this.timeout(50000);
+			let page, driver;
+			
+			beforeEach(async function () {
+				page = new Page();
+				driver = page.driver;
+				
+				await page.visitDefault();
+				await page.login(fakeAdmin.username, fakeAdmin.password);
+			});
+			
+			afterEach(async function () {
+				await page.quit();
+			});
+			
+			it('clicking on an user account and attempting to log in as them logs in', async function () {
+			
+			});
+			
+			it('clicking on a clinician account and attempting to log in as them logs in', async function () {
+				
+			});
+			
+			it('clicking on an admin account and attempting to log in as them logs in', async function () {
+			
+			});
+			
+			it('clicking on a parent account and attempting to log in as them logs in', async function () {
+				
+			});
+			
+			it('clicking on multiple accounts and attempting to log in as them logs in as the first one', async function () {
+				
+			});
+		})
     } catch(ex) {
         console.log(new Error(ex));
     } finally {
