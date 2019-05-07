@@ -17,4 +17,12 @@ fakeAdmin = {
     password: 'sid'
 };
 
-module.exports = fakeUser, fakeClinician, fakeAdmin;
+fakeAdminSignup = {
+	firstname: 'uncle',
+	lastname: 'rice',
+	email: 'idontexist@nonexistent.com',
+	username: 'chancellor',
+	password: 'chancellor1'
+}
+
+module.exports = fakeUser, fakeClinician, fakeAdmin, fakeAdminSignup;
