@@ -247,11 +247,9 @@ exports.signupAdmin = function (req, res) {
                 db.query(SQL, [username, hash, email, firstname, lastname, 4], function (err, results) {
 
                     if (err) {
-
                         message = "Sorry, that username is taken please try another one.";
                         console.log(err);
                         res.render('AdminSignUp.ejs', {message: message});
-
                     } else {
 
                         message = "Succesful! Your account has been created.";
@@ -289,7 +287,11 @@ exports.signUpPatient = function signUpPatient(req,res){
 
                 if (err) {
                     console.log(err);
-                    res.sendStatus(500);
+                    if(err.message.includes('Duplicate entry')) {
+                        res.render('SignUpPatient.ejs', {message: 'That Username Already Exists'});
+                    } else {
+                        res.render('SignUpPatient.ejs', {message: 'Oops, Something Went Wrong. Please Try Again Later...'});
+                    }
                 } else {
                     res.render('SignUpPatient.ejs', {message: 'Success!'});
                 }
