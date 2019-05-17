@@ -1,5 +1,8 @@
 //HTML element locators
 module.exports = {
+    local: 'localhost:8080',
+    live: 'https:breathehero.com',
+
     homePageUsernameID: 'loginusername',
     homePagePasswordID: 'loginpassword',
     homePageButtonName: 'login',
@@ -23,5 +26,43 @@ module.exports = {
     mainPageSignupTitleXPath: '/html/body/div/div/div[2]/h1',
     mainPageParentalNameXPath: '/html/body/div/div/div[2]/div/div/form/div/div[1]/div[1]/input',
     mainPageParentalButtonXPath: '/html/body/div/div/div[2]/div/div/form/div/button',
-    mainPageParentalSuccessXPath: '/html/body/div/div/div[2]/div[2]/h3'
+    mainPageParentalSuccessXPath: '/html/body/div/div/div[2]/div[2]/h3',
+
+    clinicianPageTableXPath: '/html/body/div[1]/div/div[2]/div[1]',
+    clinicianPageModalHeaderXPath: '//*[@id="title"]',
+    clinicianPagePatientRegistrationXPath: '//*[@id="menu"]/li[3]/a',
+    clinicianPageDashboardXPath: '//*[@id="menu"]/li[2]/a',
+    clinicianPageLogoutXPath: '//*[@id="menu"]/li[4]/a',
+    clinicianPageRegistrationHeaderXPath: '/html/body/div/div/div/div[2]/h1',
+    clinicianPageModalPrescriptionsXPath: '//*[@id="#prescriptions"]',
+    clinicianPageModalGameSettingsXPath: '//*[@id="#game"]',
+    clinicianPageModalUserDataXPath: '//*[@id="graphModal"]/div/ul/li[1]/a',
+    clinicianPagePrescriptionsTimeXPath: '//*[@id="NewTime"]',
+    clinicianPagePrescriptionsPressureXPath: '//*[@id="NewPressure"]',
+    clinicianPagePrescriptionsSubmitXPath: '//*[@id="browseTab"]/form/input[4]',
+    clinicianPagePrescriptionsCancelXPath: '//*[@id="browseTab"]/form/input[5]',
+    clinicianPageGameSettingsButtonXPath: '//*[@id="gameTab"]/div[2]/button',
+    clincianPageGameSettingsStatusXPath: '//*[@id="game-status"]',
+    clinicianPagePrescriptionsCurrentTImeXPath: '//*[@id="stime"]',
+    clinicianPagePrescriptionsCurrentPressureXPath: '//*[@id="spressure"]',
+
+    adminPageTitleXPath: '/html/body/div/div/div[2]/h1',
+    adminPageDashboardXPath: '//*[@id="menu"]/li[2]/a',
+    adminPageSignupXPath: '//*[@id="menu"]/li[3]/a',
+    adminPageLogoutXPath: '//*[@id="menu"]/li[4]/a',
+    adminPageClinicianTableXPath: '/html/body/div/div/div[2]/div[1]',
+    adminPageCreateAccountsXPath: '/html/body/div/div/div[2]/div[3]/button[1]',
+    adminPageDeleteAccountsXPath: '/html/body/div/div/div[2]/div[3]/button[2]',
+    adminPageUserTableXPath: '/html/body/div/div/div[3]/div[1]',
+    adminPageViewAccountXPath: '/html/body/div/div/div[3]/div[3]/button',
+    adminPageSignupTitleXPath: '/html/body/div/div/div[2]/h1',
+    adminPageFirstNameXPath: '/html/body/div/div/div[2]/div/div/form/div/div[1]/div[1]/input',
+    adminPageLastNameXPath: '/html/body/div/div/div[2]/div/div/form/div/div[1]/div[2]/input',
+    adminPageEmailXPath: '/html/body/div/div/div[2]/div/div/form/div/div[2]/input',
+    adminPageUsernameXPath: '/html/body/div/div/div[2]/div/div/form/div/div[3]/input',
+    adminPagePasswordXPath: '/html/body/div/div/div[2]/div/div/form/div/div[4]/div[1]/input',
+    adminPageRepeatPassXPath: '/html/body/div/div/div[2]/div/div/form/div/div[4]/div[2]/input',
+    adminPageSubmitXPath: '/html/body/div/div/div[2]/div/div/form/div/button',
+	adminPageSignupSuccessfulXPath: '/html/body/div/div/div[2]/div[2]/h3'
+
 }

@@ -198,11 +198,13 @@
 
     var userId = tds[0].textContent;
 
-    $.post('/api/updateGameStatus', {user_id: userId} ,function out (err, res){
-        console.log(err);
-    });
+    $.post('/api/updateGameStatus', {user_id: userId});
 
-    location.reload();
+    var popup = document.getElementById('graphModal');
+    var window = popup.getElementsByClassName('modal-content')[0];
+    var close = window.getElementsByClassName('closeGraphModal')[0];
+        
+    close.click();
 };
 </script>
 

@@ -162,12 +162,12 @@ exports.signupClinicians = function (req, res) {
 
     if(isSanitized !== 'Success!'){
 
-        res.render('Login.ejs', {message: isSanitized});
+        res.render('SignUpPhysician.ejs', {message: isSanitized});
 
     }else  if (password !== repeatPassword) {
 
         message = 'Sorry passwords do not match.';
-        res.render('Login.ejs', {message: message})
+        res.render('SignUpPhysician.ejs', {message: message})
 
     } else {
 
@@ -229,7 +229,7 @@ exports.signupAdmin = function (req, res) {
     console.log(isSanitized);
     if(isSanitized !== 'Success!'){
 
-        res.render('Login.ejs', {message: isSanitized})}
+        res.render('AdminSignUp.ejs', {message: isSanitized})}
 
         else if (password !== rpassword) {
 
@@ -247,11 +247,9 @@ exports.signupAdmin = function (req, res) {
                 db.query(SQL, [username, hash, email, firstname, lastname, 4], function (err, results) {
 
                     if (err) {
-
                         message = "Sorry, that username is taken please try another one.";
                         console.log(err);
                         res.render('AdminSignUp.ejs', {message: message});
-
                     } else {
 
                         message = "Succesful! Your account has been created.";
@@ -289,7 +287,11 @@ exports.signUpPatient = function signUpPatient(req,res){
 
                 if (err) {
                     console.log(err);
-                    res.sendStatus(500);
+                    if(err.message.includes('Duplicate entry')) {
+                        res.render('SignUpPatient.ejs', {message: 'That Username Already Exists'});
+                    } else {
+                        res.render('SignUpPatient.ejs', {message: 'Oops, Something Went Wrong. Please Try Again Later...'});
+                    }
                 } else {
                     res.render('SignUpPatient.ejs', {message: 'Success!'});
                 }
@@ -318,7 +320,12 @@ exports.signUpParent = function signUpParent(req,res){
 
                 if (err) {
                     console.log(err);
-                    res.sendStatus(500);
+
+                    if(err.toString().includes('Duplicate entry')) {
+                        res.render('ParentSignUp.ejs', {message: 'Duplicate Username!'});
+                    } else {
+                        res.sendStatus(500);
+                    }
                 } else {
                     res.render('ParentSignUp.ejs', {message: 'Success!'});
                 }

@@ -4,7 +4,7 @@
   "description": "Portal for BreatheHero device",
   "main": "server.js",
   "scripts": {
-    "test": "mocha test/*.test.js --reporter mochawesome --reporter-options autoOpen=true",
+    "test": "mocha test /*.test.js --reporter mochawesome --reporter-options autoOpen=true",
     "start": "node server.js"
   },
   "repository": {
