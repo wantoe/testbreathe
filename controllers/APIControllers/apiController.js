@@ -21,16 +21,15 @@ exports.sentData = function (req,res) {
     this. huff_coughs = post.successful_huff_coughs;
     var source;
 
-    console.log(req.body);
-
     if(req.session.userId === undefined){
         this.idToPost = req.user.userId;
         source = 'GAME';
     }else {
         this.idToPost = req.session.userId;
-        source = 'MANUAL'
-
+        source = 'MANUAL';
     }
+
+    console.log(source);
 
     switch (idToPost){
         case undefined:
@@ -43,12 +42,13 @@ exports.sentData = function (req,res) {
             }
             break;
          default :
-            if(source = 'MANUAL') {
+            if(source == 'MANUAL') {
                 this.SQL = 'Call InsertPatientData(?,?,?,?,?,?,?,?,?,?)';
                 dbService.dbServiceWithParams(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs,source],callbacks.sentDataCallback,req,res);
             } else {
                 this.SQL = 'Call InsertAllPatientData(?,?,?,?,?,?,?,?,?,?,?)';
-                dbService.dbServiceWithParams(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs,source, true],callbacks.sentDataCallback,req,res);
+                var hasGame = true;
+                dbService.dbServiceWithParams(SQL,[idToPost,time,duration,successful_breaths,unsuccessful_time,unsuccessful_pressure,average_exhl_pressure,average_exhl_time,huff_coughs,source, hasGame],callbacks.sentDataCallback,req,res);
             }
              
     }

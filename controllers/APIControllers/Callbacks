@@ -51,6 +51,7 @@ exports.getDataCallback = function getDataCallback(err,results,req,res){
 
 exports.sentDataCallback = function sentDataCallback(err,results,req,res ) {
     if(err){
+        console.log(err);
         res.status(400).send(err);
     }else {
         res.status(200);
