@@ -8,7 +8,7 @@ var callbacks = require("./Callbacks");
  */
 exports.GetChildData = function getChildData(req,res){
     var parentId = req.session.userId;
-    var SQL = 'Select child_id, first_name, last_name from parents where parents.parent_id=' + parentId;
+    var SQL = 'Select parents.child_id,users.first_name,users.last_name from users join parents on users.user_id=parents.child_id where parents.parent_id=' + parentId;
 
     if(req.session.roleId === 2){
       dbQuery.dbService(SQL,callbacks.ChildDataCallback, req,res );
