@@ -174,7 +174,7 @@
         .done(function() {
             console.log(jqxhr.responseText);
             $('html').html(jqxhr.responseText);
-			location.reload();
+            $('html').hide().show(0);
         });
     }
 
