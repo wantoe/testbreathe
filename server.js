@@ -135,6 +135,11 @@ app.get('/api/PendingClinicians', ensureAuthenticated,  ClinicianPortal.getPendi
 app.get('/api/AllAccounts', ensureAuthenticated, ClinicianPortal.getAllAccounts);
 
 /**
+ * Allows the game to retrieve the last known session for a user
+ */
+app.get('/api/sessionTime', ensureAuthenticated, apiRoutes.getLatestSession);
+
+/**
  * When the clinician wanting to sign up has filled their form, they complete the captcha and send it to this endpoint.
  */
 app.post('/ClinicianSignup',captcha.checkCaptcha, user.signupClinicians);

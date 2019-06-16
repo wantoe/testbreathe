@@ -167,7 +167,25 @@ exports.getUserRequirements = function findUserHours(req,res){
 
 
     dbService.dbServiceWithParams(SQL,[userId],callbacks.getUserRequirementsCallback,req,res);
+};
 
+exports.getLatestSession = function getLatestSession(req,res) {
+    var userId;
+    var SQL;
 
+    userId = req.user.userId;
 
+    console.log("Latest Session Endpoint Hit...");
+    console.log("User ID is " + userId);
+
+    if(userId != undefined) {
+        SQL = 'select max(patientData.session_start) as session FROM patientData WHERE patientData.user_id=' + req.user.userId;
+
+        console.log("Retrieving latest session...");
+
+        db.query(SQL, function(err, dbRes) {
+            console.log("Latest session is " + dbRes);
+            res.send(dbRes);
+        });
+    };
 };
