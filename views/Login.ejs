@@ -20,8 +20,8 @@
     <div class="login-page">
     <div class="form">
         <form class="register-form" id="signupform" enctype="application/x-www-form-urlencoded" name="signupform" onsubmit="return checkForm()"
-              method="post" role="form" action="/signup">
-            <input type="text"  name="username" id="username" required="required" placeholder="Username"/>
+              method="post" role="form" action="/signup" novalidate>
+             <input type="text" class="form-control"  name="username" id="username_field" required="required" placeholder="Username">
             <input type="password" placeholder="Password" name="password" id="password" required="required"/>
             <input type="password" placeholder="Repeat Password" name="confirm_password" id="confirm_password" required="required"/>
             <input type="text" name="firstname" id="firstname" required placeholder="First Name"/>
@@ -76,7 +76,6 @@
         }else {
             displayed.display = 'none';
         }
-
     }
 
  function  signup(){

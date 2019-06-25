@@ -67,14 +67,14 @@
                 </thead>
             </table>
 
-            <div style=" margin:auto; text-align: center ; float:right; bottom: 0;">
-                <button class="btn btn-success" onclick="accept()">Create Accounts </button>
-                <button value="submit" class="btn btn-danger" onclick="decline()" >Delete Accounts </button>
+            <div style=" margin: 0.8%; text-align: center ; float:right">
+                <button class="btn btn-success" onclick="accept()">Approve Account Requests </button>
+                <button value="submit" class="btn btn-danger" onclick="decline()" >Reject Account Requests </button>
             </div>
         </div>
 
         <div class = "container"> 
-            <h1 style="text-align: center; font-size: 38">Account Checking</h1>
+            <h1 style="text-align: center; font-size: 38">Account Management</h1>
                 <table id="accounts-table"
                     data-toggle="table"
                     data-url="api/AllAccounts"
@@ -102,8 +102,9 @@
                         </tr>
                     </thead>
                 </table>
-                <div style=" margin:auto; text-align: center ; float:right; bottom: 0;">
-                        <button value="submit" class="btn btn-danger" onclick="view()" >View Account </button>
+
+                <div style=" margin: 0.8%; text-align: center ; float:right">
+                        <button value="submit" class="btn btn-success" onclick="view()" >View Account </button>
                 </div>
         </div>
     </div>
