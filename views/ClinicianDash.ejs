@@ -42,15 +42,22 @@
 
         <div class="container" >
             <table id="table"
-                   data-toggle="table"
-                   data-url="api/ClinicalData/"
-                   data-height="400"
-                   data-width = "200px"
-                   data-side-pagination="server"
-                   data-pagination="true"
-                   data-page-list="[5, 10, 20]"
-                   data-search="true"
-                   data-row-style="getUserStats">
+                    data-toggle="table"
+                    data-url="api/ClinicalData/"
+                    data-height="400"
+                    data-width = "200px"
+                    data-side-pagination="server"
+                    data-pagination="true"
+                    data-page-list="[5, 10, 20]"
+                    data-search="true"
+                    data-row-style="getUserStats"
+                    data-toolbar="#toolbar"
+                    data-show-refresh="true"
+                    data-show-toggle="true"
+                    data-show-columns="true"
+                    data-show-export="true"
+                    data-show-pagination-switch="true"
+                   >
                 <thead>
                 <tr>
                     <th data-field="user_id">ID</th>
@@ -64,11 +71,6 @@
                 </thead>
             </table>
         </div>
-
-
-
-
-
 
         <!-- The Modal -->
         <div id="graphModal" style="width: 100% ;height: 100%;text-align: center" class="modal">

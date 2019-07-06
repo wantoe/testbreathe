@@ -90,7 +90,7 @@ app.post('/signup',captcha.checkCaptcha, user.signup);//call for signup post
 app.get('/logout', user.logout);
 
 /**
- * Allows you to post to the patent's database, either from the portal or through a standalone client.
+ * Allows you to post to the patient's database, either from the portal or through a standalone client.
  */
 app.post('/api/userdata',ensureAuthenticated, apiRoutes.sentData );
 

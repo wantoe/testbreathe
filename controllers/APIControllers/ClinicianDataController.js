@@ -9,24 +9,23 @@ var callBacks = require('./Callbacks');
 exports.getUserInfo = function (req,res){
     var limit = req.query.limit;
     var offset = req.query.offset;
-    var search = req.query.search;
     var SQL = '';
     var count = '';
     var total = '';
     // Enter security here
     if(req.session.roleId >2) {
-        if (search === undefined)
-            search = "";
+        SQL = 'CALL SearchUser(?,?)';
+        SQLCount = 'CALL GetUserCount()';
 
-        SQL = 'CALL SearchUser(?,?,?)';
-        SQLCount = 'CALL GetUserCount(?)';
-        db.query(SQL, [search, limit, offset], function (err, result) {
+        db.query(SQL, [limit, offset], function (err, result) {
 
-            db.query(SQLCount, [search], function (error, result2) {
+            db.query(SQLCount, function (error, result2) {
 
-                total = result2[0][0]['count(user_id)'];
+                console.log(result);
+                console.log(result2);
+
+                total = result2[0][0]['count(users.user_id)'];
                 total = JSON.stringify({total: total, rows: result[0]}, null, 4);
-                console.log(total);
                 res.send(total);
             });
         });

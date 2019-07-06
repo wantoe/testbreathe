@@ -30,6 +30,7 @@ exports.sentData = function (req,res) {
     }
 
     console.log(source);
+    console.log("Data Sent");
 
     switch (idToPost){
         case undefined:
@@ -74,6 +75,7 @@ exports.getData = function (req,res) {
     }
     this. idToPost = req.query.userId;
 
+    console.log("Sending Data");
 
     if(userId !== undefined) {
        switch (roleId) {
