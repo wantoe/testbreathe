@@ -4,27 +4,50 @@ function getData(value) {
         var time = [];
         var dur = [];
 
+        const noSecsInDays = 86400000;
 
         console.log(data);
 
-
-
          if (data.length > 0) {
             for (var i = 0; i < data.length; i++) {
-
-                dur = dur.concat(data[i].duration);
+                val = parseInt(data[i].duration) / 60.0;
+                val = val.toFixed(2);
+                dur = dur.concat(val);
 
                 if (data[i].session_start !== null) {
 
-                    time =  time.concat(data[i].session_start.substring(0,10));
+                    time = time.concat(data[i].session_start.substring(0,10).concat(' ').concat(data[i].session_start.substring(11, 16)));
+
+                    //buffer the days that aren't there now by adding them in to the buffer.
+                    prevTime = Date.parse(data[Math.max(0, i - 1)].session_start.substring(0,10));
+                    timeDiff = Date.parse(data[i].session_start.substring(0,10)) - prevTime;
+                    timeDiff = timeDiff / noSecsInDays;
+                    
+                    console.log('Time Diff is: ' + timeDiff);
+                    console.log('Index is: ' + i);
+
+                    for(var j = 1; j < timeDiff; j++) {
+                        newTime = prevTime;
+                        newTime = new Date(newTime + j * noSecsInDays);
+
+                        let year = data[i].session_start.substring(0,4);
+                        let month = newTime.getMonth() + 1;
+                        let day = newTime.getDate();
+                        output = `${year}-${month}-${day}`;
+
+                        time.splice(i + j - 1, 0, output);
+                        dur.splice(i + j - 1, 0, 0);
+
+                        console.log(time);
+                        console.log(dur);
+                    }
 
                 } else {
-                    time = time.concat('Date_Lost')
+                    time = time.concat('Date Lost');
                 }
-
-
             }
         }
+
         var title = document.getElementById('title').text;
         var ctx = document.getElementById('myChart').getContext('2d');
         ctx.canvas.height = 500;
@@ -37,7 +60,7 @@ function getData(value) {
             data: {
                 labels: time,
                 datasets: [{
-                    label: 'Duration',
+                    label: 'Duration (in minutes)',
                     data: dur,
                     backgroundColor: "rgba(0,0,255,4)"
                 }]
@@ -55,17 +78,17 @@ function getData(value) {
             var unsucessful_breaths_time = '';
             var sessionStart = '';
 
-                console.log(activeElement[0]);
+            console.log(activeElement[0]);
 
 
             if( activeElement[0] !== undefined) {
                var x = myChart.data.datasets[activeElement[0]._datasetIndex].data[activeElement[0]._index];
 
-
                 for (var i = 0; i < data.length; i++) {
 
                     if(data[i].session_start !== null) {
-                        if ((data[i].session_start === 'Date_Lost' || data[i].session_start.substring(0, 10) === activeElement[0]._model.label) && data[i].duration === x) {
+                        if ((data[i].session_start === 'Date_Lost' || data[i].session_start.substring(0,10).concat(' ').concat(data[i].session_start.substring(11, 16)) === activeElement[0]._model.label) && 
+                        (parseInt(data[i].duration) / 60.0).toFixed(2) === x) {
                             elementToDisplay = data[i];
                         }
                     } else {
@@ -74,13 +97,13 @@ function getData(value) {
                     }
                 }
                 console.log(elementToDisplay);
-                 averageExhlPressure = 'Average Exhalation Pressure: ' + elementToDisplay.average_exhl_pressure ;
-                 averageExhlTime =  'Average Exhalation Time: ' + elementToDisplay.average_exhl_time ;
-                 successful_breaths =  'Successful Breaths : ' + elementToDisplay.successful_breaths ;
+                 averageExhlPressure = 'Average Exhalation Pressure: ' + elementToDisplay.average_exhl_pressure + ' mbar';
+                 averageExhlTime =  'Average Exhalation Time: ' + elementToDisplay.average_exhl_time + 's';
+                 successful_breaths =  'Successful Breaths : ' + elementToDisplay.successful_breaths + '';
                  succesful_huff_coughs = 'Successful Huff Coughs : ' + elementToDisplay.successful_huff_coughs ;
                  unsuccessful_breaths_pressure = 'Unsuccessful Breaths due to Pressure : '    + elementToDisplay.unsuccessful_breaths_pressure;
                  unsucessful_breaths_time = 'Unsucessful Breaths due to time : ' + elementToDisplay.unsuccessful_breaths_time ;
-                 sessionStart = 'Session Start: ' + elementToDisplay.session_start.substring(0,10);
+                 sessionStart = 'Session Start: ' + elementToDisplay.session_start.substring(0,10).concat(' ').concat(elementToDisplay.session_start.substring(11, 16));
 
                 $('#average_exhl_pressure').text(averageExhlPressure);
                 $('#average_exhl_time').text(averageExhlTime);

@@ -1,10 +1,19 @@
 
 $.get('api/UserRequirements', function results(data,status) {
-    $('#TimeInfo').text('Daily CPT Time : ' + data[0].daily_time );
-    $('#PressureInfo').text('CPT Pressure : ' + data[0].max_pressure);
+
+    if(data[0].daily_time == '0.00') {
+        $('#TimeInfo').text('You have no prescribed time, please contact your clinician');
+    } else {
+        $('#TimeInfo').text('Prescribed Daily CPT Time : ' + data[0].daily_time.concat('s'));
+    }
+
+    if(data[0].max_pressure == '0.00') {
+        $('#PressureInfo').text('You have no prescribed pressure, please contact your clinician');
+    } else {
+        $('#PressureInfo').text('Prescribed CPT Pressure : ' + data[0].max_pressure.concat(' mbar'));
+    }
 
     $.get('api/WeeklyQuota', function results(data2,status) {
-
 
         var duration = (data2[0]['SUM(duration)']);
         console.log(data[0]);
@@ -19,11 +28,11 @@ $.get('api/UserRequirements', function results(data,status) {
             danger.text('You have completed No CPT sessions this week.');
         } else if (duration < ((weeklyTime * 7) / 2)) {
             danger.css('display', 'block');
-            danger.text('Below 50% This week');
+            danger.text('You have done less than 50% of your CPT exercises this week.');
         } else if (duration > ((weeklyTime * 7) / 2)) {
             console.log('hey');
             success.css('display', 'block');
-            success.text('Over 50% this week');
+            success.text('You have done more than 50% of your CPT exercises this week.');
         }
 
     });
