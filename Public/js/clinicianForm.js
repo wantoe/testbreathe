@@ -1,15 +1,16 @@
+var badUsername, badPassword, badRepeatPassword;
+
 //this is a client-side check, as we don't care if there are duplicate usernames or people, etc. This should be changed
 //for proper release
 function validateForm(form) {
     //setup neccessary vars to keep track of
-    var username, password, badUsername, badPassword, badRepeatPassword;
+    var username, password;
     var nameRegex = /^[a-zA-Z0-9]{3,16}$/;
     var passwordRegex = /^(?=.*\d).{6,16}$/;
     var isBad = false;
     
     //cleanup the elements that no longer need to exist.
     if(typeof badUsername != "undefined") {
-        console.log(badUsername);
         badUsername.parentNode.removeChild(badUsername);
     }
     if(typeof badPassword != "undefined") {
