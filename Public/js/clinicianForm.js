@@ -41,7 +41,8 @@ function validateForm(form) {
                     //if we have a bad username
                     if(validUsername === null) {
                         badUsername = document.createElement("div");
-                        row.appendChild(badUsername);
+                        badUsername.setAttribute("class", "col-sm-12");
+                        row.insertBefore(badUsername, row.childNodes[0]);
                         badUsername.textContent = "Your Username must not have any special characters that are not \"-\" and be between 3-16 letters long.";
 
                         isBad = true;
@@ -53,8 +54,9 @@ function validateForm(form) {
 
                     if(validPassword === null) {
                         badPassword = document.createElement("div");
-                        row.appendChild(badPassword);
-                        badPassword.textContent = "Your password must be at least 6 letters long, max 16 and contain at least one number";
+                        badPassword.setAttribute("class", "col-sm-6");
+                        row.insertBefore(badPassword, row.childNodes[1]);
+                        badPassword.textContent = "Must be 6-16 letters, and contain 1 number";
 
                         isBad = true;
                     }
@@ -62,7 +64,8 @@ function validateForm(form) {
                 case "confirm_password":
                     if(password != input.value) {
                         badRepeatPassword = document.createElement("div");
-                        row.appendChild(badRepeatPassword);
+                        badRepeatPassword.setAttribute("class", "col-sm-6");
+                        row.insertBefore(badRepeatPassword, row.childNodes[2]);
                         badRepeatPassword.textContent = "This does not match the chosen password";
 
                         isBad = true;
@@ -77,4 +80,9 @@ function validateForm(form) {
             form.submit();
         }
     };
+}
+
+function createErrorMessageElement(element) {
+    element = document.createElement("div");
+    element.setAttribute("class", "col-sm-6");
 }
