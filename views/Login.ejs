@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../public/css/login.css" rel="Stylesheet" type="text/css" media="screen">
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="../Public/js/login.js"></script>
 
 
 </head>
@@ -19,15 +20,29 @@
     
     <div class="login-page">
     <div class="form">
-        <form class="register-form" id="signupform" enctype="application/x-www-form-urlencoded" name="signupform" onsubmit="return checkForm()"
-              method="post" role="form" action="/signup" novalidate>
-             <input type="text" class="form-control"  name="username" id="username_field" required="required" placeholder="Username">
+        <form class="register-form" id="signupform" enctype="application/x-www-form-urlencoded" name="signupform" onsubmit="validateForm(this)"
+              method="post" role="form" action="javascript:;" novalidate>
+            <div class="row">
+                <input type="text" class="form-control"  name="username" id="username_field" required="required" placeholder="Username">
+            </div>
+            <div class="row">
             <input type="password" placeholder="Password" name="password" id="password" required="required"/>
+        </div>
+        <div class="row">
             <input type="password" placeholder="Repeat Password" name="confirm_password" id="confirm_password" required="required"/>
+        </div>
+        <div class="row">
             <input type="text" name="firstname" id="firstname" required placeholder="First Name"/>
+        </div>
+        <div class="row">
             <input type="text" placeholder="Last Name"  name="lastname" id="lastname" required="required"/>
+        </div>
+        <div class="row">
             <input type="email" name="email" id="email" required="required" placeholder="Email"/>
+        </div>
+        <div class="row">
             <button>create</button>
+        </div>
             <p class="message" onclick="signin()">Already registered?  <a href="#">Sign In</a></p>
             <div class="g-recaptcha" data-sitekey="6Lff4DMUAAAAAF0xUkKDZkzT3gJAaizzuiHQbr8-"></div>
         </form>
@@ -37,14 +52,13 @@
             <button>login</button>
             <p id="messages" onclick="signup()" class="message">Not registered? <a href="#">Create an account</a></p>
             <a id="messages"  class="message" href="/SignUpPhysician">Clinicians sign up here</a>
+            <div class="row">
+                <% if (message.length > 0) { %>
+                    <div style="text-align: center;"><h3 style=color:black><%= message %></h3></div>
+                <% } %>
+            </div>
         </form>
     </div>
-
-
-
-    <% if (message.length > 0) { %>
-    <div style="text-align: center;"><h3 style="color:whitesmoke"><%= message %></h3></div>
-    <% } %>
 </div>
 </div>
 
@@ -78,7 +92,7 @@
         }
     }
 
- function  signup(){
+ function  signup() {
         document.getElementById('loginform').style.display = 'none';
         document.getElementById('signupform').style.display = 'block';
 
@@ -89,7 +103,5 @@
         document.getElementById('signupform').style.display = 'none';
 
     }
-
-    console.log(message);
 </script>
 </html>

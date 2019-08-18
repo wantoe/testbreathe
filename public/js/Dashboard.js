@@ -26,18 +26,16 @@ $.get('api/UserRequirements', function results(data,status) {
         var danger = $('#belowThresh');
         var success = $('#aboveThresh');
 
-
-
         if (duration === null) {
             danger.css('display', "block");
             danger.text('You have completed No CPT sessions this week.');
         } else if (duration < ((weeklyTime * 7) / 2)) {
             danger.css('display', 'block');
-            danger.text('You have done less than 50% of your CPT exercises this week.');
+            danger.text('You have done less than 50% of your CPT exercises');
         } else if (duration > ((weeklyTime * 7) / 2)) {
             console.log('hey');
             success.css('display', 'block');
-            success.text('You have done more than 50% of your CPT exercises this week.');
+            success.text('You have done more than 50% of your CPT exercises');
         }
     
         //scaleText(danger);
