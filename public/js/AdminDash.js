@@ -46,4 +46,87 @@ function contains(array, number){
         }
     }
     return false;
+};
+
+function accept(){
+    var usernames = [];
+
+table = document.getElementById("clinician-table");
+tr = table.getElementsByClassName("selected");
+
+usernames = new Array();
+
+for(i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td");
+    usernames.push(td[1].textContent);
+}
+
+$.post('/api/ValidateClinicians',{users: usernames}, function(err,res){
+    console.log(err);
+})
+.done(function() {
+    location.reload();
+});
+
+console.log(tr);
+};
+
+function decline(){
+    var usernames = [];
+
+    table = document.getElementById("clinician-table");
+    tr = table.getElementsByClassName("selected");
+
+    usernames = new Array();
+
+    for(i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        usernames.push(td[1].textContent);
+    }
+
+    $.post('/api/DeclineClinicians',{users: usernames})
+    .done(function() {
+        location.reload();
+    });
+    
+    console.log(tr);
+};
+
+//this function needs to post a request to "login" as a different user.
+function view(){
+    var user_id;
+
+    table = document.getElementById("accounts-table");
+    test = table.getElementsByClassName("selected");
+    td = test[0].getElementsByTagName("td");
+
+    user_id = td[1].textContent;
+
+    console.log(user_id);
+
+    var jqxhr = $.post('/api/loginAs',{user_id: user_id})
+    .done(function() {
+        console.log(jqxhr.responseText);
+        $('html').html(jqxhr.responseText);
+        $('html').hide().show(0);
+    });
+};
+
+//this function posts a delete request for a given id to the server.
+function remove() {
+    var table, test, td;
+    
+    table = document.getElementById("accounts-table");
+    test = table.getElementsByClassName("selected");
+
+    for(i = 0; i < test.length; i++) {
+        td = test[i].getElementsByTagName("td");
+        user_id = td[1].textContent;
+
+        var jqxhr = $.post('/api/deleteAccount', {user_id: user_id}).done(function() {
+            console.log(jqxhr.responseText);
+        })
+    }
+
+    location.reload(true);
 }

@@ -235,6 +235,8 @@ app.post('/api/updateGameStatus', ensureAuthenticated, user.updateGameStatus);
  */
 app.get('/api/getGameStatus', ensureAuthenticated, user.returnGameStatus);
 
+app.post('/api/deleteAccount', ensureAuthenticated, user.deleteAccount);
+
 /**
  * C
  * @param req The request to check authenticated
