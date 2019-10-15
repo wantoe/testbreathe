@@ -58,6 +58,7 @@ exports.login = function (req, res) {
 
                 }else {
                     message ='Invalid Credentials';
+                    html = 
                     res.render('Login.ejs', {message: message});
                 }
             });

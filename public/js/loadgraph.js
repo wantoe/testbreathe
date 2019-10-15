@@ -98,7 +98,7 @@ function getData(value) {
                 }
                 console.log(elementToDisplay);
                  averageExhlPressure = 'Average Exhalation Pressure: ' + elementToDisplay.average_exhl_pressure + ' mbar';
-                 averageExhlTime =  'Average Exhalation Time: ' + elementToDisplay.average_exhl_time + 's';
+                 averageExhlTime =  'Average Exhalation Time: ' + elementToDisplay.average_exhl_time + 'min';
                  successful_breaths =  'Successful Breaths : ' + elementToDisplay.successful_breaths + '';
                  succesful_huff_coughs = 'Successful Huff Coughs : ' + elementToDisplay.successful_huff_coughs ;
                  unsuccessful_breaths_pressure = 'Unsuccessful Breaths due to Pressure : '    + elementToDisplay.unsuccessful_breaths_pressure;
