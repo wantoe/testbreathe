@@ -75,10 +75,11 @@ function validateForm(form) {
                 break;
             };
         };
+    };
 
-        if(!isBad) {
-            form.submit();
-        }
+    if(!isBad) {
+        console.log("submitting form...");
+        form.submit();
     };
 }
 

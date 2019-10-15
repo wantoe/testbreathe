@@ -175,7 +175,7 @@ app.get('/SignUpPhysician',   navigation.clinicianSignup);
 /**
  * Navigate from a patient to the parentsignup page
  */
-app.get('/ParentSignUp', ensureAuthenticated, navigation.parentSignUp);
+app.get('/ParentSignup', ensureAuthenticated, navigation.parentSignUp);
 
 /**
  * Navigate from a clinician to the patient registration page

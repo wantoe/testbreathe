@@ -180,7 +180,7 @@ exports.signupClinicians = function (req, res) {
                     console.log(ress);
                     if (ress[0][0] === undefined) {
 
-                        db.query(SQL, [username, hash, email, firstName, lastName, title, clinic], function (err, results) {
+                        db.query(SQL, [username, email, hash, firstName, lastName, title, clinic], function (err, results) {
                             if (err) {
 
                                 console.log(err);
@@ -188,10 +188,6 @@ exports.signupClinicians = function (req, res) {
                                 res.render('Login.ejs', {message: message});
 
                             } else {
-
-                                message = "Succesful! Your account is pending, it will be activated in 24 hours.";
-                                res.render('Login.ejs', {message: message});
-
                             }
                         });
                     } else {
@@ -202,7 +198,9 @@ exports.signupClinicians = function (req, res) {
                     }
 
                 });
-
+                
+                message = "Succesful! Your account is pending, it will be activated in 24 hours.";
+                res.render('Login.ejs', {message: message});
 
             });
         });
