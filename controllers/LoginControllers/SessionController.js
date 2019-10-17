@@ -27,7 +27,6 @@ exports.login = function (req, res) {
         // If the passwords match, start a session and send user to dashboard.
         if (results[0].length > 0 ) {
             //CHANGE SO THAT IT USES SELECT DISTINCT
-
             bcrypt.compare(password, results[0][0].password, function(req,isValid) {
 
 
@@ -180,7 +179,7 @@ exports.signupClinicians = function (req, res) {
                     console.log(ress);
                     if (ress[0][0] === undefined) {
 
-                        db.query(SQL, [username, email, hash, firstName, lastName, title, clinic], function (err, results) {
+                        db.query(SQL, [username, hash, email, firstName, lastName, title, clinic], function (err, results) {
                             if (err) {
 
                                 console.log(err);
