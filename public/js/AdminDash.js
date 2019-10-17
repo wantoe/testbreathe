@@ -121,12 +121,18 @@ function remove() {
 
     for(i = 0; i < test.length; i++) {
         td = test[i].getElementsByTagName("td");
-        user_id = td[1].textContent;
-
-        var jqxhr = $.post('/api/deleteAccount', {user_id: user_id}).done(function() {
-            console.log(jqxhr.responseText);
-        })
+        user_id = parseInt(td[1].textContent);
+        
+        removeAccount(user_id);
     }
 
     location.reload(true);
+}
+
+function removeAccount(user_id) {
+    var jqxhr = $.post('/api/deleteAccount', {user_id: user_id}).done(function() {
+        if(res.status === 500) {
+            removeAccount(user_id);
+        }
+    });
 }

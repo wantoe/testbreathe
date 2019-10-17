@@ -382,33 +382,21 @@ exports.returnGameStatus = function returnGameStatus(req, res) {
 }
 
 exports.deleteAccount = function deleteAccount(req, res) {
-    var userId = req.param('user_id');
+    var userId = parseInt(req.param('user_id'));
 
     console.log(userId);
 
-    var SQL = 'delete from patients where user_id=' + userId;
-    var SQL2 = 'delete from admin where user_id=' + userId;
-    var SQL3 = 'delete from users where user_id=' + userId;
-    var SQL4 = 'delete from clinicians where user_id=' + userId;
-    var SQL5 = 'delete from patientdata where user_id=' + userId;
+    var SQL = 'CALL DeleteAccount(?)';
 
-    db.query(SQL, function (err, results) {
+    db.query(SQL, [userId], function (err, results) {
+        console.log('Err is: ' + err);
+        if(err !== null) {
+            res.sendStatus(503);
+        } else {
+            res.sendStatus(200);
+        }
     });
 
-    db.query(SQL2, function(err, results) {
-
-    });
-
-    db.query(SQL3, function (err, results) {
-    });
-
-    db.query(SQL4, function(err, results) {
-
-    });
-
-    db.query(SQL5, function(err, results) {
-        res.sendStatus(200);
-    });
 }
 /*
 Destroys session on logout and redirects to login page.
