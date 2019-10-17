@@ -12,11 +12,14 @@ function getData(value) {
             for (var i = 0; i < data.length; i++) {
                 val = parseInt(data[i].duration) / 60.0;
                 val = val.toFixed(2);
-                dur = dur.concat(val);
+                dur = dur.concat(parseFloat(val));
 
+                time[i] = data[i].session_start.substring(0, 10);
+                console.log(data[i].session_start);
             }
 
             console.log(dur);
+            console.log(time);
         }
 
         var title = document.getElementById('title').text;
@@ -27,16 +30,37 @@ function getData(value) {
         ctx.canvas.addEventListener('click',handleClick,false);
         myChart = new Chart(ctx, {
             type: 'bar',
-            options: {responsive: false,  title: {text: 'Duration of Cycles vs Date', display: true}},
+            options: {
+                responsive: false,  
+                title: {text: 'Duration of Cycles vs Date', display: true},
+                xAxes: {
+                    barPercentage: 0.5,
+                    barThickness: 6,
+                    maxBarThickness: 8,
+                    minBarLength: 2,
+                    gridLines: {
+                        offsetGridLines: true
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            },
             data: {
+                labels: time,
                 datasets: [{
                     label: 'Duration (in minutes)',
                     data: dur,
-                    backgroundColor: "rgba(0,0,255,4)"
+                    backgroundColor: "rgba(0,0,255,4)",
                 }]
             }
         });
-
+        
+        console.log(myChart);
         function handleClick(evt){
             var elementToDisplay;
             var activeElement = myChart.getElementAtEvent(evt);
