@@ -14,51 +14,21 @@ function getData(value) {
                 val = val.toFixed(2);
                 dur = dur.concat(val);
 
-                if (data[i].session_start !== null) {
-
-                    time = time.concat(data[i].session_start.substring(0,10).concat(' ').concat(data[i].session_start.substring(11, 16)));
-
-                    //buffer the days that aren't there now by adding them in to the buffer.
-                    prevTime = Date.parse(data[Math.max(0, i - 1)].session_start.substring(0,10));
-                    timeDiff = Date.parse(data[i].session_start.substring(0,10)) - prevTime;
-                    timeDiff = timeDiff / noSecsInDays;
-                    
-                    console.log('Time Diff is: ' + timeDiff);
-                    console.log('Index is: ' + i);
-
-                    for(var j = 1; j < timeDiff; j++) {
-                        newTime = prevTime;
-                        newTime = new Date(newTime + j * noSecsInDays);
-
-                        let year = data[i].session_start.substring(0,4);
-                        let month = newTime.getMonth() + 1;
-                        let day = newTime.getDate();
-                        output = `${year}-${month}-${day}`;
-
-                        time.splice(i + j - 1, 0, output);
-                        dur.splice(i + j - 1, 0, 0);
-
-                        console.log(time);
-                        console.log(dur);
-                    }
-
-                } else {
-                    time = time.concat('Date Lost');
-                }
             }
+
+            console.log(dur);
         }
 
         var title = document.getElementById('title').text;
         var ctx = document.getElementById('myChart').getContext('2d');
+
         ctx.canvas.height = 500;
         ctx.canvas.width = 500;
         ctx.canvas.addEventListener('click',handleClick,false);
-         myChart = new Chart(ctx, {
+        myChart = new Chart(ctx, {
             type: 'bar',
             options: {responsive: false,  title: {text: 'Duration of Cycles vs Date', display: true}},
-
             data: {
-                labels: time,
                 datasets: [{
                     label: 'Duration (in minutes)',
                     data: dur,
