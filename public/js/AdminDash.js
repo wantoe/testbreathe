@@ -131,7 +131,7 @@ function remove() {
 
 function removeAccount(user_id) {
     var jqxhr = $.post('/api/deleteAccount', {user_id: user_id}).done(function() {
-        if(res.status === 500) {
+        if(res.status === 503) {
             removeAccount(user_id);
         }
     });
