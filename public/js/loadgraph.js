@@ -6,20 +6,18 @@ function getData(value) {
 
         const noSecsInDays = 86400000;
 
-        console.log(data);
-
          if (data.length > 0) {
             for (var i = 0; i < data.length; i++) {
                 val = parseInt(data[i].duration) / 60.0;
                 val = val.toFixed(2);
                 dur = dur.concat(parseFloat(val));
 
-                time[i] = data[i].session_start.substring(0, 10);
-                console.log(data[i].session_start);
-            }
+                if(data[i].session_start === null) {
+                    continue;
+                }
 
-            console.log(dur);
-            console.log(time);
+                time[i] = data[i].session_start.substring(0, 10);
+            }
         }
 
         var title = document.getElementById('title').text;
@@ -60,9 +58,24 @@ function getData(value) {
             }
         });
         
-        console.log(myChart);
         function handleClick(evt){
-            var elementToDisplay;
+            function getIndex(x) {
+                for (var i = 0; i < data.length; i++) {
+                    if(data[i].session_start !== null) {
+                        if ((parseInt(data[i].duration) / 60.0).toFixed(2) == x) {
+                            elementIndex = data[i];
+                            return elementIndex;
+                        }
+                    } else {
+                        if((parseInt(data[i].duration) / 60.0).toFixed(2) == x) {
+                            data[i].session_start = ""
+                            elementIndex = data[i];
+                            return elementIndex;
+                        }
+                    }
+                }
+            }
+            var elementIndex;
             var activeElement = myChart.getElementAtEvent(evt);
             var averageExhlPressure = '';
             var averageExhlTime = '';
@@ -72,44 +85,30 @@ function getData(value) {
             var unsucessful_breaths_time = '';
             var sessionStart = '';
 
-            console.log(activeElement[0]);
-
-
             if( activeElement[0] !== undefined) {
-               var x = myChart.data.datasets[activeElement[0]._datasetIndex].data[activeElement[0]._index];
+            var x = myChart.data.datasets[activeElement[0]._datasetIndex].data[activeElement[0]._index];
+            elementIndex = getIndex(x);
 
-                for (var i = 0; i < data.length; i++) {
+            console.log(elementIndex);
 
-                    if(data[i].session_start !== null) {
-                        if ((data[i].session_start === 'Date_Lost' || data[i].session_start.substring(0,10).concat(' ').concat(data[i].session_start.substring(11, 16)) === activeElement[0]._model.label) && 
-                        (parseInt(data[i].duration) / 60.0).toFixed(2) === x) {
-                            elementToDisplay = data[i];
-                        }
-                    } else {
-                        if(data[i].duration === x)
-                            elementToDisplay = data[i];
-                    }
-                }
-                console.log(elementToDisplay);
-                 averageExhlPressure = 'Average Exhalation Pressure: ' + elementToDisplay.average_exhl_pressure + ' mbar';
-                 averageExhlTime =  'Average Exhalation Time: ' + elementToDisplay.average_exhl_time + 'min';
-                 successful_breaths =  'Successful Breaths : ' + elementToDisplay.successful_breaths + '';
-                 succesful_huff_coughs = 'Successful Huff Coughs : ' + elementToDisplay.successful_huff_coughs ;
-                 unsuccessful_breaths_pressure = 'Unsuccessful Breaths due to Pressure : '    + elementToDisplay.unsuccessful_breaths_pressure;
-                 unsucessful_breaths_time = 'Unsucessful Breaths due to time : ' + elementToDisplay.unsuccessful_breaths_time ;
-                 sessionStart = 'Session Start: ' + elementToDisplay.session_start.substring(0,10).concat(' ').concat(elementToDisplay.session_start.substring(11, 16));
-
-                $('#average_exhl_pressure').text(averageExhlPressure);
-                $('#average_exhl_time').text(averageExhlTime);
-                $('#session_start').text(sessionStart);
-                $('#successful_breaths').text(successful_breaths);
-                $('#successful_huff_coughs').text(succesful_huff_coughs);
-                $('#unsuccessful_breaths_pressure').text(unsuccessful_breaths_pressure);
-                $('#unsuccessful_breaths_time').text(unsucessful_breaths_time);
-                if(value === ' ') {
-
-                    $('#myModal').toggle();
-                }else {
+            averageExhlPressure = 'Average Exhalation Pressure: ' + elementIndex.average_exhl_pressure + ' mbar';
+            averageExhlTime =  'Average Exhalation Time: ' + elementIndex.average_exhl_time + 'min';
+            successful_breaths =  'Successful Breaths : ' + elementIndex.successful_breaths + '';
+            succesful_huff_coughs = 'Successful Huff Coughs : ' + elementIndex.successful_huff_coughs ;
+            unsuccessful_breaths_pressure = 'Unsuccessful Breaths due to Pressure : '    + elementIndex.unsuccessful_breaths_pressure;
+            unsucessful_breaths_time = 'Unsucessful Breaths due to time : ' + elementIndex.unsuccessful_breaths_time ;
+            sessionStart = 'Session Start: ' + elementIndex.session_start.substring(0,10).concat(' ').concat(elementIndex.session_start.substring(11, 16));
+        
+            $('#average_exhl_pressure').text(averageExhlPressure);
+            $('#average_exhl_time').text(averageExhlTime);
+            $('#session_start').text(sessionStart);
+            $('#successful_breaths').text(successful_breaths);
+            $('#successful_huff_coughs').text(succesful_huff_coughs);
+            $('#unsuccessful_breaths_pressure').text(unsuccessful_breaths_pressure);
+            $('#unsuccessful_breaths_time').text(unsucessful_breaths_time);
+            if(value === ' ') {
+                $('#myModal').toggle();
+            }   else {
                     jQuery('#myModal2').modal({show:true});
                 }
             }
