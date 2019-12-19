@@ -191,3 +191,15 @@ exports.getLatestSession = function getLatestSession(req,res) {
         });
     };
 };
+
+exports.getUpdates = function getUpdates(req, res) {
+    var SQL;
+    SQL = 'CALL GetLatestUpdate()';
+
+    console.log("Retrieving Latest Update...");
+
+    db.query(SQL, function(err, dbRes) {
+        console.log("Latest file is " + dbRes);
+        res.send(dbRes);
+    });
+};
