@@ -3,6 +3,7 @@
  */
 const dbService = require('../../Services/DatabaseService');
 const callbacks = require('./Callbacks');
+const fs = require('fs');
 /**
  * Method processes the data that was sent to the API from the user, either from the game or the stanndalone source.
  * Processes the data to be logged inside of the database and determines the source of it.
@@ -200,7 +201,8 @@ exports.getUpdates = function getUpdates(req, res) {
 
     db.query(SQL, function(err, dbRes) {
         console.log("Latest file is " + dbRes);
-        res.send(dbRes);
+        let buffer = dbRes[0][0].release_file;
+        res.send(buffer);
     });
 };
 
@@ -209,6 +211,7 @@ exports.getReleases = function getReleases(req, res) {
     SQL = 'CALL GetReleases()';
 
     db.query(SQL, function(err, dbRes) {
-        res.send(dbRes);
+        let buffer = dbRes[0][0].release_file;
+        res.send(buffer);
     });
 }
