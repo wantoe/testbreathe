@@ -203,3 +203,12 @@ exports.getUpdates = function getUpdates(req, res) {
         res.send(dbRes);
     });
 };
+
+exports.getReleases = function getReleases(req, res) {
+    var SQL;
+    SQL = 'CALL GetReleases()';
+
+    db.query(SQL, function(err, dbRes) {
+        res.send(dbRes);
+    });
+}

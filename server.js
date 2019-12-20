@@ -237,7 +237,9 @@ app.get('/api/getGameStatus', ensureAuthenticated, user.returnGameStatus);
 
 app.post('/api/deleteAccount', ensureAuthenticated, user.deleteAccount);
 
-app.get('/api/updates', ensureAuthenticated, apiRoutes.getUpdates);
+app.get('/api/updates/releases', ensureAuthenticated, apiRoutes.getReleases);
+
+app.get('/api/updates/deltas', ensureAuthenticated, apiRoutes.getUpdates);
 
 /**
  * C
