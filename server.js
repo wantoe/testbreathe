@@ -218,7 +218,7 @@ app.get('/api/ValidateUser', ensureAuthenticated, user.validateUser);
 /**
  * This function allows the user to download the game after clicking the correct button.
  */
-app.get('/api/game.zip', ensureAuthenticated, user.getGame);
+app.get('/api/game', ensureAuthenticated, user.getGame);
 
 /**
  * This is a test, to check if resources are being exposed correctly.
