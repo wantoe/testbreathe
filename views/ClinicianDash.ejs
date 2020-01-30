@@ -77,12 +77,12 @@
         </div>
 
         <!-- The Modal -->
-        <div id="graphModal" style="width: 100% ;height: 100%;text-align: center" class="modal">
+        <div id="graphModal" style="margin: auto; width: 65% ;height: 100%;text-align: center" class="modal">
 
             <!-- Modal content -->
-            <div class="modal-content"  >
+            <div class="modal-content" style="width: 100%; height: 100%; text-align: center;" >
                 <span class="closeGraphModal">&times;</span>
-                <h3 id="title"> Title </h3>
+                <h3 id="title" style="font-size:1.5vw;"> Title </h3>
                 <!-- /main -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab">User Data</a>
@@ -95,12 +95,10 @@
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="uploadTab">  <div style=" text-align: center" id ="graph-container">
-                            <canvas style="    position: absolute;
-                            top:0;
-                            bottom: 30%;
-                            left: 0;
-                            right: 0;
+                    <div role="tabpanel" class="tab-pane active" id="uploadTab">  <div style=" text-align: center; height: 100%; width: 100%; margin: auto;" id ="graph-container">
+                            <canvas style="
+                            height: 80%;
+                            width: 80%;
                             margin:auto;" id="myChart"></canvas>
 
                         </div></div>
@@ -148,39 +146,33 @@
         </div>
     </div>
 </div>
-<div data-dismiss="modal" style="display: none"  data-toggle="modal"  id="patientInfo">
+<div data-dismiss="modal" style="display: none; width: 100%; height: 100%; margin: auto;"  data-toggle="modal"  id="patientInfo">
     <h4>Click on the graph elements for more information.</h4>
-
-
-
 </div>
-
-
 </div>
-
-
 </div>
 
 
 <!-- /main -->
 
-<div class="modal" id="myModal2" data-backdrop="" style="opacity: 100;  padding-top:8%;   font-weight:bold;
-">
+<div class="modal" id="myModal2" data-backdrop="" style="opacity: 100; padding-top:8%; font-weight:bold; height: 100%; width:100%;">
     <div class="modal-dialog" >
         <div class="modal-content" style="background: peachpuff">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"  aria-hidden="true">×</button>
                 <h4 class="modal-title">Advanced Data</h4>
-            </div><div class="container"></div>
-            <div class="modal-body" style="opacity: 1">
+            </div>
+            <div class="container" style ="width: 100%; height: 100%; margin: auto;">
+                <div class="modal-body" style="opacity: 1; height: 100%; width: 100%; margin: auto;">
 
-                <p id = "session_start"></p>
-                <p id = "average_exhl_pressure"></p>
-                <p id = "average_exhl_time"> </p>
-                <p id = "successful_breaths"></p>
-                <p id = "successful_huff_coughs"></p>
-                <p id="unsuccessful_breaths_pressure"></p>
-                <p id="unsuccessful_breaths_time"></p>
+                    <p id = "session_start"></p>
+                    <p id = "average_exhl_pressure"></p>
+                    <p id = "average_exhl_time"> </p>
+                    <p id = "successful_breaths"></p>
+                    <p id = "successful_huff_coughs"></p>
+                    <p id="unsuccessful_breaths_pressure"></p>
+                    <p id="unsuccessful_breaths_time"></p>
+                </div>
             </div>
             <div class="modal-footer">
                 <a href="#" data-dismiss="modal" class="btn">Close</a>

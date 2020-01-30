@@ -23,8 +23,11 @@ function getData(value) {
         var title = document.getElementById('title').text;
         var ctx = document.getElementById('myChart').getContext('2d');
 
-        ctx.canvas.height = 500;
-        ctx.canvas.width = 500;
+        ctx.canvas.height = 1000;
+        ctx.canvas.width = 1000;
+        ctx.canvas.style.height = "80%";
+        ctx.canvas.style.width = "80%";
+
         ctx.canvas.addEventListener('click',handleClick,false);
         myChart = new Chart(ctx, {
             type: 'bar',
@@ -43,7 +46,13 @@ function getData(value) {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            scaleFontSize: 1200,
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            scaleFontSize: 1200,
                         }
                     }]
                 }
