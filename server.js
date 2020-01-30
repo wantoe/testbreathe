@@ -163,6 +163,10 @@ app.get('/dashboard', ensureAuthenticated, navigation.dashboard);
 app.get('/AdminDash', ensureAuthenticated,  navigation.adminDash);
 
 /**
+ * Endpoint for accessing the account management page for admin
+ */
+app.get('/AccountManagement', ensureAuthenticated, navigation.accountManagement);
+/**
  * Allows the logged in admin to login as another selected user.
  */
 app.post('/api/loginAs', ensureAuthenticated, navigation.loginAs);

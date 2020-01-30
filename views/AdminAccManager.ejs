@@ -23,10 +23,10 @@
             <ul class="nav" id="menu">
                 <li style="text-align: center"><a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i>
                     <span class="collapse in hidden-xs">Breathe Hero</span></a></li>
-                <li><a href="/AdminDash"><span class="collapse in hidden-xs">Pending Clinicians</span> <i style="float: right;"
-                                                                                                 class="fa fa-list"></i> </a></li>
-                <li><a href="/AccountManagement"><span class="collapse in hidden-xs">Account Management</span> <i style="float: right;"
-                                                                                                    class="fa fa-list"></i> </a></li>                                                                                 
+                    <li><a href="/AdminDash"><span class="collapse in hidden-xs">Pending Clinicians</span> <i style="float: right;"
+                        class="fa fa-list"></i> </a></li>
+                    <li><a href="/AccountManagement"><span class="collapse in hidden-xs">Account Management</span> <i style="float: right;"
+                           class="fa fa-list"></i> </a></li>  
                 <li><a href="/AdminSignup"><span class="collapse in hidden-xs">Sign up</span> <i style="float: right;"
                                                                                                  class="fa fa-list"></i>
                 </a></li>
@@ -40,41 +40,40 @@
         </div>
         <!-- /sidebar -->
 
-        <div class="container">
-        <h1 style="text-align: center; font-size: 38">Pending Clinicians</h1>
-            <table id="clinician-table"
-                   data-toggle="table"
-                   data-url="api/PendingClinicians"
-                   data-height="400"
-                   data-width="200px"
-                   data-side-pagination="server"
-                   data-pagination="true"
-                   data-page-list="[5, 10, 20]"
-                   data-search="true"
-                   data-toolbar="#toolbar"
-                   data-show-refresh="true"
-                   data-show-toggle="true"
-                   data-show-columns="true"
-                   data-show-export="true"
-                   data-show-pagination-switch="true"
-            >
-                <thead>
-                <tr>
-                    <th data-field="state" data-checkbox="true"></th>
-                    <th data-field="username">Username</th>
-                    <th data-field="email">Email</th>
-                    <th data-field="first_name">First Name</th>
-                    <th data-field="last_name">Last Name</th>
-                    <th data-field="title">Title</th>
-                    <th data-field="clinic">Clinic</th>
-                </tr>
-                </thead>
-            </table>
+        <div class = "container"> 
+            <h1 style="text-align: center; font-size: 38">Account Management</h1>
+                <table id="accounts-table"
+                    data-toggle="table"
+                    data-url="api/AllAccounts"
+                    data-height="400"
+                    data-width="200px"
+                    data-side-pagination="server"
+                    data-pagination="true"
+                    data-page-list="[5, 10, 20]"
+                    data-search="true"
+                    data-toolbar="#toolbar"
+                    data-show-refresh="true"
+                    data-show-toggle="true"
+                    data-show-columns="true"
+                    data-show-export="true"
+                    data-show-pagination-switch="true"
+                >   
+                    <thead>
+                        <tr>
+                            <th data-field="state" data-checkbox="true"></th>
+                            <th data-field="user_id">User ID</th>
+                            <th data-field="username">Username</th>
+                            <th data-field="email">Email</th>
+                            <th data-field="first_name">First Name</th>
+                            <th data-field="last_name">Last Name</th>
+                        </tr>
+                    </thead>
+                </table>
 
-            <div style=" margin: 0.8%; text-align: center ; float:right">
-                <button class="btn btn-success" onclick="accept()">Approve Account Requests </button>
-                <button value="submit" class="btn btn-danger" onclick="decline()" >Reject Account Requests </button>
-            </div>
+                <div style=" margin: 0.8%; text-align: center ; float:right">
+                        <button value="submit" class="btn btn-success" onclick="view()" >View Account </button>
+                        <button value="delete" class="btn btn-danger" onclick="remove()" >Delete Accounts </button>
+                </div>
         </div>
     </div>
 </div>

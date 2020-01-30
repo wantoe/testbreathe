@@ -82,6 +82,15 @@ exports.adminDash = function (req,res) {
 
 };
 
+exports.accountManagement = function(req, res) {
+    if(req.session.roleId === 4) {
+        res.render('AdminAccManager.ejs', {message:''});
+    } else {
+        var message = 'Unauthorized';
+        res.render('Login.ejs', {message:message});
+    }
+}
+
 exports.parentSignUp = function(req,res){
     var message = '';
     if(req.session.roleId === 1) {
