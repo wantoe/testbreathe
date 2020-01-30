@@ -70,7 +70,6 @@ function scaleText(element) {
     } while ((textHeight > height || textWidth > width) && fontSize > 4);
 }
 
-
 $.get('api/validateUser', function results(data,status){
         console.log(data);
 

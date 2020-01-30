@@ -418,7 +418,7 @@ const path = require('path');
 
 exports.getGame = function (req, res) {
     console.log('Sending game...');
-    res.sendFile(path.join(__dirname, '../../res/', 'BreatheHero-Setup.exe'));
+    res.sendFile(path.join(__dirname, '../../Public/resources', 'BreatheHero-Setup.exe'));
 };
 
 exports.getImage = function (req, res) {
