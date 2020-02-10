@@ -40,8 +40,8 @@
         </div>
         <!-- /sidebar -->
 
-        <div class = "container"> 
-            <h1 style="text-align: center; font-size: 38">Account Management</h1>
+        <div class = "container" id="MainPage"> 
+            <h1 style="text-align: center; font-size: 2vw">Account Management</h1>
                 <table id="accounts-table"
                     data-toggle="table"
                     data-url="api/AllAccounts"
@@ -72,7 +72,7 @@
 
                 <div style=" margin: 0.8%; text-align: center ; float:right">
                         <button value="submit" class="btn btn-success" onclick="view()" >View Account </button>
-                        <button value="delete" class="btn btn-danger" onclick="remove()" >Delete Accounts </button>
+                        <button value="delete" class="btn btn-danger" onclick="removeRequest()" >Delete Accounts </button>
                 </div>
         </div>
     </div>

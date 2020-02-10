@@ -112,6 +112,51 @@ function view(){
     });
 };
 
+function removeRequest() {
+    var box = document.createElement("div");
+    box.className = "container";
+    box.style = "margin: 5%;";
+    box.id = "deletion-confirmation";
+
+    var header = document.createElement("h1");
+    header.textContent = "Deletion Confirmation";
+    header.style = "text-align: center;font-size: 1.5vw;";
+
+    var text = document.createElement("h2");
+    text.textContent = "Do you wish to delete these accounts?";
+    text.style = "text-align: center;font-size: 1vw;";
+
+    var buttonContainer = document.createElement("div");
+    buttonContainer.className = "container";
+    buttonContainer.style = "text-align: center; margin: 2%;";
+
+    var yesButton = document.createElement("button");
+    yesButton.textContent = "YES";
+    yesButton.setAttribute("onclick", "remove()");
+    yesButton.setAttribute("class", "btn btn-success");
+    yesButton.style = "margin: auto; float:none; width: 20%; position: relative; right: 10%";
+
+    var noButton = document.createElement("button");
+    noButton.textContent = "NO";
+    noButton.setAttribute("onclick", "clearRequest()");
+    noButton.setAttribute("class", "btn btn-danger");
+    noButton.style = "margin: auto; float:none; width: 20%; position: relative; right: 6%";
+
+    buttonContainer.appendChild(yesButton);
+    buttonContainer.appendChild(noButton);
+
+    box.appendChild(header);
+    box.appendChild(text);
+    box.appendChild(buttonContainer);
+
+    document.getElementById("MainPage").appendChild(box);
+
+}
+
+function clearRequest() {
+    document.getElementById("MainPage").removeChild(document.getElementById("deletion-confirmation"));
+}
+
 //this function posts a delete request for a given id to the server.
 function remove() {
     var table, test, td;
