@@ -10,23 +10,41 @@ function getData(value) {
             for (var i = 0; i < data.length; i++) {
                 val = parseInt(data[i].duration) / 60.0;
                 val = val.toFixed(2);
-                dur = dur.concat(parseFloat(val));
 
                 if(data[i].session_start === null) {
                     continue;
                 }
 
-                time[i] = data[i].session_start.substring(0, 10);
+                var dtNew = new Date(data[i].session_start.substring(0, 10));
+                var dtLast = new Date(data[Math.max(i - 1, 1)].session_start.substring(0, 10));
+
+                //this is the number of milliseconds in a day, as subtractions give time in millis
+                if(dtNew - dtLast > 8.64e7) {
+                    var numDaysToAdd = (dtNew - dtLast) / 8.64e7;
+                    console.log(numDaysToAdd);
+                    for(var j = 1; j <= numDaysToAdd; j++) {
+                        var numMillisToAdd = j * 8.64e7;
+                        var newTime = new Date(dtLast.getTime() + numMillisToAdd);
+                        console.log(numDaysToAdd);
+                        var out = "" + newTime.getFullYear() + "-" + (newTime.getMonth() + 1) + "-" + newTime.getDate();
+                        time.push(out);
+                        dur.push(0);
+                    }
+                }
+
+                time.push(data[i].session_start.substring(0, 10));
+                dur = dur.concat(parseFloat(val));
+
             }
+            console.log(time);
+            console.log(dur);
         }
 
         var title = document.getElementById('title').text;
         var ctx = document.getElementById('myChart').getContext('2d');
 
         ctx.canvas.height = 1000;
-        ctx.canvas.width = 1000;
-        ctx.canvas.style.height = "80%";
-        ctx.canvas.style.width = "80%";
+        ctx.canvas.width = 25 * time.length;
 
         ctx.canvas.addEventListener('click',handleClick,false);
         myChart = new Chart(ctx, {
@@ -48,11 +66,21 @@ function getData(value) {
                         ticks: {
                             beginAtZero: true,
                             scaleFontSize: 1200,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Duration (Minutes)",
+                            fontColour: "Red",
                         }
                     }],
                     xAxes: [{
                         ticks: {
                             scaleFontSize: 1200,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Date",
+                            fontColour: "Blue"
                         }
                     }]
                 }

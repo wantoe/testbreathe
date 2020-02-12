@@ -51,10 +51,10 @@
 
         <!-- main right col -->
         <div class="column col-sm-9 col-xs-11"  style="    position: absolute;
-    top:0;
+    top: 0;
     bottom: 0;
     left: 0;
-    right: 0;
+    right: -20%;
     margin:auto;" id="main">
             <div >
             <h2 id="title" style="text-align: center">  View your data!  </h2>
@@ -64,7 +64,9 @@
             <div class="alert alert-info" id = "PressureInfo" style="font-size: 0.8vw;"> </div>
             <div style="display: none; overflow: hidden; font-size: 0.8vw;" class="alert alert-danger" id ="belowThresh"></div>
             <div style="display: none;  overflow: hidden; font-size: 0.7vw;" class="alert alert-success" id="aboveThresh"></div>
-            <canvas id="myChart"></canvas>
+            <div style="overflow-x: auto; width: 80%;">
+                <canvas id="myChart" style="overflow: auto;"></canvas>
+            </div>
 
         </div>
         <!-- /main -->    
