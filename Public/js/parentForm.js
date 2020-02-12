@@ -80,6 +80,9 @@ function validateForm(form) {
         };
 
         if(!isBad) {
+            form.setAttribute("action", "/ParentSignup");
+            form.setAttribute("onsubmit", "submit()");
+
             form.submit();
         }
     };

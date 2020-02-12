@@ -33,9 +33,7 @@ function validateForm(form) {
             var input = inputs[j];
             switch(input.name) {
                 case "username":
-                    console.log(input);
                     username = input.value;
-                    console.log(username);
                     var validUsername = username.trim().match(nameRegex);
 
                     //if we have a bad username
@@ -79,6 +77,9 @@ function validateForm(form) {
 
     if(!isBad) {
         console.log("submitting form...");
+
+        form.setAttribute("action", "/SignupPatient");
+        form.setAttribute("onsubmit", "submit()");
         form.submit();
     };
 }
