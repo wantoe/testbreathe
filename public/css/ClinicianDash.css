@@ -81,6 +81,12 @@ html,body {
     opacity: 1 !important;
 }
 
+.buttons {
+    margin: 0.8%;
+    text-align: center;
+    float: right;
+}
+
 input[type=number], select {
     width: 100%;
     padding: 12px 20px;
