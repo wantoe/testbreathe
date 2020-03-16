@@ -9,13 +9,12 @@
     <link href="../public/css/login.css" rel="Stylesheet" type="text/css" media="screen">
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="../Public/js/login.js"></script>
-
-
 </head>
+
 <body>
 <div class="wrapper">
     <h1 style="text-align: center">
-    <img src="../Public/resources/BreatheHeroLogo-v2.png" alt="BreatheHero Logo" style="float:inherit;height:22%;width:22%">
+    <img src="../Public/resources/BreatheHeroLogo-v2.png" class="logo" alt="BreatheHero Logo">
     </h1>>
     
     <div class="login-page">
@@ -66,7 +65,7 @@
 
 <div class="footer" style="cursor: pointer" href="#" onclick="showAbout()">
     <h3 style="cursor: pointer;"> <strong>About BreatheHero</strong></h3>
-    <p  id="About Information" style=" padding:5px; display: none; cursor: hand;text-align: left">Developed by University of Auckland staff Robert Gallichan, Katherine Herbert and Dr
+    <p  id="About Information" class="text">Developed by University of Auckland staff Robert Gallichan, Katherine Herbert and Dr
         Christof Lutteroth,
         BreatheHero is a device that is changing the way children with chronic lung diseases complete Chest
         Physiotherapy(CPT).
@@ -80,28 +79,4 @@
         chronic lung diseases</p>
 </div>
 </body>
-<script>
-
-
-    function showAbout() {
-        var displayed = document.getElementById('About Information').style;
-        if(displayed.display === 'none'){
-            displayed.display = 'block';
-        }else {
-            displayed.display = 'none';
-        }
-    }
-
- function  signup() {
-        document.getElementById('loginform').style.display = 'none';
-        document.getElementById('signupform').style.display = 'block';
-
-    }
-
-    function signin() {
-        document.getElementById('loginform').style.display = 'block';
-        document.getElementById('signupform').style.display = 'none';
-
-    }
-</script>
 </html>

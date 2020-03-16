@@ -78,7 +78,7 @@ function validateForm(form) {
     if(!isBad) {
         console.log("submitting form...");
 
-        form.setAttribute("action", "/SignupPatient");
+        form.setAttribute("action", "/ClinicianSignup");
         form.setAttribute("onsubmit", "submit()");
         form.submit();
     };

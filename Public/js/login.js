@@ -89,3 +89,23 @@ function createErrorMessageElement(element) {
     element = document.createElement("div");
     element.setAttribute("class", "col-sm-6");
 }
+function showAbout() {
+    var displayed = document.getElementById('About Information').style;
+    if(displayed.display === 'none'){
+        displayed.display = 'block';
+    }else {
+        displayed.display = 'none';
+    }
+}
+
+function  signup() {
+    document.getElementById('loginform').style.display = 'none';
+    document.getElementById('signupform').style.display = 'block';
+
+}
+
+function signin() {
+    document.getElementById('loginform').style.display = 'block';
+    document.getElementById('signupform').style.display = 'none';
+
+}
