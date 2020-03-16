@@ -148,6 +148,19 @@ function getUserStats(value,row,index){
         classes: classes[0]
     };
 
-
-
+    function updateUserGameStatus() {
+        var table = document.getElementById('table');
+        var trs = table.getElementsByClassName('selected');
+        var tds = trs[0].getElementsByTagName('td');
+    
+        var userId = tds[0].textContent;
+    
+        $.post('/api/updateGameStatus', {user_id: userId});
+    
+        var popup = document.getElementById('graphModal');
+        var window = popup.getElementsByClassName('modal-content')[0];
+        var close = window.getElementsByClassName('closeGraphModal')[0];
+            
+        close.click();
+    };
 }
