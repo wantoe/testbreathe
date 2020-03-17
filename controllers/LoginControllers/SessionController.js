@@ -119,7 +119,6 @@ exports.signup = function (req, res) {
         bcrypt.genSalt(13, function (err, salt) {
             bcrypt.hash(password, salt, function (err, hash) {
 
-
                 db.query(SQL, [username, hash, email, firstname, lastname, 1], function (err, results) {
                     if (err !== null) {
                         message = "Sorry, that username is taken please try another one.";
@@ -281,8 +280,7 @@ exports.signUpPatient = function signUpPatient(req,res){
 
     bcrypt.genSalt(13, function (err, salt) {
         bcrypt.hash(password, salt, function (err, hash) {
-            db.query(SQL, [username, password, email, firstname, lastname, 1], function (err, results) {
-
+            db.query(SQL, [username, hash, email, firstname, lastname, 1], function (err, results) {
                 if (err) {
                     console.log(err);
                     if(err.message.includes('Duplicate entry')) {
@@ -293,11 +291,9 @@ exports.signUpPatient = function signUpPatient(req,res){
                 } else {
                     res.render('SignUpPatient.ejs', {message: 'Success!'});
                 }
-
             });
         });
     });
-
 };
 
 exports.signUpParent = function signUpParent(req,res){
@@ -314,7 +310,7 @@ exports.signUpParent = function signUpParent(req,res){
 
     bcrypt.genSalt(13, function (err, salt) {
         bcrypt.hash(password, salt, function (err, hash) {
-            db.query(SQL, [username, password, email, firstname, lastname, child], function (err, results) {
+            db.query(SQL, [username, hash, email, firstname, lastname, child], function (err, results) {
 
                 if (err) {
                     console.log(err);
