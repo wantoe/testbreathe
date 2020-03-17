@@ -184,22 +184,17 @@ exports.signupClinicians = function (req, res) {
                                 console.log(err);
                                 message = 'Sorry, that username is taken';
                                 res.render('Login.ejs', {message: message});
-
                             } else {
                             }
                         });
                     } else {
-
                         message = 'Sorry that username is taken';
                         res.render('Login.ejs', {message: message});
-
                     }
-
                 });
                 
                 message = "Succesful! Your account is pending, it will be activated in 24 hours.";
                 res.render('Login.ejs', {message: message});
-
             });
         });
     }
