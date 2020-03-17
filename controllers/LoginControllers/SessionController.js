@@ -325,6 +325,62 @@ exports.signUpParent = function signUpParent(req,res){
 
 };
 
+exports.resetPassword = function resetPassword(req, res) {
+    this.post = req.body;
+    this.username = post.username;
+    this.email = post.email;
+
+    var SQL = 'CALL AccountVerification(?,?)';
+    var SQL2 = 'CALL ReplacePassword(?,?)';
+    db.query(SQL, [username, email], function(err, results) {
+        if (err) {
+            console.log(err);
+        } else {
+            bcrypt.genSalt(13, function (err, salt) {
+                db.query(SQL2, [username, salt], function(err, results) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render('Login.ejs', {message: 'Your temporary password is: ' + salt});
+                    }
+                });
+            });
+        }
+    });
+}
+
+exports.changePassword = function changePassword(req, res) {
+    this.post = req.body;
+    this.password = post.old_password;
+    this.newPassword = post.password;
+
+
+    var SQL = 'CALL ChangePassword(?,?)';
+
+    console.log("changing password");
+
+    bcrypt.genSalt(13, function (err, salt) {
+        if(err) {
+            console.log(err);
+        }
+        bcrypt.hash(newPassword, salt, function (err, hash) {
+            if(err) {
+                console.log(err);
+            }
+            
+            console.log(hash);
+
+            db.query(SQL, [this.password, hash], function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(results);
+                    res.render('PasswordChangeForm.ejs', {message: 'Change Successful!'});
+                }
+            });
+        });
+    });
+}
 /**
  * This method updates the game status for this particular user.
  */

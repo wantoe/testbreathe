@@ -109,6 +109,15 @@ exports.patientSettingsDashboard = function (req, res){
     }
 };
 
+exports.changePassword = function (req, res) {
+    var message ='';
+    if (req.session.roleId !== undefined) {
+        res.render('PasswordChangeForm.ejs', {message: message});
+    } else {
+        res.sendStatus(403);
+    }
+}
+
 exports.loginAs = function (req, res) {
     if (req.session.roleId === 4){
         var user_id = req.body.user_id;

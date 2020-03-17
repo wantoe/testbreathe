@@ -50,12 +50,27 @@
             <input type="password" placeholder="Password" name="password" id="loginpassword" required="required"/>
             <button>login</button>
             <p id="messages" onclick="signup()" class="message">Not registered? <a href="#">Create an account</a></p>
-            <a id="messages"  class="message" href="/SignUpPhysician">Clinicians sign up here</a>
+            <p><a id="messages"  class="message" href="/SignUpPhysician">Clinicians sign up here</a></p>
+            <p onclick="password()" class="message"><a id="messages" href="#">Forgot your password?</a></p>
             <div class="row">
                 <% if (message.length > 0) { %>
                     <div style="text-align: center;"><h3 style=color:black><%= message %></h3></div>
                 <% } %>
             </div>
+        </form>
+        <form class="register-form" id="password-form" enctype="application/x-www-form-urlencoded" action="/password" name="signupform" onsubmit="validateForm(this)"
+              method="post" role="form" action="javascript:;" novalidate>
+        <div class="row">
+                <input type="text" class="form-control"  name="username" id="username_field" required="required" placeholder="Username">
+        </div>
+        <div class="row">
+            <input type="email" name="email" id="email" required="required" placeholder="Email"/>
+        </div>
+        <div class="row">
+            <button>Reset Password</button>
+        </div>
+            <p class="message" onclick="signin()"><a href="#">Sign In</a></p>
+            <div class="g-recaptcha" data-sitekey="6Lff4DMUAAAAAF0xUkKDZkzT3gJAaizzuiHQbr8-"></div>
         </form>
     </div>
 </div>

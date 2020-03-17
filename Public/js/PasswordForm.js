@@ -23,8 +23,6 @@ function validateForm(form) {
     //get the rows of the form
     var rows = form.getElementsByClassName("row");
 
-    console.log(rows);
-
     //check each row for fields (labels)
     for(i = 0; i < rows.length; i++) {
         var row = rows[i];
@@ -34,31 +32,14 @@ function validateForm(form) {
         for(j = 0; j < inputs.length; j++) {
             var input = inputs[j];
             switch(input.name) {
-                case "username":
-                    console.log(input);
-                    username = input.value;
-                    console.log(username);
-                    var validUsername = username.trim().match(nameRegex);
-
-                    //if we have a bad username
-                    if(validUsername === null) {
-                        badUsername = document.createElement("div");
-                        badUsername.setAttribute("class", "col-sm-12");
-                        row.insertBefore(badUsername, row.childNodes[0]);
-                        badUsername.textContent = "Your Username must not have any special characters that are not \"-\" and be between 3-16 letters long.";
-
-                        isBad = true;
-                    }
-                    break;
                 case "password":
                     password = input.value;
                     var validPassword = password.trim().match(passwordRegex);
 
                     if(validPassword === null) {
-                        console.log("bad password...");
                         badPassword = document.createElement("div");
-                        badPassword.setAttribute("class", "col-sm-12");
-                        row.insertBefore(badPassword, row.childNodes[0]);
+                        badPassword.setAttribute("class", "col-sm-6");
+                        row.insertBefore(badPassword, row.childNodes[1]);
                         badPassword.textContent = "Must be 6-16 letters, and contain 1 number";
 
                         isBad = true;
@@ -67,8 +48,8 @@ function validateForm(form) {
                 case "confirm_password":
                     if(password != input.value) {
                         badRepeatPassword = document.createElement("div");
-                        badRepeatPassword.setAttribute("class", "col-sm-12");
-                        row.insertBefore(badRepeatPassword, row.childNodes[0]);
+                        badRepeatPassword.setAttribute("class", "col-sm-6");
+                        row.insertBefore(badRepeatPassword, row.childNodes[2]);
                         badRepeatPassword.textContent = "This does not match the chosen password";
 
                         isBad = true;
@@ -78,41 +59,18 @@ function validateForm(form) {
                 break;
             };
         };
+    };
 
-        if(!isBad) {
-            form.submit();
-        }
+    if(!isBad) {
+        console.log("submitting form...");
+
+        form.setAttribute("action", "/api/changePassword");
+        form.setAttribute("onsubmit", "submit()");
+        form.submit();
     };
 }
 
 function createErrorMessageElement(element) {
     element = document.createElement("div");
     element.setAttribute("class", "col-sm-6");
-}
-function showAbout() {
-    var displayed = document.getElementById('About Information').style;
-    if(displayed.display === 'none'){
-        displayed.display = 'block';
-    }else {
-        displayed.display = 'none';
-    }
-}
-
-function  signup() {
-    document.getElementById('loginform').style.display = 'none';
-    document.getElementById('signupform').style.display = 'block';
-    document.getElementById('password-form').style.display = 'none';
-}
-
-function signin() {
-    document.getElementById('loginform').style.display = 'block';
-    document.getElementById('signupform').style.display = 'none';
-    document.getElementById('password-form').style.display = 'none';
-}
-
-function password() {
-    document.getElementById('loginform').style.display = 'none';
-    document.getElementById('signupform').style.display = 'none';
-    document.getElementById('password-form').style.display = 'block';
-
 }

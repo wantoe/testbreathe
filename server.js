@@ -181,6 +181,8 @@ app.get('/SignUpPhysician',   navigation.clinicianSignup);
  */
 app.get('/ParentSignup', ensureAuthenticated, navigation.parentSignUp);
 
+app.get('/PasswordSettings', ensureAuthenticated, navigation.changePassword);
+
 /**
  * Navigate from a clinician to the patient registration page
  */
@@ -224,6 +226,8 @@ app.get('/api/ValidateUser', ensureAuthenticated, user.validateUser);
  */
 app.get('/api/game', ensureAuthenticated, user.getGame);
 
+app.post('/api/changePassword', ensureAuthenticated, user.changePassword);
+
 /**
  * This is a test, to check if resources are being exposed correctly.
  */
@@ -244,6 +248,8 @@ app.post('/api/deleteAccount', ensureAuthenticated, user.deleteAccount);
 app.get('/api/updates/releases', ensureAuthenticated, apiRoutes.getReleases);
 
 app.get('/api/updates/deltas', ensureAuthenticated, apiRoutes.getUpdates);
+
+app.post('/password', user.resetPassword);
 
 /**
  * C
