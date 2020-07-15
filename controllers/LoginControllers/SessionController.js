@@ -408,6 +408,30 @@ function getGameStatus(userId, callback) {
     });
 };
 
+exports.getGameData = function getGameData(req, res) {
+    this.post = req.body;
+    this.userId = post.user_id;
+
+    var SQL = 'CALL GetGameData(?)';
+
+    db.query(SQL, [userId], function(err, results) {
+        res.body = results.body;
+        res.sendStatus(200);
+    });
+}
+
+exports.setGameData = function setGameData(req, res) {
+    this.post = req.body;
+    this.userId = req.userId;
+    this.gameData = req.gameData;
+
+    var SQL = 'CALL SetGameData(?, ?)';
+
+    db.query(SQL, [userId, gameData], function(err, results) {
+        console.log(err.toString());
+    });
+}
+
 function newGameStatus(userId, status) {
     var SQL = 'CALL UpdateGameStatus(?, ?)';
     
