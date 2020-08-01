@@ -23,7 +23,7 @@ var app = express();
 var connection = mysql.createConnection({
     host: 'breathehero.mysql.database.azure.com',
     user: 'BreatheHeroAdmin@breathehero',
-    password: 'BreatheHero2017',
+    password: 'BreatheHero123',
     database: 'breathehero',
     ssl: true
 });
