@@ -412,23 +412,32 @@ exports.getGameData = function getGameData(req, res) {
     this.post = req.body;
     this.userId = post.user_id;
 
+    console.log(userId);
+
     var SQL = 'CALL GetGameData(?)';
 
     db.query(SQL, [userId], function(err, results) {
-        res.body = results.body;
-        res.sendStatus(200);
+        res.send(results[0]);
     });
 }
 
 exports.setGameData = function setGameData(req, res) {
     this.post = req.body;
-    this.userId = req.userId;
-    this.gameData = req.gameData;
+    this.userId = post.user_id;
+    this.gameData = post.game_data;
+
+    console.log(gameData);
 
     var SQL = 'CALL SetGameData(?, ?)';
 
     db.query(SQL, [userId, gameData], function(err, results) {
-        console.log(err.toString());
+        if(err != null) {
+            console.log(err.toString());
+        }
+
+        console.log(results);
+        res.sendStatus(202);
+        
     });
 }
 
@@ -486,6 +495,7 @@ exports.logout = function (req, res) {
 };
 
 const path = require('path');
+const { Console } = require('console');
 
 exports.getGame = function (req, res) {
     console.log('Sending game...');
