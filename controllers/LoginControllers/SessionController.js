@@ -409,14 +409,14 @@ function getGameStatus(userId, callback) {
 };
 
 exports.getGameData = function getGameData(req, res) {
-    this.post = req.body;
-    this.userId = post.user_id;
+    this.userId = req.param("user_id");
 
     console.log(userId);
 
     var SQL = 'CALL GetGameData(?)';
 
     db.query(SQL, [userId], function(err, results) {
+        console.log(results);
         res.send(results[0]);
     });
 }

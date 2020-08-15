@@ -264,6 +264,10 @@ app.post('/password', user.resetPassword);
  */
 function ensureAuthenticated(req, res, next) {
     console.log('ensureAuthenticated');
+
+    console.log(req.headers);
+    console.log(req.body);
+
     if (req.session.userId !== undefined) {
         console.log('next');
         return next();
