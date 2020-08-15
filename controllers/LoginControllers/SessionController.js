@@ -416,9 +416,7 @@ exports.getGameData = function getGameData(req, res) {
     var SQL = 'CALL GetGameData(?)';
 
     db.query(SQL, [userId], function(err, results) {
-        console.log(results[0].player_data);
-        console.log((results[0]));
-        res.send("Test STRING");
+        res.status(200).send(results[0][0]);
     });
 }
 
