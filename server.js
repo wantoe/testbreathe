@@ -251,7 +251,7 @@ app.get('/api/updates/deltas', ensureAuthenticated, apiRoutes.getUpdates);
 
 app.get('/api/gameData', ensureAuthenticated, user.getGameData);
 
-app.post('/api/gameData', ensureAuthenticated, user.setGameData);
+app.post('/api/gameData/send', ensureAuthenticated, user.setGameData);
 
 app.post('/password', user.resetPassword);
 
