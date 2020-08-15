@@ -417,7 +417,8 @@ exports.getGameData = function getGameData(req, res) {
 
     db.query(SQL, [userId], function(err, results) {
         console.log(results[0]);
-        res.send(results);
+        console.log(JSON.stringify(results[0]));
+        res.send(JSON.stringify(results[0]));
     });
 }
 
