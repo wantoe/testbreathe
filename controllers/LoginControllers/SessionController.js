@@ -3,6 +3,7 @@
  */
 
 var bcrypt = require('bcrypt'); // encryption library
+const util = require('util');
 /***
  * Handles all of the login/logout data for all users, checks the role of the user and redirects them to the appropriate
  * page.
@@ -416,20 +417,21 @@ exports.getGameData = function getGameData(req, res) {
     var SQL = 'CALL GetGameData(?)';
 
     db.query(SQL, [userId], function(err, results) {
-        res.status(200).send(results[0][0]);
+        console.log(results[0][0].player_data);
+        res.status(200).send(results[0][0].player_data);
     });
 }
 
 exports.setGameData = function setGameData(req, res) {
-    this.post = req.body;
-    this.userId = post.user_id;
-    this.gameData = post.game_data;
+    this.userId = req.param("user_id");
+    this.gameData = req.body;
 
     console.log(gameData);
+    console.log(gameData.levelNo);
 
     var SQL = 'CALL SetGameData(?, ?)';
 
-    db.query(SQL, [userId, gameData], function(err, results) {
+    db.query(SQL, [userId, JSON.stringify(gameData)], function(err, results) {
         if(err != null) {
             console.log(err.toString());
         }
